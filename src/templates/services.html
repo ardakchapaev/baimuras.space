@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Наши Услуги - BaiMuras{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold">Наши Услуги</h1>
+        <p class="lead" style="color: var(--text-on-dark-secondary);">Комплексные Решения для Вашего Пространства в Стиле Этно-Модернизм</p>
+    </div>
+
+    <p class="lead mb-5">Компания BaiMuras предлагает широкий спектр уникальных услуг в области мебельного инжиниринга, дизайна интерьеров и профессионального обучения. Мы стремимся предоставить нашим клиентам и партнерам комплексные решения, сочетающие высочайшее качество, индивидуальный подход и глубокое понимание эстетики этно-модернизма. Ознакомьтесь с нашими ключевыми направлениями деятельности:</p>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100 bg-transparent border-light_alpha">
+                <img src="{{ url_for('static', filename='images/cosmic_neural_background_1.png') }}" class="card-img-top" alt="Индивидуальная Мебель BaiMuras" style="height: 200px; object-fit: cover; opacity: 0.7; border-radius: 10px 10px 0 0;">
+                <div class="card-body d-flex flex-column" style="background-color: rgba(25, 10, 55, 0.7); backdrop-filter: blur(3px); border-radius: 0 0 10px 10px;">
+                    <h5 class="card-title"><a href="{{ url_for('main.services_custom_furniture') }}" class="text-decoration-none">Индивидуальная Мебель на Заказ</a></h5>
+                    <p class="card-text">Создание эксклюзивной мебели, которая идеально впишется в ваш интерьер и будет отражать вашу уникальность. От кухонь и шкафов до детской мебели в стиле Монтессори – мы воплощаем ваши мечты в реальность.</p>
+                    <a href="{{ url_for('main.services_custom_furniture') }}" class="btn btn-primary mt-auto align-self-start">Подробнее &raquo;</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 bg-transparent border-light_alpha">
+                <img src="{{ url_for('static', filename='images/cosmic_neural_background_2.png') }}" class="card-img-top" alt="Проектное Бюро BaiMuras" style="height: 200px; object-fit: cover; opacity: 0.7; border-radius: 10px 10px 0 0;">
+                <div class="card-body d-flex flex-column" style="background-color: rgba(25, 10, 55, 0.7); backdrop-filter: blur(3px); border-radius: 0 0 10px 10px;">
+                    <h5 class="card-title"><a href="{{ url_for('main.services_design_bureau') }}" class="text-decoration-none">Проектное Бюро BaiMuras</a></h5>
+                    <p class="card-text">Профессиональные услуги по дизайну интерьеров, разработке конструкторской документации и 3D-визуализации для частных клиентов, архитекторов, дизайнеров и девелоперов.</p>
+                    <a href="{{ url_for('main.services_design_bureau') }}" class="btn btn-primary mt-auto align-self-start">Подробнее &raquo;</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 bg-transparent border-light_alpha">
+                <img src="{{ url_for('static', filename='images/cosmic_particle_landscape_1.jpeg') }}" class="card-img-top" alt="Академия BaiMuras" style="height: 200px; object-fit: cover; opacity: 0.7; border-radius: 10px 10px 0 0;">
+                <div class="card-body d-flex flex-column" style="background-color: rgba(25, 10, 55, 0.7); backdrop-filter: blur(3px); border-radius: 0 0 10px 10px;">
+                    <h5 class="card-title"><a href="{{ url_for('main.services_academy') }}" class="text-decoration-none">Академия BaiMuras</a></h5>
+                    <p class="card-text">Образовательные программы, курсы и мастер-классы для тех, кто стремится освоить искусство мебельного дела, дизайна интерьеров и современные технологии проектирования.</p>
+                    <a href="{{ url_for('main.services_academy') }}" class="btn btn-primary mt-auto align-self-start">Подробнее &raquo;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5 p-4 p-md-5 rounded-lg text-center featurette-section">
+        <h2 class="fw-bold">Консультации и Авторский Надзор</h2>
+        <p class="lead">Мы также предлагаем услуги по консультированию на всех этапах реализации проекта, от выбора материалов до финального декорирования, а также осуществляем авторский надзор для обеспечения точного соответствия выполненных работ утвержденному дизайн-проекту. Наша цель - гарантировать, что ваше видение будет воплощено в жизнь с максимальной точностью и профессионализмом.</p>
+        <a href="{{ url_for('main.contact') }}" class="btn btn-secondary btn-lg mt-3">Запросить консультацию</a>
+    </div>
+
+    <div class="text-center my-5">
+        <img src="{{ url_for('static', filename='images/cosmic_neural_background_1.png') }}" class="img-fluid rounded shadow-lg" alt="Коллаж услуг BaiMuras" style="max-height: 400px; opacity: 0.8;">
+    </div>
+
+</div>
+{% endblock %}
+

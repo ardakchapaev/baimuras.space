@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}О компании - BaiMuras{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">О Компании BaiMuras: Соединяя Наследие и Инновации</h1>
+
+    <p class="lead">BaiMuras – это не просто мебельная компания, это творческая мастерская, где рождаются уникальные интерьерные решения в стиле этно-модернизм. Мы основаны на глубоком уважении к культурному наследию Кыргызстана и Центральной Азии, стремясь привнести его красоту и аутентичность в современные жилые и коммерческие пространства.</p>
+
+    <div class="row align-items-center my-5 featurette-section">
+        <div class="col-md-6">
+            <img src="{{ url_for("static", filename="images/cosmic_neural_background_1.png") }}" class="img-fluid rounded mb-3 mb-md-0 shadow-lg" alt="Интерьер в стиле этно-модернизм" style="opacity:0.8;">
+        </div>
+        <div class="col-md-6">
+            <h2>Наша Миссия</h2>
+            <p>Создавать вдохновляющую и функциональную мебель и предметы интерьера, которые обогащают жизнь людей, отражают их индивидуальность и служат мостом между поколениями, сохраняя культурные традиции через современный дизайн.</p>
+        </div>
+    </div>
+
+    <h2 class="mt-5">Наша Философия (Этно-модернизм)</h2>
+    <p>Мы верим в силу синтеза. Этно-модернизм для нас – это гармоничное сочетание традиционных ремесленных техник, натуральных материалов и вековых орнаментов с чистыми линиями, современной эргономикой и инновационными технологиями производства. Это диалог прошлого с будущим, воплощенный в каждом нашем изделии.</p>
+
+    <div class="row my-5 p-4 rounded-lg featurette-section">
+        <div class="col-md-7">
+            <h2>Наша Команда</h2>
+            <p>За каждым проектом BaiMuras стоит команда талантливых и увлеченных своим делом профессионалов: опытные дизайнеры, конструкторы, мастера-краснодеревщики, специалисты по работе с металлом и текстилем. Мы объединены общей страстью к созданию прекрасного и стремлением к безупречному качеству.</p>
+        </div>
+        <div class="col-md-5">
+            <img src="{{ url_for("static", filename="images/cosmic_neural_background_2.png") }}" class="img-fluid rounded shadow-lg" alt="Команда BaiMuras" style="opacity:0.8;">
+        </div>
+    </div>
+
+    <h2 class="mt-5">Наши Ценности</h2>
+    <ul class="list-unstyled row gy-3">
+        <li class="col-md-6"><i class="bi bi-patch-check-fill text-primary me-2"></i><strong>Аутентичность:</strong> Мы черпаем вдохновение в подлинных культурных источниках, избегая поверхностных имитаций.</li>
+        <li class="col-md-6"><i class="bi bi-patch-check-fill text-primary me-2"></i><strong>Качество:</strong> Мы используем только лучшие, экологически чистые материалы и проверенные временем технологии, гарантируя долговечность и надежность нашей продукции.</li>
+        <li class="col-md-6"><i class="bi bi-patch-check-fill text-primary me-2"></i><strong>Индивидуальный подход:</strong> Мы внимательно прислушиваемся к пожеланиям каждого клиента, стремясь создать решения, идеально соответствующие его вкусам и потребностям.</li>
+        <li class="col-md-6"><i class="bi bi-patch-check-fill text-primary me-2"></i><strong>Инновации:</strong> Мы постоянно исследуем новые материалы, технологии и дизайнерские тренды, чтобы предлагать нашим клиентам самые актуальные и функциональные решения.</li>
+        <li class="col-md-6"><i class="bi bi-patch-check-fill text-primary me-2"></i><strong>Устойчивое развитие:</strong> Мы заботимся об окружающей среде, используя возобновляемые ресурсы и минимизируя отходы производства.</li>
+    </ul>
+
+    <div class="row align-items-center my-5 featurette-section">
+        <div class="col-md-5">
+            <img src="{{ url_for("static", filename="images/cosmic_particle_landscape_1.jpeg") }}" class="img-fluid rounded mb-3 mb-md-0 shadow-lg" alt="Мастер BaiMuras за работой" style="opacity:0.8;">
+        </div>
+        <div class="col-md-7">
+            <h2 class="mt-0">Что мы предлагаем:</h2>
+            <ul class="list-unstyled">
+                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Разработку и производство эксклюзивной мебели на заказ.</li>
+                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Комплексный дизайн интерьеров для жилых и общественных пространств.</li>
+                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Создание уникальных предметов декора и аксессуаров.</li>
+                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Профессиональные консультации и сопровождение проектов.</li>
+                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Обучающие программы и мастер-классы в BaiMuras Academy.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="p-4 rounded-lg text-center featurette-section">
+        <h2>Приглашение к сотрудничеству</h2>
+        <p>Мы открыты для сотрудничества с архитекторами, дизайнерами, девелоперами и всеми, кто разделяет нашу страсть к созданию уникальных и осмысленных пространств. Вместе мы можем реализовать самые смелые и амбициозные проекты. <a href="{{ url_for("main.contact") }}" class="btn btn-primary mt-2">Свяжитесь с нами</a>, чтобы обсудить возможности партнерства.</p>
+    </div>
+
+</div>
+{% endblock %}
+

@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}Блог - BaiMuras{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold">Блог BaiMuras</h1>
+        <p class="lead text-muted">Идеи, Тренды и Вдохновение в Мире Дизайна Этно-Модернизм</p>
+    </div>
+
+    <p class="lead mb-5">Добро пожаловать в блог компании BaiMuras! Здесь мы делимся нашими знаниями, опытом, последними новостями из мира дизайна и мебельного производства, а также рассказываем о тонкостях стиля этно-модернизм. Наша цель – вдохновлять вас на создание красивых и функциональных пространств, давать полезные советы и держать в курсе актуальных трендов.</p>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <!-- Blog Post 1 -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ url_for('static', filename='images/coral_accent_bg.png') }}" class="card-img-top" alt="Этно-Модернизм в Интерьере" style="height: 200px; object-fit: cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Этно-Модернизм в Интерьере: Как Сочетать Традиции и Современность</h5>
+                    <p class="card-text"><small class="text-muted">Дата публикации: 15 мая 2025 | Автор: Айгерим Садыкова</small></p>
+                    <p class="card-text">Стиль этно-модернизм завоевывает все большую популярность благодаря своей уникальной способности гармонично объединять культурное наследие и современные дизайнерские решения...</p>
+                    <a href="#" class="btn btn-primary mt-auto align-self-start">Читать далее (демо)</a>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Теги: #ЭтноМодернизм #ДизайнИнтерьера #Тренды</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Post 2 -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ url_for('static', filename='images/blue_splash_bg.png') }}" class="card-img-top" alt="Выбор Идеальной Кухни" style="height: 200px; object-fit: cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">5 Секретов Выбора Идеальной Кухни на Заказ</h5>
+                    <p class="card-text"><small class="text-muted">Дата публикации: 10 мая 2025 | Автор: Арслан Белеков</small></p>
+                    <p class="card-text">Кухня – сердце любого дома. При заказе индивидуальной кухни важно учесть множество нюансов, от планировки до выбора материалов и фурнитуры. Мы поделимся пятью ключевыми секретами...</p>
+                    <a href="#" class="btn btn-primary mt-auto align-self-start">Читать далее (демо)</a>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Теги: #КухниНаЗаказ #Советы #Проектирование</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Post 3 -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ url_for('static', filename='images/coral_accent_bg.png') }}" class="card-img-top" alt="Мебель Монтессори" style="height: 200px; object-fit: cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Мебель Монтессори: Создаем Развивающее Пространство для Ребенка</h5>
+                    <p class="card-text"><small class="text-muted">Дата публикации: 05 мая 2025 | Автор: Жамиля Асанова</small></p>
+                    <p class="card-text">Мебель по системе Монтессори помогает развивать самостоятельность, творческие способности и уверенность в себе у детей. Узнайте, какие принципы лежат в основе этого подхода...</p>
+                    <a href="#" class="btn btn-primary mt-auto align-self-start">Читать далее (демо)</a>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Теги: #ДетскаяМебель #Монтессори #Развитие</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Post 4 -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ url_for('static', filename='images/blue_splash_bg.png') }}" class="card-img-top" alt="Уход за мебелью из массива" style="height: 200px; object-fit: cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Правильный Уход за Мебелью из Массива Дерева</h5>
+                    <p class="card-text"><small class="text-muted">Дата публикации: 01 мая 2025 | Автор: Редакция BaiMuras</small></p>
+                    <p class="card-text">Мебель из натурального дерева требует особого ухода, чтобы сохранить свою красоту и долговечность на долгие годы. В этой статье мы собрали полезные советы...</p>
+                    <a href="#" class="btn btn-primary mt-auto align-self-start">Читать далее (демо)</a>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Теги: #УходЗаМебелью #МассивДерева #Советы</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Post 5 -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ url_for('static', filename='images/coral_accent_bg.png') }}" class="card-img-top" alt="Тренды дизайна 2025" style="height: 200px; object-fit: cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Главные Тренды в Дизайне Интерьера 2025-2026</h5>
+                    <p class="card-text"><small class="text-muted">Дата публикации: 25 апреля 2025 | Автор: Айгерим Садыкова</small></p>
+                    <p class="card-text">Мир дизайна постоянно меняется. Узнайте о самых актуальных тенденциях в оформлении интерьеров, которые будут доминировать в ближайшие годы: от цветовых палитр до материалов и форм...</p>
+                    <a href="#" class="btn btn-primary mt-auto align-self-start">Читать далее (демо)</a>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Теги: #ТрендыДизайна #Интерьер2025 #Вдохновение</small>
+                </div>
+            </div>
+        </div>
+
+         <!-- Blog Post 6 (Placeholder for more content) -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ url_for('static', filename='images/blue_splash_bg.png') }}" class="card-img-top" alt="Новый пост в блоге" style="height: 200px; object-fit: cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Скоро здесь: Новая Статья о Цветовых Решениях</h5>
+                    <p class="card-text"><small class="text-muted">Ожидается: 20 мая 2025</small></p>
+                    <p class="card-text">Мы готовим для вас интересный материал о том, как правильно подбирать цвета для вашего интерьера, чтобы создать гармоничное и стильное пространство...</p>
+                    <a href="#" class="btn btn-secondary disabled mt-auto align-self-start">Скоро...</a>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Теги: #ЦветВИнтерьере #ДизайнСоветы</small>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation example" class="mt-5">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled"><a class="page-link" href="#">Предыдущая</a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Следующая</a></li>
+        </ul>
+    </nav>
+
+    <div class="row mt-5 pt-4 border-top">
+        <div class="col-md-4 mb-3">
+            <h4>Категории</h4>
+            <ul class="list-unstyled">
+                <li><a href="#" class="text-decoration-none">Дизайн Интерьера (демо)</a></li>
+                <li><a href="#" class="text-decoration-none">Мебель на Заказ (демо)</a></li>
+                <li><a href="#" class="text-decoration-none">Советы Экспертов (демо)</a></li>
+                <li><a href="#" class="text-decoration-none">Новости Компании (демо)</a></li>
+                <li><a href="#" class="text-decoration-none">Этно-Модернизм (демо)</a></li>
+            </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+            <h4>Архив</h4>
+            <ul class="list-unstyled">
+                <li><a href="#" class="text-decoration-none">Май 2025 (демо)</a></li>
+                <li><a href="#" class="text-decoration-none">Апрель 2025 (демо)</a></li>
+                <li><a href="#" class="text-decoration-none">Март 2025 (демо)</a></li>
+            </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+            <h4>Подписка на новости</h4>
+            <form>
+                <div class="mb-2">
+                    <input type="email" class="form-control" placeholder="Ваш Email">
+                </div>
+                <button type="submit" class="btn btn-secondary">Подписаться (демо)</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

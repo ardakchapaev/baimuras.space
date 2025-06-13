@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Главная - BaiMuras{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="jumbotron hero-section p-5 rounded-lg mb-5">
+        {# Removed inline style, will be styled by .hero-section or specific CSS #}
+        <div class="hero-content-inner" style="background-color: rgba(18, 7, 44, 0.7); padding: 2.5rem; border-radius: 10px; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);">
+            <h1 class="display-4">Добро пожаловать в BaiMuras: Искусство Мебельного Инжиниринга!</h1>
+            <p class="lead">Мы создаем не просто мебель, а уникальные пространства, отражающие вашу индивидуальность и вдохновленные богатыми традициями этно-модернизма. Откройте для себя мир, где ремесло встречается с инновациями.</p>
+            <hr class="my-4" style="border-top: 1px solid var(--border-subtle-on-dark);">
+            <p>В BaiMuras мы верим, что каждый предмет мебели должен рассказывать историю. Наша команда мастеров и дизайнеров вкладывает душу в создание эксклюзивных изделий, которые преображают дома и коммерческие пространства. Мы предлагаем полный цикл услуг – от разработки концепции и 3D-визуализации до производства и монтажа, гарантируя безупречное качество на каждом этапе.</p>
+            <a class="btn btn-primary btn-lg" href="{{ url_for('main.services') }}" role="button">Наши Услуги</a>
+            <a class="btn btn-secondary btn-lg ms-2" href="{{ url_for('main.portfolio') }}" role="button">Смотреть Портфолио</a>
+        </div>
+    </div>
+
+    <div class="row mt-5 gx-4 gy-4">
+        <div class="col-md-4">
+            <div class="card h-100 bg-transparent border-light_alpha">
+                {# Consider a more thematic image or a placeholder that fits the cosmic theme #}
+                <img src="{{ url_for('static', filename='images/cosmic_neural_background_2.png') }}" class="card-img-top" alt="Эксклюзивная Мебель" style="opacity: 0.7; border-radius: 10px 10px 0 0;">
+                <div class="card-body d-flex flex-column" style="background-color: rgba(25, 10, 55, 0.7); backdrop-filter: blur(3px); border-radius: 0 0 10px 10px;">
+                    <h2 class="card-title">Эксклюзивная Мебель Ручной Работы</h2>
+                    <p class="card-text">Создаем уникальную мебель по вашим индивидуальным проектам и размерам. Специализируемся на детской мебели в стиле Монтессори, кухнях, шкафах-купе и комплексных интерьерных решениях.</p>
+                    <p class="mt-auto"><a class="btn btn-outline-primary" href="{{ url_for('main.services_custom_furniture') }}" role="button">Узнать больше &raquo;</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 bg-transparent border-light_alpha">
+                <img src="{{ url_for('static', filename='images/cosmic_neural_background_1.png') }}" class="card-img-top" alt="Дизайн Интерьеров" style="opacity: 0.7; border-radius: 10px 10px 0 0;">
+                <div class="card-body d-flex flex-column" style="background-color: rgba(25, 10, 55, 0.7); backdrop-filter: blur(3px); border-radius: 0 0 10px 10px;">
+                    <h2 class="card-title">Дизайн и Проектирование Интерьеров</h2>
+                    <p class="card-text">Наше проектное бюро предлагает комплексные услуги по дизайну интерьеров для частных клиентов, архитекторов и девелоперов. Мы разрабатываем детализированные чертежи и 3D-визуализации.</p>
+                    <p class="mt-auto"><a class="btn btn-outline-primary" href="{{ url_for('main.services_design_bureau') }}" role="button">Услуги бюро &raquo;</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 bg-transparent border-light_alpha">
+                 {# Using one of the previously generated images, or a new one if available #}
+                <img src="{{ url_for('static', filename='images/cosmic_particle_landscape_1.jpeg') }}" class="card-img-top" alt="Обучение Мастерству" style="opacity: 0.7; border-radius: 10px 10px 0 0;">
+                <div class="card-body d-flex flex-column" style="background-color: rgba(25, 10, 55, 0.7); backdrop-filter: blur(3px); border-radius: 0 0 10px 10px;">
+                    <h2 class="card-title">Обучение Мастерству и Дизайну</h2>
+                    <p class="card-text">BaiMuras Academy – это центр знаний и вдохновения для тех, кто хочет освоить искусство мебельного дела или повысить свою квалификацию в дизайне. Авторские курсы и мастер-классы.</p>
+                    <p class="mt-auto"><a class="btn btn-outline-primary" href="{{ url_for('main.services_academy') }}" role="button">Программы Академии &raquo;</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5 align-items-center py-5 rounded featurette-section">
+        {# Removed bg-light, added a class for potential specific styling #}
+        <div class="col-md-7">
+            <h2 class="featurette-heading">Философия BaiMuras: <span class="text-muted-custom">Где Традиции Встречают Будущее.</span></h2>
+            <p class="lead">Мы черпаем вдохновение в богатом культурном наследии Кыргызстана и Центральной Азии, переосмысливая традиционные орнаменты и техники в современном ключе. Наша философия этно-модернизма – это гармоничное сочетание аутентичности, функциональности и инновационного дизайна.</p>
+        </div>
+        <div class="col-md-5">
+            {# Placeholder, ideally a thematic image #}
+            <img src="{{ url_for('static', filename='images/cosmic_neural_background_1.png') }}" class="img-fluid rounded shadow-lg" alt="Философия BaiMuras" style="opacity:0.8;">
+        </div>
+    </div>
+
+    <hr class="featurette-divider my-5" style="border-top: 1px solid var(--border-subtle-on-dark);">
+
+    <div class="row align-items-center py-5 featurette-section">
+        <div class="col-md-7 order-md-2">
+            <h2 class="featurette-heading">Партнерство и Франшиза: <span class="text-muted-custom">Развивайтесь Вместе с Нами.</span></h2>
+            <p class="lead">BaiMuras активно развивает партнерскую сеть и предлагает выгодные условия сотрудничества для дизайнеров интерьеров, архитектурных бюро, строительных компаний и предпринимателей, заинтересованных в открытии франшизы.</p>
+        </div>
+        <div class="col-md-5 order-md-1">
+            {# Placeholder, ideally a thematic image #}
+            <img src="{{ url_for('static', filename='images/cosmic_neural_background_2.png') }}" class="img-fluid rounded shadow-lg" alt="Партнерство и Франшиза BaiMuras" style="opacity:0.8;">
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+

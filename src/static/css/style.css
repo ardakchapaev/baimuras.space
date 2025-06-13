@@ -1,0 +1,342 @@
+/* static/css/style.css */
+
+/* Define New Color Palette: Cosmic, Neuromorphic, Interior-Connected */
+:root {
+    /* Cosmic & Deep Space */
+    --color-space-deep: #0a041a; /* Very dark, slightly purplish blue for main backgrounds */
+    --color-nebula-violet: #3c1f70; /* Richer violet for secondary backgrounds or large sections */
+    --color-star-glow: #FFFACD; /* Lemon chiffon - soft glowing stars, primary text on dark */
+
+    /* Neuromorphic & Brain Architecture */
+    --color-neural-pathway-cyan: #00E5FF; /* Bright, energetic cyan for accents, lines, CTAs */
+    --color-synapse-connection-gold: #FFC300; /* Warm gold for highlights, important links, icons */
+
+    /* Furniture & Interior Grounding - Sophistication & Clarity */
+    --color-architectural-grey: #4A4E69; /* Muted, sophisticated dark grey-blue for secondary text, borders */
+    --color-material-canvas: #F2E9E4; /* Warm off-white/light beige for content backgrounds on light-themed sections or cards */
+    --color-dark-wood-tone: #22181C; /* Deep brown for subtle accents or alternative dark text */
+
+    /* General UI & Text */
+    --text-on-dark-primary: var(--color-star-glow);
+    --text-on-dark-secondary: rgba(255, 250, 205, 0.75); /* Softer star glow for less important text */
+    --text-on-light-primary: var(--color-dark-wood-tone);
+    --text-on-light-secondary: var(--color-architectural-grey);
+    
+    --background-main: var(--color-space-deep);
+    --background-content-dark: rgba(18, 7, 44, 0.85); /* Slightly lighter than space-deep for content cards on dark bg, with transparency */
+    --background-content-light: var(--color-material-canvas);
+
+    --accent-primary: var(--color-neural-pathway-cyan);
+    --accent-secondary: var(--color-synapse-connection-gold);
+    
+    --border-subtle-on-dark: rgba(0, 229, 255, 0.3); /* Subtle cyan border, slightly more visible */
+    --border-strong-on-light: var(--color-architectural-grey);
+
+    --font-body: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-headings: 'Orbitron', 'Montserrat', sans-serif; /* Orbitron for futuristic headings, Montserrat as fallback */
+    --font-logo: 'Orbitron', 'Montserrat', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    margin: 0;
+    background-color: var(--background-main);
+    background-image: url("../images/cosmic_particle_landscape_1.jpeg");
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed; /* Creates a parallax-like effect */
+    color: var(--text-on-dark-primary);
+    line-height: 1.7;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure footer sticks to bottom */
+}
+
+header {
+    background-color: rgba(10, 4, 26, 0.7); /* Darker, more transparent header */
+    backdrop-filter: blur(10px); /* Frosted glass effect for header */
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--text-on-dark-primary);
+    padding: 1em 0;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 229, 255, 0.15); /* Enhanced cyan glow shadow */
+    border-bottom: 1px solid var(--border-subtle-on-dark);
+    position: sticky; /* Make header sticky */
+    top: 0;
+    z-index: 1000;
+}
+
+header .logo, .navbar-brand.logo {
+    font-family: var(--font-logo);
+    font-size: 2.5em; /* Slightly larger logo */
+    font-weight: 700; /* Orbitron might need specific weights */
+    color: var(--accent-primary) !important; 
+    text-decoration: none;
+    letter-spacing: 1px;
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: 1;
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.7), 0 0 15px rgba(0, 229, 255, 0.5); /* Neon glow for logo */
+}
+
+header nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0.5em 0 0 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: var(--text-on-dark-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    font-family: var(--font-headings); /* Use Orbitron for nav links too */
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+header nav ul li a:hover,
+header nav ul li a.active {
+    color: var(--accent-secondary); 
+    text-shadow: 0 0 5px var(--accent-secondary);
+    border-bottom: none; /* Remove underline, rely on text-shadow for active state */
+    padding-bottom: 0;
+}
+
+main {
+    flex: 1; /* Allows main to grow and push footer down */
+    padding: 30px;
+    max-width: 1200px;
+    margin: 40px auto;
+    background-color: var(--background-content-dark);
+    border-radius: 15px; /* More rounded corners */
+    box-shadow: 0 0 30px rgba(0, 229, 255, 0.25), 0 0 15px rgba(60, 31, 112, 0.3); /* Dual glow effect */
+    border: 1px solid var(--border-subtle-on-dark);
+}
+
+/* Light section styling, if needed, can be adapted or removed if the whole site is dark themed */
+.light-section {
+    background-color: rgba(242, 233, 228, 0.9); /* Light canvas with some transparency */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    color: var(--text-on-light-primary);
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(34, 24, 28, 0.1);
+}
+
+.light-section h1, .light-section h2, .light-section h3 {
+    color: var(--color-nebula-violet);
+    font-family: var(--font-headings);
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(10, 4, 26, 0.7); /* Consistent with header */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--text-on-dark-secondary);
+    margin-top: auto; /* Pushes footer to bottom if content is short */
+    border-top: 1px solid var(--border-subtle-on-dark);
+    font-size: 0.9em;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-headings);
+    color: var(--accent-primary);
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+    letter-spacing: 0.5px;
+}
+
+h1 {
+    font-size: 2.8em; /* Larger H1 */
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.6), 0 0 20px rgba(0, 229, 255, 0.4); /* Stronger H1 glow */
+}
+
+h2 {
+    font-size: 2.2em;
+    color: var(--color-synapse-connection-gold);
+    text-shadow: 0 0 8px rgba(255, 195, 0, 0.5);
+}
+
+h3 {
+    font-size: 1.8em;
+    color: var(--accent-primary);
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 25px; /* Slightly larger buttons */
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: var(--font-headings);
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    border: 1px solid transparent; /* Base border */
+    letter-spacing: 0.5px;
+}
+
+.btn-primary {
+    background-color: var(--accent-primary);
+    color: var(--color-space-deep);
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.7), inset 0 0 5px rgba(255,255,255,0.2);
+    border-color: var(--accent-primary);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-synapse-connection-gold);
+    color: var(--color-space-deep);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 0 15px rgba(255, 195, 0, 0.8), inset 0 0 8px rgba(255,255,255,0.3);
+    border-color: var(--color-synapse-connection-gold);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--accent-secondary);
+    border: 1px solid var(--accent-secondary);
+    box-shadow: 0 0 8px rgba(255, 195, 0, 0.5);
+}
+
+.btn-secondary:hover {
+    background-color: var(--accent-secondary);
+    color: var(--color-space-deep);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 0 12px rgba(255, 195, 0, 0.7);
+}
+
+/* Flash messages */
+.alert {
+    font-family: var(--font-body);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-width: 1px;
+    border-style: solid;
+    background-color: rgba(255,255,255,0.05); /* Subtle background for alerts */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.alert-success {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+}
+
+.alert-danger {
+    border-color: var(--accent-secondary);
+    color: var(--accent-secondary);
+    box-shadow: 0 0 10px rgba(255, 195, 0, 0.3);
+}
+
+.alert-warning {
+    border-color: var(--color-synapse-connection-gold); /* Using gold for warning */
+    color: var(--color-synapse-connection-gold);
+    box-shadow: 0 0 10px rgba(255, 195, 0, 0.3);
+}
+
+.alert-info {
+    border-color: var(--color-nebula-violet);
+    color: var(--color-nebula-violet);
+    box-shadow: 0 0 10px rgba(60, 31, 112, 0.3);
+}
+
+/* Links */
+a {
+    color: var(--accent-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent-primary);
+    text-decoration: none; /* Keep no underline for cleaner look */
+    text-shadow: 0 0 3px var(--accent-primary);
+}
+
+/* Bootstrap Overrides for Navbar Toggler */
+.navbar-dark .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 229, 255, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-toggler {
+    border-color: var(--border-subtle-on-dark);
+}
+
+/* Dropdown Menu Styling */
+.dropdown-menu {
+    background-color: rgba(18, 7, 44, 0.9); /* Dark, slightly transparent dropdown */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--border-subtle-on-dark);
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.dropdown-item {
+    color: var(--text-on-dark-secondary);
+    font-family: var(--font-headings);
+    font-size: 0.9em;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    color: var(--accent-primary);
+    background-color: rgba(0, 229, 255, 0.1);
+}
+
+.dropdown-divider {
+    border-top: 1px solid var(--border-subtle-on-dark);
+}
+
+/* Add some general animations or transitions for a more dynamic feel */
+.card, .feature-box, .portfolio-item {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.card:hover, .feature-box:hover, .portfolio-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 229, 255, 0.2); /* Enhanced glow on hover for cards */
+}
+
+/* Specific section styling for hero/intro if needed */
+.hero-section {
+    padding: 60px 20px;
+    text-align: center;
+    /* background: linear-gradient(rgba(10, 4, 26, 0.7), rgba(10, 4, 26, 0.9)), url("../images/cosmic_particle_landscape_1.jpeg"); */
+    /* The body already has the main background, so this might be redundant or used for specific pages */
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.hero-section h1 {
+    font-size: 3.5em;
+    margin-bottom: 0.5em;
+}
+
+.hero-section p {
+    font-size: 1.2em;
+    color: var(--text-on-dark-secondary);
+    margin-bottom: 1.5em;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+

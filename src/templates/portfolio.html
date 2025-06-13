@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Портфолио - BaiMuras{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold">Наше Портфолио</h1>
+        <p class="lead text-muted">Реализованные Проекты и Вдохновляющие Решения в Стиле Этно-Модернизм</p>
+    </div>
+
+    <p class="lead mb-5">Добро пожаловать в галерею наших лучших работ! В этом разделе мы с гордостью представляем проекты, которые отражают нашу страсть к дизайну, мастерство исполнения и философию этно-модернизма. Каждый проект – это уникальная история сотрудничества с нашими клиентами, воплощенная в жизнь с вниманием к деталям и стремлением к совершенству. Ознакомьтесь с примерами наших работ в различных категориях.</p>
+
+    <!-- Project 1 -->
+    <div class="row mt-5 align-items-center featurette py-4 bg-light rounded shadow-sm">
+        <div class="col-md-7">
+            <h2>Проект 1: Квартира в стиле Этно-Лофт (Бишкек)</h2>
+            <p><strong>Название проекта:</strong> "Гармония Контрастов: Этно-Лофт в Сердце Бишкека"</p>
+            <p><strong>Тип объекта:</strong> Частная квартира, 120 кв.м.</p>
+            <p><strong>Задачи:</strong> Разработать дизайн-проект и изготовить мебель для молодой семьи, сочетая элементы лофта с национальными мотивами.</p>
+            <p><strong>Решение:</strong> Были использованы натуральные материалы (дерево, камень, металл), открытая планировка, акцентные детали с традиционными орнаментами. Изготовлена корпусная и мягкая мебель по индивидуальным эскизам.</p>
+            <p><strong>Ключевые особенности:</strong></p>
+            <ul class="list-unstyled">
+                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Кухня с островом и фасадами из массива карагача.</li>
+                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Гостиная с дизайнерским стеллажом и панно с этническим узором.</li>
+                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Спальня с кроватью с высоким изголовьем, украшенным резьбой.</li>
+            </ul>
+            <blockquote class="blockquote mt-3">
+                <p class="mb-0 fst-italic">"Команда BaiMuras превзошла все наши ожидания! Они создали не просто интерьер, а настоящее произведение искусства, в котором так уютно жить. Спасибо!"</p>
+                <footer class="blockquote-footer">Айсулуу и Марат</footer>
+            </blockquote>
+        </div>
+        <div class="col-md-5">
+            <img src="{{ url_for('static', filename='images/coral_accent_bg.png') }}" class="img-fluid rounded shadow-sm mb-2" alt="Проект Этно-Лофт Гостиная">
+            <div class="row g-2">
+                <div class="col-6">
+                    <img src="{{ url_for('static', filename='images/blue_splash_bg.png') }}" class="img-fluid rounded shadow-sm" alt="Проект Этно-Лофт Кухня">
+                </div>
+                <div class="col-6">
+                    <img src="{{ url_for('static', filename='images/coral_accent_bg.png') }}" class="img-fluid rounded shadow-sm" alt="Проект Этно-Лофт Деталь">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <!-- Project 2 -->
+    <div class="row align-items-center featurette py-4">
+        <div class="col-md-5 order-md-2">
+            <img src="{{ url_for('static', filename='images/blue_splash_bg.png') }}" class="img-fluid rounded shadow-sm mb-2" alt="Проект Детская Монтессори Общий Вид">
+            <div class="row g-2">
+                <div class="col-6">
+                    <img src="{{ url_for('static', filename='images/coral_accent_bg.png') }}" class="img-fluid rounded shadow-sm" alt="Проект Детская Кровать-Домик">
+                </div>
+                <div class="col-6">
+                    <img src="{{ url_for('static', filename='images/blue_splash_bg.png') }}" class="img-fluid rounded shadow-sm" alt="Проект Детская Игровая Зона">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 order-md-1">
+            <h2>Проект 2: Детская Комната "Маленький Кочевник" (Монтессори)</h2>
+            <p><strong>Название проекта:</strong> "Мир Открытий: Детская в Стиле Монтессори с Элементами Кочевой Культуры"</p>
+            <p><strong>Тип объекта:</strong> Детская комната для мальчика 3 лет, 18 кв.м.</p>
+            <p><strong>Задачи:</strong> Создать безопасное, развивающее и эстетически привлекательное пространство, отражающее принципы Монтессори и национальный колорит.</p>
+            <p><strong>Решение:</strong> Разработана и изготовлена мебель из натурального дерева (кровать-домик, низкие стеллажи, столик и стульчик по росту ребенка). Использованы текстиль с традиционными узорами, карта мира, элементы, напоминающие юрту.</p>
+            <p><strong>Ключевые особенности:</strong></p>
+            <ul class="list-unstyled">
+                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Зонирование пространства для игр, сна и творчества.</li>
+                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Доступность всех предметов для ребенка.</li>
+                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Экологичные и безопасные материалы.</li>
+            </ul>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <!-- Project 3 -->
+    <div class="row align-items-center featurette py-4 bg-light rounded shadow-sm">
+        <div class="col-md-7">
+            <h2>Проект 3: Офис IT-Компании "Silk Road Tech" (Этно-Минимализм)</h2>
+            <p><strong>Название проекта:</strong> "Инновации и Традиции: Офисное Пространство в Стиле Этно-Минимализм"</p>
+            <p><strong>Тип объекта:</strong> Офис IT-компании, 250 кв.м.</p>
+            <p><strong>Задачи:</strong> Создать современное, функциональное и вдохновляющее рабочее пространство, отражающее как инновационный дух компании, так и уважение к местной культуре.</p>
+            <p><strong>Решение:</strong> Открытые рабочие зоны, переговорные комнаты со стеклянными перегородками, лаунж-зона. Использованы светлые тона, натуральное дерево, акцентные элементы с геометрическими орнаментами. Разработана и изготовлена вся офисная мебель.</p>
+            <p><strong>Ключевые особенности:</strong></p>
+            <ul class="list-unstyled">
+                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Ресепшн с логотипом компании и декоративной панелью.</li>
+                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Эргономичные рабочие столы и кресла.</li>
+                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Лаунж-зона с мягкой мебелью и кофейными столиками, украшенными национальными узорами.</li>
+            </ul>
+        </div>
+        <div class="col-md-5">
+            <img src="{{ url_for('static', filename='images/coral_accent_bg.png') }}" class="img-fluid rounded shadow-sm mb-2" alt="Проект Офис IT Ресепшн">
+            <div class="row g-2">
+                <div class="col-6">
+                    <img src="{{ url_for('static', filename='images/blue_splash_bg.png') }}" class="img-fluid rounded shadow-sm" alt="Проект Офис IT Рабочая Зона">
+                </div>
+                <div class="col-6">
+                    <img src="{{ url_for('static', filename='images/coral_accent_bg.png') }}" class="img-fluid rounded shadow-sm" alt="Проект Офис IT Лаунж">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-light p-4 p-md-5 rounded-lg text-center mt-5">
+        <h3 class="fw-bold">Вдохновились нашими работами?</h3>
+        <p class="lead">Давайте обсудим ваш будущий проект! Свяжитесь с нами для консультации, и мы поможем воплотить ваши самые смелые идеи в реальность.</p>
+        <a href="{{ url_for('main.contact') }}" class="btn btn-primary btn-lg mt-3">Обсудить проект</a>
+    </div>
+
+</div>
+{% endblock %}
