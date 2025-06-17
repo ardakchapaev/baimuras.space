@@ -3,20 +3,35 @@
 {% block title %}Вход в Дашборд - BaiMuras{% endblock %}
 
 {% block content %}
-    <h1>Вход в Дашборд</h1>
-    <form method="post" action="{{ url_for('main.dashboard_login') }}">
-        <div>
-            <label for="username">Имя пользователя:</label>
-            <input type="text" id="username" name="username" required>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Вход в Дашборд</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{{ url_for('main.dashboard_login') }}">
+                        {{ csrf_token() }}
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Имя пользователя:</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Пароль:</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Войти</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p>Нет аккаунта? <a href="{{ url_for('main.register') }}">Зарегистрироваться</a></p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <label for="password">Пароль:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div>
-            <button type="submit">Войти</button>
-        </div>
-    </form>
-    <!-- Здесь может быть ссылка на восстановление пароля или регистрацию, если необходимо -->
+    </div>
+</div>
 {% endblock %}
 

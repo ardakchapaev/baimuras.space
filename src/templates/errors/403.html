@@ -1,0 +1,47 @@
+
+{% extends "base.html" %}
+
+{% block title %}Доступ запрещен - BaiMuras{% endblock %}
+
+{% block content %}
+<div class="container text-center py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="error-page">
+                <h1 class="display-1 text-warning">403</h1>
+                <h2 class="mb-4">Доступ запрещен</h2>
+                <p class="lead mb-4">
+                    У вас нет прав доступа к этой странице. 
+                    Возможно, вам нужно войти в систему или обратиться к администратору.
+                </p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                    <a href="{{ url_for('main.index') }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-home me-2"></i>На главную
+                    </a>
+                    <a href="{{ url_for('main.dashboard_login') }}" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-sign-in-alt me-2"></i>Войти в систему
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.error-page {
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 87, 34, 0.1));
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.error-page h1 {
+    font-size: 8rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #ffc107, #ff5722);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+</style>
+{% endblock %}

@@ -1,82 +1,159 @@
+
 # BaiMuras Website
 
-<<<<<< codex/заменить-os.urandom-на-secret_key
-This repository contains a simple Flask-based website for BaiMuras. You can run it locally using Python.
+Современный веб-сайт для мебельной студии BaiMuras с интеграцией n8n для автоматизации бизнес-процессов.
 
-## Setup
+## Особенности
 
-1. Create and activate a virtual environment.
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. **Set the `SECRET_KEY` environment variable** before starting the application. This is required in production to keep sessions secure. You can generate a key with Python:
-   ```bash
-   export SECRET_KEY=$(python -c 'import secrets; print(secrets.token_hex(16))')
-   ```
+- **Основные страницы**: главная, о нас, услуги (мебель на заказ, дизайн-бюро, академия), портфолио, блог, контакты
+- **Панель управления** с аутентификацией для управления лидами, аналитикой и настройками
+- **REST API** для интеграции с n8n и внешними системами
+- **Система лидов** с автоматическим скорингом и отслеживанием статусов
+- **CSRF защита** для всех форм
+- **Обработка ошибок** 404/500 с красивыми страницами
+- **SEO оптимизация** с мета-тегами и структурированными данными
 
-## Running
+## Технологии
 
-Run the application with:
+- **Backend**: Python 3.11, Flask, SQLAlchemy
+- **Frontend**: Bootstrap 5, Jinja2 templates
+- **База данных**: SQLite (разработка) / PostgreSQL (продакшен)
+- **Безопасность**: Flask-WTF (CSRF), Werkzeug (хеширование паролей)
+- **API**: Flask-CORS для интеграции с hub.baimuras.space
+
+## Установка и настройка
+
+### 1. Клонирование и установка зависимостей
+
+```bash
+git clone https://github.com/ardakchapaev/baimuras.space.git
+cd baimuras.space
+python3 -m venv venv
+source venv/bin/activate  # Linux/Mac
+# или venv\Scripts\activate  # Windows
+pip install -r requirements.txt
+```
+
+### 2. Настройка окружения
+
+Скопируйте файл с примером переменных окружения:
+```bash
+cp .env.sample .env
+```
+
+Отредактируйте `.env` файл:
+```env
+SECRET_KEY=your-super-secret-key-here
+DATABASE_URL=sqlite:///baimuras.db
+API_KEY=your-api-key-for-n8n-integration
+FLASK_ENV=development
+```
+
+### 3. Инициализация базы данных
+
+```bash
+python -c "from src.main import app; from src.models.user import db; app.app_context().push(); db.create_all()"
+```
+
+### 4. Запуск приложения
+
 ```bash
 python wsgi.py
 ```
 
-During development, if `SECRET_KEY` is not set, the app will generate a temporary key and display a warning. In production, the application will fail to start without `SECRET_KEY`.
-=======
-BaiMuras is a demonstration website for a furniture design studio. The project shows how to structure a small Flask application with multiple pages, a basic dashboard and an example REST API. The current code base focuses on presenting content and experimenting with templates and styling.
+Сайт будет доступен по адресу: http://localhost:5000
 
-## Features
+## API Endpoints для n8n
 
-- Main pages: home, about, services (including custom furniture, design bureau and academy), portfolio, blog and contact form.
-- Simple dashboard with authentication and pages for leads, analytics and settings.
-- Contact form with flash messages.
-- Example REST API for managing users (create, read, update, delete).
-- Styling built on Bootstrap 5 with custom CSS and Jinja2 templates.
+### Webhooks (без API ключа)
+- `POST /api/webhooks/contact` - Прием контактных форм
 
-## Technologies
+### Защищенные endpoints (требуют API ключ)
+- `GET /api/leads` - Список всех лидов
+- `GET /api/leads/<id>` - Получить конкретный лид
+- `PUT /api/leads/<id>` - Обновить лид
+- `POST /api/webhooks/lead` - Создать/обновить лид
+- `GET /api/projects` - Список проектов
+- `POST /api/projects` - Создать проект
 
-- Python 3
-- [Flask](https://flask.palletsprojects.com/) and Blueprints
-- Jinja2 template engine
-- Bootstrap 5 for UI
-- Flask‑SQLAlchemy (only basic setup for the `User` model)
+### Аутентификация API
+Добавьте заголовок: `X-API-Key: your-api-key`
 
-## Installation and usage
+## Интеграция с n8n
 
-1. **Create a virtual environment and install dependencies**:
+1. В n8n создайте HTTP Request узел
+2. Укажите URL: `https://baimuras.space/api/webhooks/contact`
+3. Метод: POST
+4. Тело запроса (JSON):
+```json
+{
+  "name": "Имя клиента",
+  "email": "email@example.com",
+  "phone": "+7 777 123 45 67",
+  "subject": "Тема обращения",
+  "message": "Текст сообщения",
+  "source": "telegram"
+}
+```
 
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   pip install -r requirements.txt
-   ```
+## Деплой на Timeweb Cloud
 
-2. **Configuration**:
+### 1. Подготовка файлов
 
-   - `SECRET_KEY` – by default a random key is generated each time the app starts. You can set a persistent key via environment variable:
-     ```bash
-     export SECRET_KEY="your-secret-key"
-     ```
-   - `SQLALCHEMY_DATABASE_URI` – set this if you plan to use the REST API with a database. Example for SQLite:
-     ```bash
-     export SQLALCHEMY_DATABASE_URI="sqlite:///app.db"
-     ```
-   After configuring the URI you need to initialize the database manually (for example using Flask shell).
+Создайте `runtime.txt`:
+```
+python-3.11
+```
 
-3. **Run the application**:
+### 2. Настройка переменных окружения
 
-   ```bash
-   FLASK_APP=wsgi.py flask run
-   ```
-   Or simply `python wsgi.py` for a basic development server.
+В панели Timeweb Cloud установите:
+- `SECRET_KEY` - секретный ключ (сгенерируйте надежный)
+- `DATABASE_URL` - URL базы данных PostgreSQL
+- `API_KEY` - ключ для API интеграции
+- `FLASK_ENV=production`
 
-## Roadmap
+### 3. Команды деплоя
 
-The project is a work in progress. Planned improvements include:
+```bash
+pip install -r requirements.txt
+python -c "from src.main import app; from src.models.user import db; app.app_context().push(); db.create_all()"
+gunicorn --bind 0.0.0.0:8000 wsgi:application
+```
 
-- Integration of a real database for storing users and contact messages.
-- Admin features for managing blog posts and portfolio items.
-- Deployment instructions and Docker support.
+## Структура проекта
 
->>>>>> main
+```
+baimuras.space/
+├── src/
+│   ├── models/          # Модели данных
+│   │   ├── user.py      # Модель пользователя
+│   │   ├── lead.py      # Модель лида
+│   │   └── project.py   # Модель проекта
+│   ├── routes/          # Маршруты
+│   │   ├── main_routes.py  # Основные страницы
+│   │   ├── user.py      # API пользователей
+│   │   └── api.py       # API для n8n
+│   ├── templates/       # HTML шаблоны
+│   ├── static/          # CSS, JS, изображения
+│   ├── config.py        # Конфигурация
+│   ├── errors.py        # Обработчики ошибок
+│   └── main.py          # Основное приложение
+├── .env.sample          # Пример переменных окружения
+├── requirements.txt     # Зависимости Python
+├── wsgi.py             # WSGI точка входа
+└── README.md           # Документация
+```
+
+## Безопасность
+
+- ✅ SECRET_KEY из переменных окружения
+- ✅ CSRF защита для всех форм
+- ✅ Хеширование паролей с Werkzeug
+- ✅ API ключи для защищенных endpoints
+- ✅ CORS настроен только для hub.baimuras.space
+- ✅ Валидация входных данных
+
+## Поддержка
+
+Для вопросов и предложений создавайте Issues в GitHub репозитории.
