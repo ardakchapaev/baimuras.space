@@ -1,16 +1,22 @@
+"""Module docstring."""
+
 from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 db = SQLAlchemy()
 
+
 class User(db.Model):
+    """Class docstring."""
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
 
     def __repr__(self):
-        return f'<User {self.username}>'
+        """Function docstring."""
+        return f"<User {self.username}>"
 
     def set_password(self, password: str) -> None:
         """Hash and store the given password."""
@@ -21,8 +27,5 @@ class User(db.Model):
         return check_password_hash(self.password_hash, password)
 
     def to_dict(self):
-        return {
-            'id': self.id,
-            'username': self.username,
-            'email': self.email
-        }
+        """Function docstring."""
+        return {"id": self.id, "username": self.username, "email": self.email}
