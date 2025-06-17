@@ -1,13 +1,16 @@
 import os
 import sys
-import datetime # Import datetime
-# DON'T CHANGE THIS !!!
+import datetime
+# НЕ МЕНЯТЬ !!!
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from flask import Flask, send_from_directory, session
 from src.routes.main_routes import main_bp
 from src.routes.user import user_bp
+<<<<<< codex/создать-модель-пользователя-и-авторизацию
 from src.models.user import db
+=======
+>>>>>> main
 
 app = Flask(
     __name__,
@@ -20,14 +23,17 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
-# Register blueprints
+# Регистрируем блюпринты
 app.register_blueprint(main_bp)
 app.register_blueprint(user_bp)
+<<<<<< codex/создать-модель-пользователя-и-авторизацию
 
 with app.app_context():
     db.create_all()
+=======
+>>>>>> main
 
-# Make session and current_year available to all templates
+# Делаем session и current_year доступными во всех шаблонах
 @app.context_processor
 def inject_global_vars():
     return dict(session=session, current_year=datetime.datetime.utcnow().year)
