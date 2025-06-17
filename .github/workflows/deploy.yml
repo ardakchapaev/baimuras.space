@@ -1,0 +1,26 @@
+name: Auto Deploy to Timeweb
+
+on:
+  push:
+    branches:
+      - main  # или master, если у тебя другая основная ветка
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to Timeweb
+        run: |
+          rsync -avz --delete \
+            --exclude '.git*' \
+            --exclude 'venv' \
+            ./ root@95.140.153.181:/root/baimuras.space/
