@@ -12,6 +12,19 @@ from src.models.user import db
 =======
 >>>>>> main
 
+<<<<<< codex/заменить-os.urandom-на-secret_key
+app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'), template_folder='templates')
+secret_key = os.environ.get("SECRET_KEY")
+if not secret_key:
+    if os.environ.get("FLASK_ENV") == "production":
+        raise RuntimeError("SECRET_KEY environment variable must be set in production")
+    secret_key = os.urandom(24)
+    print(
+        "WARNING: SECRET_KEY not set. Using a generated key for development only",
+        file=sys.stderr,
+    )
+app.config["SECRET_KEY"] = secret_key
+=======
 app = Flask(
     __name__,
     static_folder=os.path.join(os.path.dirname(__file__), 'static'),
@@ -22,6 +35,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
+>>>>>> main
 
 # Регистрируем блюпринты
 app.register_blueprint(main_bp)
