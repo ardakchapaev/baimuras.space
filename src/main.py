@@ -1,7 +1,7 @@
 import os
 import sys
-import datetime # Import datetime
-# DON'T CHANGE THIS !!!
+import datetime
+# НЕ МЕНЯТЬ !!!
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from flask import Flask, send_from_directory, session
@@ -10,10 +10,10 @@ from src.routes.main_routes import main_bp
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'), template_folder='templates')
 app.config['SECRET_KEY'] = os.urandom(24)
 
-# Register blueprints
+# Регистрируем блюпринты
 app.register_blueprint(main_bp)
 
-# Make session and current_year available to all templates
+# Делаем session и current_year доступными во всех шаблонах
 @app.context_processor
 def inject_global_vars():
     return dict(session=session, current_year=datetime.datetime.utcnow().year)

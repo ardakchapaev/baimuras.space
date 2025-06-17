@@ -11,7 +11,7 @@
     <div class="row mt-5">
         <div class="col-md-6">
             <h2>Отправьте нам сообщение</h2>
-            <!-- Contact form (assuming it will be handled by Flask later) -->
+            <!-- Форма обратной связи (предполагается обработка через Flask) -->
             <form action="{{ url_for('main.contact') }}" method="POST">
                 <div class="mb-3">
                     <label for="name" class="form-label">Ваше Имя</label>
@@ -74,9 +74,9 @@
         <div class="col-12">
             <h2>Карта проезда</h2>
             <p>Мы находимся здесь. Ждем вас в гости!</p>
-            <!-- Placeholder for an interactive map -->
+            <!-- Заглушка интерактивной карты -->
             <img src="https://via.placeholder.com/800x400.png?text=Карта+Проезда+BaiMuras+Бишкек" class="img-fluid rounded" alt="Карта проезда BaiMuras Бишкек">
-            <!-- Example of embedding Google Maps (replace with actual embed code) -->
+            <!-- Пример встраивания Google Maps (замените реальным кодом) -->
             <!-- 
             <div class="map-responsive mt-3">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2923.9900331880507!2d74.58560091547228!3d42.8721598791557!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x389ec8211f009767%3A0x3155f352f5e3a6a0!2z0JzQtdC20LTRg9C90LDRgNC-0LTQvdGLINCg0LXRgdGDINC80LXRgdGC0LDQvdC00YAg0J7RgNC-0L3QvtC9!5e0!3m2!1sru!2skg!4v1620836000000!5m2!1sru!2skg" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
@@ -88,24 +88,24 @@
 </div>
 
 <script>
-    // Basic form submission status handling (can be expanded with AJAX)
+    // Простая обработка статуса отправки формы (можно расширить AJAX)
     const form = document.querySelector('form');
     const formStatus = document.getElementById('form-status');
     if (form) {
         form.addEventListener('submit', function(event) {
-            // event.preventDefault(); // Uncomment this to handle via AJAX
-            // For demo purposes, we'll just show a success message if not using AJAX
-            // In a real app, you'd send data to the server here.
+            // event.preventDefault(); // Раскомментируйте для обработки через AJAX
+            // В демонстрационной версии просто показываем сообщение об успехе
+            // В реальном приложении данные отправляются на сервер
             if (!event.defaultPrevented) { // if not prevented by AJAX handler
-                 // This is a simple placeholder. Real submission would be handled by Flask.
-                // To prevent actual form submission for demo if no backend is live:
-                // event.preventDefault(); 
+                 // Это простая заглушка. Реальная отправка будет через Flask.
+                // Чтобы предотвратить фактическую отправку формы в демо без сервера:
+                // event.preventDefault();
                 // formStatus.innerHTML = '<div class="alert alert-success">Спасибо за ваше сообщение! Мы свяжемся с вами в ближайшее время. (Демо)</div>';
                 // form.reset();
             }
         });
     }
-    // Check for query parameters to show success message (if redirected after POST)
+    // Проверяем параметры строки, чтобы показать сообщение об успехе после POST
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('status') && urlParams.get('status') === 'success') {
         formStatus.innerHTML = '<div class="alert alert-success">Спасибо за ваше сообщение! Мы свяжемся с вами в ближайшее время.</div>';
