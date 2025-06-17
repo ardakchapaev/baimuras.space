@@ -7,7 +7,12 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 from flask import Flask, send_from_directory, session
 from src.routes.main_routes import main_bp
 from src.routes.user import user_bp
+<<<<<< codex/создать-модель-пользователя-и-авторизацию
+from src.models.user import db
+=======
+>>>>>> main
 
+<<<<<< codex/заменить-os.urandom-на-secret_key
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'), template_folder='templates')
 secret_key = os.environ.get("SECRET_KEY")
 if not secret_key:
@@ -19,10 +24,28 @@ if not secret_key:
         file=sys.stderr,
     )
 app.config["SECRET_KEY"] = secret_key
+=======
+app = Flask(
+    __name__,
+    static_folder=os.path.join(os.path.dirname(__file__), 'static'),
+    template_folder='templates'
+)
+app.config['SECRET_KEY'] = os.urandom(24)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
+>>>>>> main
 
 # Регистрируем блюпринты
 app.register_blueprint(main_bp)
 app.register_blueprint(user_bp)
+<<<<<< codex/создать-модель-пользователя-и-авторизацию
+
+with app.app_context():
+    db.create_all()
+=======
+>>>>>> main
 
 # Делаем session и current_year доступными во всех шаблонах
 @app.context_processor
