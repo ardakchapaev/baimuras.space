@@ -1,113 +1,220 @@
+
 {% extends "base.html" %}
 
-{% block title %}Портфолио - BaiMuras{% endblock %}
+{% block title %}{{ navigation.portfolio }} - BaiMuras{% endblock %}
+{% block description %}Портфолио BaiMuras: реализованные проекты мебели Монтессори, кухонь на заказ и детских комнат в скандинавском стиле.{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="text-center mb-5">
-        <h1 class="display-5 fw-bold">Наше Портфолио</h1>
-        <p class="lead text-muted">Реализованные Проекты и Вдохновляющие Решения в Стиле Этно-Модернизм</p>
-    </div>
-
-    <p class="lead mb-5">Добро пожаловать в галерею наших лучших работ! В этом разделе мы с гордостью представляем проекты, которые отражают нашу страсть к дизайну, мастерство исполнения и философию этно-модернизма. Каждый проект – это уникальная история сотрудничества с нашими клиентами, воплощенная в жизнь с вниманием к деталям и стремлением к совершенству. Ознакомьтесь с примерами наших работ в различных категориях.</p>
-
-    <!-- Проект 1 -->
-    <div class="row mt-5 align-items-center featurette py-4 bg-light rounded shadow-sm">
-        <div class="col-md-7">
-            <h2>Проект 1: Квартира в стиле Этно-Лофт (Бишкек)</h2>
-            <p><strong>Название проекта:</strong> "Гармония Контрастов: Этно-Лофт в Сердце Бишкека"</p>
-            <p><strong>Тип объекта:</strong> Частная квартира, 120 кв.м.</p>
-            <p><strong>Задачи:</strong> Разработать дизайн-проект и изготовить мебель для молодой семьи, сочетая элементы лофта с национальными мотивами.</p>
-            <p><strong>Решение:</strong> Были использованы натуральные материалы (дерево, камень, металл), открытая планировка, акцентные детали с традиционными орнаментами. Изготовлена корпусная и мягкая мебель по индивидуальным эскизам.</p>
-            <p><strong>Ключевые особенности:</strong></p>
-            <ul class="list-unstyled">
-                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Кухня с островом и фасадами из массива карагача.</li>
-                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Гостиная с дизайнерским стеллажом и панно с этническим узором.</li>
-                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Спальня с кроватью с высоким изголовьем, украшенным резьбой.</li>
-            </ul>
-            <blockquote class="blockquote mt-3">
-                <p class="mb-0 fst-italic">"Команда BaiMuras превзошла все наши ожидания! Они создали не просто интерьер, а настоящее произведение искусства, в котором так уютно жить. Спасибо!"</p>
-                <footer class="blockquote-footer">Айсулуу и Марат</footer>
-            </blockquote>
+<!-- Hero Section -->
+<section class="hero section-sm">
+    <div class="container">
+        <div class="text-center fade-in">
+            <h1>{{ navigation.portfolio }}</h1>
+            <p class="lead">{% if current_language == 'ky' %}Биздин ишке ашырган долбоорлор{% else %}Наши реализованные проекты{% endif %}</p>
         </div>
-        <div class="col-md-5">
-            <img src="{{ url_for('static', filename='images/coral_accent_bg.png') }}" class="img-fluid rounded shadow-sm mb-2" alt="Проект Этно-Лофт Гостиная">
-            <div class="row g-2">
-                <div class="col-6">
-                    <img src="{{ url_for('static', filename='images/blue_splash_bg.png') }}" class="img-fluid rounded shadow-sm" alt="Проект Этно-Лофт Кухня">
+    </div>
+</section>
+
+<!-- Portfolio Filter -->
+<section class="section-sm">
+    <div class="container">
+        <div class="text-center fade-in">
+            <div class="portfolio-filter">
+                <button class="btn btn-outline active" data-filter="all">
+                    {% if current_language == 'ky' %}Баары{% else %}Все{% endif %}
+                </button>
+                <button class="btn btn-outline" data-filter="montessori">
+                    {% if current_language == 'ky' %}Монтессори{% else %}Монтессори{% endif %}
+                </button>
+                <button class="btn btn-outline" data-filter="kitchens">
+                    {% if current_language == 'ky' %}Ашканалар{% else %}Кухни{% endif %}
+                </button>
+                <button class="btn btn-outline" data-filter="children-rooms">
+                    {% if current_language == 'ky' %}Балдар бөлмөлөрү{% else %}Детские комнаты{% endif %}
+                </button>
+                <button class="btn btn-outline" data-filter="lifestyle">
+                    {% if current_language == 'ky' %}Интерьерлер{% else %}Интерьеры{% endif %}
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Grid -->
+<section class="section">
+    <div class="container">
+        <div class="portfolio-grid">
+            <!-- Montessori Projects -->
+            <div class="portfolio-item montessori fade-in">
+                <img src="https://i.pinimg.com/originals/81/62/10/81621027e95349819d7fde5d8cfea400.png" 
+                     alt="TriClimb Climbing Triangle">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Пиклер үч бурчтугу{% else %}Треугольник Пиклера{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}Физикалык өнүгүү үчүн{% else %}Для физического развития{% endif %}</p>
                 </div>
-                <div class="col-6">
-                    <img src="{{ url_for('static', filename='images/coral_accent_bg.png') }}" class="img-fluid rounded shadow-sm" alt="Проект Этно-Лофт Деталь">
+            </div>
+            
+            <div class="portfolio-item montessori fade-in">
+                <img src="https://i.pinimg.com/originals/89/15/3c/89153ccdb85f0a398f782f45ebb799f6.jpg" 
+                     alt="Montessori House Bed">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Үй-кереbet{% else %}Кровать-домик{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}Коопсуз уйку үчүн{% else %}Для безопасного сна{% endif %}</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item montessori fade-in">
+                <img src="https://i.pinimg.com/originals/bc/a7/4a/bca74a943f392539110e43557d6ffa5d.jpg" 
+                     alt="Montessori Toy Shelf">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Оюнчук текчелери{% else %}Полки для игрушек{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}Көз карандысыздык үчүн{% else %}Для самостоятельности{% endif %}</p>
+                </div>
+            </div>
+            
+            <!-- Kitchen Projects -->
+            <div class="portfolio-item kitchens fade-in">
+                <img src="https://i.pinimg.com/originals/a5/7e/7b/a57e7b055630c93de606c01da5635081.jpg" 
+                     alt="White Kitchen with Wood Accents">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Ак ашкана{% else %}Белая кухня{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}Жыгач акценттер менен{% else %}С деревянными акцентами{% endif %}</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item kitchens fade-in">
+                <img src="https://curatedinterior.com/wp-content/uploads/2021/01/Scandinavian-Kitchen-with-Scandi-Blue-Cabinets-via-@entrancemakleri.jpg" 
+                     alt="Scandinavian Kitchen with Blue Cabinets">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Көк ашкана{% else %}Голубая кухня{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}Скандинавиялык стилде{% else %}В скандинавском стиле{% endif %}</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item kitchens fade-in">
+                <img src="https://www.sustainablekitchens.co.uk/wp-content/uploads/2022/07/Scandinavian-Kitchen-London-wood-kitchen-in-smooth-european-oak.jpg" 
+                     alt="Scandinavian Kitchen London">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Дуб ашканасы{% else %}Дубовая кухня{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}Европалык дуб{% else %}Европейский дуб{% endif %}</p>
+                </div>
+            </div>
+            
+            <!-- Children Rooms -->
+            <div class="portfolio-item children-rooms fade-in">
+                <img src="https://i.pinimg.com/originals/ed/83/20/ed832032b0e6d4cd6f21566bde1a4930.jpg" 
+                     alt="Stylish Scandinavian Kid's Room">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Стилдүү балдар бөлмөсү{% else %}Стильная детская{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}Скандинавиялык дизайн{% else %}Скандинавский дизайн{% endif %}</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item children-rooms fade-in">
+                <img src="https://i.pinimg.com/originals/3f/a1/a0/3fa1a0ec68e3e67cbcff0fd58aa70089.jpg" 
+                     alt="Beautiful Scandinavian Interior Kids Bedroom">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Сулуу балдар спальнясы{% else %}Красивая детская спальня{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}Жарык жана ачык{% else %}Светлая и просторная{% endif %}</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item children-rooms fade-in">
+                <img src="https://www.architectureartdesigns.com/wp-content/uploads/2022/11/15-Wonderful-Scandinavian-Kids-Room-Interior-Designs-Perfect-For-Apartments-1.jpg" 
+                     alt="Wonderful Scandinavian Kids Room">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Кереметтүү дизайн{% else %}Прекрасный дизайн{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}Квартиралар үчүн{% else %}Для квартир{% endif %}</p>
+                </div>
+            </div>
+            
+            <!-- Lifestyle Interiors -->
+            <div class="portfolio-item lifestyle fade-in">
+                <img src="https://i.pinimg.com/originals/5e/37/ed/5e37eded491e2f4d21571b6f1be96eea.png" 
+                     alt="Scandinavian Open Concept Living">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Ачык планировка{% else %}Открытая планировка{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}Гостиная жана ашкана{% else %}Гостиная и кухня{% endif %}</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item lifestyle fade-in">
+                <img src="https://i.pinimg.com/originals/ba/74/44/ba7444aa085d70d699c0a95658628c24.jpg" 
+                     alt="Swedish Family Home">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Швед үй-бүлөлүк үйү{% else %}Шведский семейный дом{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}Альптардагы үй{% else %}Дом в Альпах{% endif %}</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item lifestyle fade-in">
+                <img src="https://i.pinimg.com/originals/c3/4c/fc/c34cfcdcfcbd4279161bb3c34b624293.jpg" 
+                     alt="Family Friendly Living Room">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Үй-бүлөлүк гостиная{% else %}Семейная гостиная{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}Балдар менен ыңгайлуу{% else %}Удобно с детьми{% endif %}</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item lifestyle fade-in">
+                <img src="https://images.pexels.com/photos/5825699/pexels-photo-5825699.jpeg" 
+                     alt="Kitchen and Dining Scandinavian Style">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Ашкана жана ашкана бөлмөсү{% else %}Кухня и столовая{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}Жылуу атмосфера{% else %}Теплая атмосфера{% endif %}</p>
                 </div>
             </div>
         </div>
     </div>
+</section>
 
-    <hr class="my-5">
-
-    <!-- Проект 2 -->
-    <div class="row align-items-center featurette py-4">
-        <div class="col-md-5 order-md-2">
-            <img src="{{ url_for('static', filename='images/blue_splash_bg.png') }}" class="img-fluid rounded shadow-sm mb-2" alt="Проект Детская Монтессори Общий Вид">
-            <div class="row g-2">
-                <div class="col-6">
-                    <img src="{{ url_for('static', filename='images/coral_accent_bg.png') }}" class="img-fluid rounded shadow-sm" alt="Проект Детская Кровать-Домик">
-                </div>
-                <div class="col-6">
-                    <img src="{{ url_for('static', filename='images/blue_splash_bg.png') }}" class="img-fluid rounded shadow-sm" alt="Проект Детская Игровая Зона">
-                </div>
-            </div>
-        </div>
-        <div class="col-md-7 order-md-1">
-            <h2>Проект 2: Детская Комната "Маленький Кочевник" (Монтессори)</h2>
-            <p><strong>Название проекта:</strong> "Мир Открытий: Детская в Стиле Монтессори с Элементами Кочевой Культуры"</p>
-            <p><strong>Тип объекта:</strong> Детская комната для мальчика 3 лет, 18 кв.м.</p>
-            <p><strong>Задачи:</strong> Создать безопасное, развивающее и эстетически привлекательное пространство, отражающее принципы Монтессори и национальный колорит.</p>
-            <p><strong>Решение:</strong> Разработана и изготовлена мебель из натурального дерева (кровать-домик, низкие стеллажи, столик и стульчик по росту ребенка). Использованы текстиль с традиционными узорами, карта мира, элементы, напоминающие юрту.</p>
-            <p><strong>Ключевые особенности:</strong></p>
-            <ul class="list-unstyled">
-                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Зонирование пространства для игр, сна и творчества.</li>
-                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Доступность всех предметов для ребенка.</li>
-                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Экологичные и безопасные материалы.</li>
-            </ul>
+<!-- CTA Section -->
+<section class="section" style="background-color: var(--light-gray);">
+    <div class="container">
+        <div class="text-center fade-in">
+            <h2>{% if current_language == 'ky' %}Сиздин долбооруңузду баштайлы{% else %}Начнем ваш проект{% endif %}</h2>
+            <p class="lead">{% if current_language == 'ky' %}Акысыз консультация алыңыз{% else %}Получите бесплатную консультацию{% endif %}</p>
+            <a href="{{ url_for('main.contact') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-calendar-alt me-2"></i>{% if current_language == 'ky' %}Консультация алуу{% else %}Записаться на консультацию{% endif %}
+            </a>
         </div>
     </div>
+</section>
+{% endblock %}
 
-    <hr class="my-5">
-
-    <!-- Проект 3 -->
-    <div class="row align-items-center featurette py-4 bg-light rounded shadow-sm">
-        <div class="col-md-7">
-            <h2>Проект 3: Офис IT-Компании "Silk Road Tech" (Этно-Минимализм)</h2>
-            <p><strong>Название проекта:</strong> "Инновации и Традиции: Офисное Пространство в Стиле Этно-Минимализм"</p>
-            <p><strong>Тип объекта:</strong> Офис IT-компании, 250 кв.м.</p>
-            <p><strong>Задачи:</strong> Создать современное, функциональное и вдохновляющее рабочее пространство, отражающее как инновационный дух компании, так и уважение к местной культуре.</p>
-            <p><strong>Решение:</strong> Открытые рабочие зоны, переговорные комнаты со стеклянными перегородками, лаунж-зона. Использованы светлые тона, натуральное дерево, акцентные элементы с геометрическими орнаментами. Разработана и изготовлена вся офисная мебель.</p>
-            <p><strong>Ключевые особенности:</strong></p>
-            <ul class="list-unstyled">
-                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Ресепшн с логотипом компании и декоративной панелью.</li>
-                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Эргономичные рабочие столы и кресла.</li>
-                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Лаунж-зона с мягкой мебелью и кофейными столиками, украшенными национальными узорами.</li>
-            </ul>
-        </div>
-        <div class="col-md-5">
-            <img src="{{ url_for('static', filename='images/coral_accent_bg.png') }}" class="img-fluid rounded shadow-sm mb-2" alt="Проект Офис IT Ресепшн">
-            <div class="row g-2">
-                <div class="col-6">
-                    <img src="{{ url_for('static', filename='images/blue_splash_bg.png') }}" class="img-fluid rounded shadow-sm" alt="Проект Офис IT Рабочая Зона">
-                </div>
-                <div class="col-6">
-                    <img src="{{ url_for('static', filename='images/coral_accent_bg.png') }}" class="img-fluid rounded shadow-sm" alt="Проект Офис IT Лаунж">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-light p-4 p-md-5 rounded-lg text-center mt-5">
-        <h3 class="fw-bold">Вдохновились нашими работами?</h3>
-        <p class="lead">Давайте обсудим ваш будущий проект! Свяжитесь с нами для консультации, и мы поможем воплотить ваши самые смелые идеи в реальность.</p>
-        <a href="{{ url_for('main.contact') }}" class="btn btn-primary btn-lg mt-3">Обсудить проект</a>
-    </div>
-
-</div>
+{% block extra_js %}
+<script>
+// Portfolio filter functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.portfolio-filter button');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filter = this.getAttribute('data-filter');
+            
+            // Update active button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Filter items
+            portfolioItems.forEach(item => {
+                if (filter === 'all' || item.classList.contains(filter)) {
+                    item.style.display = 'block';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    }, 10);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 300);
+                }
+            });
+        });
+    });
+});
+</script>
 {% endblock %}

@@ -1,0 +1,133 @@
+
+{% extends "base.html" %}
+
+{% block title %}{{ service.title }} - BaiMuras{% endblock %}
+{% block description %}{{ service.description }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero section-sm">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 fade-in">
+                <h1>{{ service.title }}</h1>
+                <p class="lead">{{ service.subtitle }}</p>
+                <p>{{ service.description }}</p>
+                <a href="{{ url_for('main.contact') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-calendar-alt me-2"></i>{% if current_language == 'ky' %}Консультация алуу{% else %}Получить консультацию{% endif %}
+                </a>
+            </div>
+            <div class="col-lg-6 fade-in">
+                <img src="https://i.etsystatic.com/21222226/r/il/8ff95f/5173886899/il_1080xN.5173886899_dcjm.jpg" 
+                     alt="Scandinavian Large Climbing Triangle" 
+                     class="img-fluid rounded-lg">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="section">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>{% if current_language == 'ky' %}Биз сунуштаган эмерек{% else %}Что мы предлагаем{% endif %}</h2>
+        </div>
+        
+        <div class="grid grid-2">
+            {% for feature in service.features %}
+            <div class="card fade-in">
+                <div class="card-body">
+                    <h4><i class="fas fa-check-circle text-primary me-2"></i>{{ feature }}</h4>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Section -->
+<section class="section" style="background-color: var(--light-gray);">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>{% if current_language == 'ky' %}Биздин иштер{% else %}Наши работы{% endif %}</h2>
+        </div>
+        
+        <div class="portfolio-grid">
+            <div class="portfolio-item fade-in">
+                <img src="https://i.pinimg.com/originals/bc/a7/4a/bca74a943f392539110e43557d6ffa5d.jpg" 
+                     alt="Montessori Toy Shelf">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Оюнчук текчелери{% else %}Полки для игрушек{% endif %}</h4>
+                </div>
+            </div>
+            
+            <div class="portfolio-item fade-in">
+                <img src="https://i.pinimg.com/736x/a9/db/2c/a9db2c382dea3a5c0100c8c5c89e9344.jpg" 
+                     alt="Kids Table and Chairs Set">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Балдар столу жана отургучтар{% else %}Детский стол и стулья{% endif %}</h4>
+                </div>
+            </div>
+            
+            <div class="portfolio-item fade-in">
+                <img src="https://i.etsystatic.com/47205463/r/il/11fd21/5477995777/il_fullxfull.5477995777_pdd7.jpg" 
+                     alt="Wooden Montessori Table and Chair">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Жыгач эмерек топтому{% else %}Деревянный набор мебели{% endif %}</h4>
+                </div>
+            </div>
+            
+            <div class="portfolio-item fade-in">
+                <img src="https://m.media-amazon.com/images/I/81MfsNblY0L.jpg" 
+                     alt="Montessori Design Play Room">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Үй-кереbet{% else %}Кровать-домик{% endif %}</h4>
+                </div>
+            </div>
+            
+            <div class="portfolio-item fade-in">
+                <img src="https://i.pinimg.com/originals/68/07/d7/6807d7fe4712afdf77d889f0b0b34a09.jpg" 
+                     alt="Kids Storage Ideas">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Сактоо системалары{% else %}Системы хранения{% endif %}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Benefits Section -->
+<section class="section">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>{% if current_language == 'ky' %}Монтессори эмерегинин артыкчылыктары{% else %}Преимущества Монтессори мебели{% endif %}</h2>
+        </div>
+        
+        <div class="grid grid-3">
+            <div class="text-center fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-child"></i>
+                </div>
+                <h4>{% if current_language == 'ky' %}Көз карандысыздык{% else %}Самостоятельность{% endif %}</h4>
+                <p>{% if current_language == 'ky' %}Балдар өз алдынча аракет кыла алышат{% else %}Дети могут действовать самостоятельно{% endif %}</p>
+            </div>
+            
+            <div class="text-center fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h4>{% if current_language == 'ky' %}Өнүгүү{% else %}Развитие{% endif %}</h4>
+                <p>{% if current_language == 'ky' %}Моторика жана координацияны өнүктүрөт{% else %}Развивает моторику и координацию{% endif %}</p>
+            </div>
+            
+            <div class="text-center fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h4>{% if current_language == 'ky' %}Коопсуздук{% else %}Безопасность{% endif %}</h4>
+                <p>{% if current_language == 'ky' %}Экологиялык жана коопсуз материалдар{% else %}Экологичные и безопасные материалы{% endif %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,4 +1,4 @@
-"""Module docstring."""
+"""Main application module for BaiMuras."""
 
 import datetime
 import os
@@ -13,13 +13,16 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from src.config import Config
 from src.models.user import db
+from src.models.consultation import ConsultationRequest
 from src.routes.api import api_bp
 from src.routes.main_routes import main_bp
 from src.routes.user import user_bp
+from src.utils import get_current_language
+from src.content import NAVIGATION, FOOTER
 
 
 def create_app():
-    """Function docstring."""
+    """Create and configure Flask application."""
     app = Flask(
         __name__,
         static_folder=os.path.join(os.path.dirname(__file__), "static"),
@@ -38,7 +41,7 @@ def create_app():
         app,
         resources={
             r"/api/*": {
-                "origins": ["https://hub.baimuras.space", "http://localhost:3000"],
+                "origins": ["https://hub.baimuras.space", "http://localhost:3000", "http://localhost:5000"],
                 "methods": ["GET", "POST", "PUT", "DELETE"],
                 "allow_headers": ["Content-Type", "Authorization"],
             }
@@ -57,25 +60,32 @@ def create_app():
     with app.app_context():
         db.create_all()
 
-    # Делаем session и current_year доступными во всех шаблонах
+    # Делаем глобальные переменные доступными во всех шаблонах
     @app.context_processor
     def inject_global_vars():
-        """Function docstring."""
-        return dict(session=session, current_year=datetime.datetime.utcnow().year)
+        """Inject global variables into templates."""
+        current_lang = get_current_language()
+        return dict(
+            session=session, 
+            current_year=datetime.datetime.utcnow().year,
+            current_language=current_lang,
+            navigation=NAVIGATION.get(current_lang, NAVIGATION['ru']),
+            footer_content=FOOTER.get(current_lang, FOOTER['ru']),
+            languages=Config.LANGUAGES
+        )
 
     @app.route("/static/<path:filename>")
     def static_files(filename):
-        """Function docstring."""
+        """Serve static files."""
         return send_from_directory(app.static_folder, filename)
 
     @app.route("/health")
     def health_check():
-        """Function docstring."""
+        """Health check endpoint."""
         return "OK", 200
 
     # Обработчики ошибок
     from src.errors import register_error_handlers
-
     register_error_handlers(app)
 
     return app

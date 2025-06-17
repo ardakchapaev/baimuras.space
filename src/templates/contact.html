@@ -1,116 +1,221 @@
+
 {% extends "base.html" %}
 
-{% block title %}Контакты - BaiMuras{% endblock %}
+{% block title %}{{ navigation.contact }} - BaiMuras{% endblock %}
+{% block description %}Свяжитесь с BaiMuras для консультации по мебели Монтессори, кухням на заказ и детским комнатам.{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="mb-4">Свяжитесь с Нами: Мы Готовы Воплотить Ваши Идеи</h1>
-
-    <p class="lead">Мы всегда рады общению с нашими клиентами и партнерами! Если у вас есть вопросы, предложения, или вы хотите обсудить свой будущий проект, пожалуйста, свяжитесь с нами любым удобным для вас способом. Команда BaiMuras готова предоставить вам профессиональную консультацию и помочь в реализации ваших самых смелых идей.</p>
-
-    <div class="row mt-5">
-        <div class="col-md-6">
-            <h2>Отправьте нам сообщение</h2>
-            <!-- Форма обратной связи (предполагается обработка через Flask) -->
-            <form action="{{ url_for('main.contact') }}" method="POST">
-                {{ csrf_token() }}
-                <div class="mb-3">
-                    <label for="name" class="form-label">Ваше Имя</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Ваш Email</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                </div>
-                <div class="mb-3">
-                    <label for="phone" class="form-label">Телефон (необязательно)</label>
-                    <input type="tel" class="form-control" id="phone" name="phone">
-                </div>
-                <div class="mb-3">
-                    <label for="subject" class="form-label">Тема</label>
-                    <input type="text" class="form-control" id="subject" name="subject" required>
-                </div>
-                <div class="mb-3">
-                    <label for="message" class="form-label">Сообщение</label>
-                    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Отправить Сообщение</button>
-            </form>
-            <div id="form-status" class="mt-3"></div>
-        </div>
-
-        <div class="col-md-6">
-            <h2>Наши контакты</h2>
-            <p><strong>Адрес Шоу-рума и Офиса:</strong><br>
-            Кыргызская Республика, г. Бишкек, ул. Исанова, д. 105/3 (Бизнес-центр "Орион", 5 этаж)</p>
-            <p><strong>Адрес Производства:</strong><br>
-            г. Бишкек, ул. Промышленная, д. 1 (по предварительной договоренности)</p>
-            
-            <p><strong>Телефоны:</strong><br>
-            Отдел продаж и консультации: <a href="tel:+996555123456">+996 (555) 123-456</a><br>
-            Проектное бюро: <a href="tel:+996777987654">+996 (777) 987-654</a><br>
-            Академия BaiMuras: <a href="tel:+996500111222">+996 (500) 111-222</a></p>
-
-            <p><strong>Email:</strong><br>
-            Общие вопросы: <a href="mailto:info@baimuras.kg">info@baimuras.kg</a><br>
-            Заказы и проекты: <a href="mailto:sales@baimuras.kg">sales@baimuras.kg</a><br>
-            Партнерство: <a href="mailto:partners@baimuras.kg">partners@baimuras.kg</a><br>
-            Академия: <a href="mailto:academy@baimuras.kg">academy@baimuras.kg</a></p>
-
-            <p><strong>Часы работы:</strong><br>
-            Офис и Шоу-рум: Понедельник - Пятница, с 9:00 до 18:00. Суббота, с 10:00 до 16:00.<br>
-            Воскресенье: выходной.</p>
-
-            <h3 class="mt-4">Мы в социальных сетях:</h3>
-            <p>
-                <a href="https://instagram.com/baimuras_design" target="_blank" class="btn btn-outline-dark me-2"><i class="bi bi-instagram"></i> Instagram</a>
-                <a href="https://facebook.com/baimuras.official" target="_blank" class="btn btn-outline-dark me-2"><i class="bi bi-facebook"></i> Facebook</a>
-                <a href="https://t.me/baimuras_news" target="_blank" class="btn btn-outline-dark me-2"><i class="bi bi-telegram"></i> Telegram</a>
-                <a href="https://youtube.com/c/BaiMurasChannel" target="_blank" class="btn btn-outline-dark"><i class="bi bi-youtube"></i> YouTube</a>
-            </p>
+<!-- Hero Section -->
+<section class="hero section-sm">
+    <div class="container">
+        <div class="text-center fade-in">
+            <h1>{{ form_content.title }}</h1>
+            <p class="lead">{{ form_content.subtitle }}</p>
         </div>
     </div>
+</section>
 
-    <div class="row mt-5">
-        <div class="col-12">
-            <h2>Карта проезда</h2>
-            <p>Мы находимся здесь. Ждем вас в гости!</p>
-            <!-- Заглушка интерактивной карты -->
-            <img src="https://via.placeholder.com/800x400.png?text=Карта+Проезда+BaiMuras+Бишкек" class="img-fluid rounded" alt="Карта проезда BaiMuras Бишкек">
-            <!-- Пример встраивания Google Maps (замените реальным кодом) -->
-            <!-- 
-            <div class="map-responsive mt-3">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2923.9900331880507!2d74.58560091547228!3d42.8721598791557!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x389ec8211f009767%3A0x3155f352f5e3a6a0!2z0JzQtdC20LTRg9C90LDRgNC-0LTQvdGLINCg0LXRgdGDINC80LXRgdGC0LDQvdC00YAg0J7RgNC-0L3QvtC9!5e0!3m2!1sru!2skg!4v1620836000000!5m2!1sru!2skg" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+<!-- Contact Form Section -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card fade-in">
+                    <div class="card-body p-5">
+                        <form method="POST" action="{{ url_for('main.contact') }}" data-ajax="true">
+                            {{ csrf_token() }}
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name" class="form-label">{{ form_content.name_label }} *</label>
+                                        <input type="text" 
+                                               class="form-control" 
+                                               id="name" 
+                                               name="name" 
+                                               placeholder="{{ form_content.name_placeholder }}" 
+                                               required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="phone" class="form-label">{{ form_content.phone_label }} *</label>
+                                        <input type="tel" 
+                                               class="form-control" 
+                                               id="phone" 
+                                               name="phone" 
+                                               placeholder="{{ form_content.phone_placeholder }}" 
+                                               required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email" class="form-label">{{ form_content.email_label }}</label>
+                                        <input type="email" 
+                                               class="form-control" 
+                                               id="email" 
+                                               name="email" 
+                                               placeholder="{{ form_content.email_placeholder }}">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="service_type" class="form-label">{{ form_content.service_label }} *</label>
+                                        <select class="form-control" id="service_type" name="service_type" required>
+                                            <option value="">{% if current_language == 'ky' %}Тандаңыз{% else %}Выберите услугу{% endif %}</option>
+                                            {% for key, value in form_content.service_options.items() %}
+                                            <option value="{{ key }}">{{ value }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message" class="form-label">{{ form_content.message_label }} *</label>
+                                <textarea class="form-control" 
+                                          id="message" 
+                                          name="message" 
+                                          rows="5" 
+                                          placeholder="{{ form_content.message_placeholder }}" 
+                                          required></textarea>
+                            </div>
+                            
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-paper-plane me-2"></i>{{ form_content.submit_button }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            -->
         </div>
     </div>
+</section>
 
-</div>
+<!-- Contact Info Section -->
+<section class="section" style="background-color: var(--light-gray);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 text-center mb-4 fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <h4>{% if current_language == 'ky' %}Телефон{% else %}Телефон{% endif %}</h4>
+                <p>{{ footer_content.phone }}</p>
+            </div>
+            
+            <div class="col-lg-4 text-center mb-4 fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h4>Email</h4>
+                <p>{{ footer_content.email }}</p>
+            </div>
+            
+            <div class="col-lg-4 text-center mb-4 fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h4>{% if current_language == 'ky' %}Дарек{% else %}Адрес{% endif %}</h4>
+                <p>{{ footer_content.address }}</p>
+            </div>
+        </div>
+    </div>
+</section>
 
+<!-- FAQ Section -->
+<section class="section">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>{% if current_language == 'ky' %}Көп берилүүчү суроолор{% else %}Часто задаваемые вопросы{% endif %}</h2>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="accordion fade-in">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5>{% if current_language == 'ky' %}Канча убакытта эмерек даяр болот?{% else %}Сколько времени занимает изготовление мебели?{% endif %}</h5>
+                            <p>{% if current_language == 'ky' %}Адатта 2-4 жума, долбоордун татаалдыгына жараша.{% else %}Обычно 2-4 недели, в зависимости от сложности проекта.{% endif %}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5>{% if current_language == 'ky' %}Кандай материалдарды колдоносуз?{% else %}Какие материалы вы используете?{% endif %}</h5>
+                            <p>{% if current_language == 'ky' %}Биз E1 классындагы экологиялык ЛДСП, МДФ жана табигый жыгачты колдонобуз.{% else %}Мы используем экологичные ЛДСП, МДФ класса E1 и натуральное дерево.{% endif %}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5>{% if current_language == 'ky' %}Жеткирүү кандай жүрөт?{% else %}Как происходит доставка?{% endif %}</h5>
+                            <p>{% if current_language == 'ky' %}Биз Бишкек боюнча акысыз жеткирүү жана орнотуу кызматын көрсөтөбүз.{% else %}Мы предоставляем бесплатную доставку и установку по Бишкеку.{% endif %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
 <script>
-    // Простая обработка статуса отправки формы (можно расширить AJAX)
-    const form = document.querySelector('form');
-    const formStatus = document.getElementById('form-status');
+// Form validation and submission
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form[data-ajax="true"]');
     if (form) {
-        form.addEventListener('submit', function(event) {
-            // event.preventDefault(); // Раскомментируйте для обработки через AJAX
-            // В демонстрационной версии просто показываем сообщение об успехе
-            // В реальном приложении данные отправляются на сервер
-            if (!event.defaultPrevented) { // if not prevented by AJAX handler
-                 // Это простая заглушка. Реальная отправка будет через Flask.
-                // Чтобы предотвратить фактическую отправку формы в демо без сервера:
-                // event.preventDefault();
-                // formStatus.innerHTML = '<div class="alert alert-success">Спасибо за ваше сообщение! Мы свяжемся с вами в ближайшее время. (Демо)</div>';
-                // form.reset();
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate form
+            if (!BaiMuras.validateContactForm(this)) {
+                return;
             }
+            
+            // Submit form
+            const formData = new FormData(this);
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner"></span> {% if current_language == "ky" %}Жөнөтүлүүдө...{% else %}Отправка...{% endif %}';
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').content
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    BaiMuras.showAlert('success', '{{ form_content.success_message }}');
+                    this.reset();
+                } else {
+                    BaiMuras.showAlert('error', '{{ form_content.error_message }}');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                BaiMuras.showAlert('error', '{{ form_content.error_message }}');
+            })
+            .finally(() => {
+                // Reset button state
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            });
         });
     }
-    // Проверяем параметры строки, чтобы показать сообщение об успехе после POST
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('status') && urlParams.get('status') === 'success') {
-        formStatus.innerHTML = '<div class="alert alert-success">Спасибо за ваше сообщение! Мы свяжемся с вами в ближайшее время.</div>';
-    }
+});
 </script>
-
 {% endblock %}
