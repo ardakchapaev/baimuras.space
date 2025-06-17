@@ -1,13 +1,7 @@
+
 import functools
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-
-<<<< codex/создать-модель-пользователя-и-авторизацию
 from src.models.user import User, db
-======
-# Простое хранилище пользователей для демонстрации. В реальном приложении используйте базу данных.
-users_db = {
-    "admin": {"password": "password123"}
->>>>> main
 
 main_bp = Blueprint("main", __name__)
 
@@ -46,7 +40,7 @@ def contact():
         email = request.form.get("email")
         subject = request.form.get("subject")
         message = request.form.get("message")
-        flash(f"Сообщение от {name} ({email}) на тему \'{subject}\' получено! Мы скоро свяжемся с вами.", "success")
+        flash(f"Сообщение от {name} ({email}) на тему '{subject}' получено! Мы скоро свяжемся с вами.", "success")
         return redirect(url_for("main.contact"))
     return render_template("contact.html")
 
@@ -66,7 +60,6 @@ def contact_submit():
 @main_bp.route("/blog")
 def blog():
     return render_template("blog.html")
-
 
 @main_bp.route("/register", methods=["GET", "POST"])
 def register():
@@ -127,10 +120,8 @@ def dashboard_overview():
 @main_bp.route("/dashboard/leads")
 @login_required
 def dashboard_leads():
-    leads = [
-        {"id": 1, "name": "Иван Петров", "status": "Новый", "score": 0.8, "source": "Форма контактов"},
-        {"id": 2, "name": "Анна Сидорова", "status": "В работе", "score": 0.65, "source": "Telegram"},
-    ]
+    from src.models.lead import Lead
+    leads = Lead.query.all()
     return render_template("dashboard.html", dashboard_content_template="dashboard_leads.html", leads=leads)
 
 @main_bp.route("/dashboard/analytics")
@@ -142,4 +133,3 @@ def dashboard_analytics():
 @login_required
 def dashboard_settings():
     return render_template("dashboard.html", dashboard_content_template="dashboard_settings.html")
-
