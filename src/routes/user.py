@@ -10,9 +10,10 @@ def get_users():
 
 @user_bp.route('/users', methods=['POST'])
 def create_user():
-    
+    """Create a new user with hashed password."""
     data = request.json
     user = User(username=data['username'], email=data['email'])
+    user.set_password(data['password'])
     db.session.add(user)
     db.session.commit()
     return jsonify(user.to_dict()), 201
@@ -28,6 +29,8 @@ def update_user(user_id):
     data = request.json
     user.username = data.get('username', user.username)
     user.email = data.get('email', user.email)
+    if 'password' in data:
+        user.set_password(data['password'])
     db.session.commit()
     return jsonify(user.to_dict())
 
