@@ -1,22 +1,36 @@
+
 name: Deploy to Timeweb
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
     - name: Set up SSH key
-      uses: webfactory/ssh-agent@v0.5.4
+      uses: webfactory/ssh-agent@v0.8.0
       with:
         ssh-private-key: ${{ secrets.TIMEWEB_SSH_KEY }}
 
     - name: Deploy to server
-      run: ssh -o StrictHostKeyChecking=no root@95.140.153.181 "bash /root/deploy.sh"
+      run: |
+        ssh -o StrictHostKeyChecking=no root@95.140.153.181 "bash /root/deploy.sh"
