@@ -2,10 +2,7 @@
 import functools
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 
-# Dummy user store for demonstration. In a real app, use a database.
-users_db = {
-    "admin": {"password": "password123"}
-}
+from src.models.user import User, db
 
 main_bp = Blueprint("main", __name__)
 
@@ -65,13 +62,32 @@ def contact_submit():
 def blog():
     return render_template("blog.html")
 
+
+@main_bp.route("/register", methods=["GET", "POST"])
+def register():
+    """Register a new user."""
+    if request.method == "POST":
+        username = request.form.get("username")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        if User.query.filter_by(username=username).first():
+            flash("Имя пользователя уже занято.", "danger")
+        else:
+            user = User(username=username, email=email)
+            user.set_password(password)
+            db.session.add(user)
+            db.session.commit()
+            flash("Регистрация успешна. Теперь войдите в систему.", "success")
+            return redirect(url_for("main.dashboard_login"))
+    return render_template("register.html")
+
 @main_bp.route("/dashboard/login", methods=["GET", "POST"])
 def dashboard_login():
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
-        user = users_db.get(username)
-        if user and user["password"] == password:
+        user = User.query.filter_by(username=username).first()
+        if user and user.check_password(password):
             session["username"] = username
             session["is_authenticated"] = True
             flash("Вход выполнен успешно!", "success")
