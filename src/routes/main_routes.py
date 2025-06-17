@@ -1,99 +1,167 @@
-"""Module docstring."""
+
+"""Main routes for BaiMuras application."""
 
 import functools
-
-from flask import (Blueprint, flash, redirect, render_template, request,
-                   session, url_for)
-
+from flask import Blueprint, flash, redirect, render_template, request, session, url_for, jsonify
 from src.models.user import User, db
+from src.models.consultation import ConsultationRequest
+from src.utils import get_current_language, set_language, get_localized_content
+from src.content import HOMEPAGE, SERVICES, CONTACT_FORM
 
 main_bp = Blueprint("main", __name__)
 
 
 @main_bp.route("/")
 def index():
-    """Function docstring."""
-    return render_template("index.html")
+    """Homepage."""
+    current_lang = get_current_language()
+    content = HOMEPAGE.get(current_lang, HOMEPAGE['ru'])
+    return render_template("index.html", content=content)
+
+
+@main_bp.route("/set-language/<language>")
+def set_language_route(language):
+    """Set language preference."""
+    if set_language(language):
+        flash("Language updated successfully", "success")
+    return redirect(request.referrer or url_for('main.index'))
 
 
 @main_bp.route("/about")
 def about():
-    """Function docstring."""
+    """About page."""
+    current_lang = get_current_language()
     return render_template("about.html")
 
 
 @main_bp.route("/services")
 def services():
-    """Function docstring."""
-    return render_template("services.html")
+    """Services overview page."""
+    current_lang = get_current_language()
+    content = SERVICES.get(current_lang, SERVICES['ru'])
+    return render_template("services.html", services_content=content)
 
 
-@main_bp.route("/services/custom-furniture")
-def services_custom_furniture():
-    """Function docstring."""
-    return render_template("services_custom_furniture.html")
+@main_bp.route("/services/montessori")
+def services_montessori():
+    """Montessori furniture service page."""
+    current_lang = get_current_language()
+    content = SERVICES.get(current_lang, SERVICES['ru'])
+    return render_template("services_montessori.html", service=content['montessori'])
 
 
-@main_bp.route("/services/design-bureau")
-def services_design_bureau():
-    """Function docstring."""
-    return render_template("services_design_bureau.html")
+@main_bp.route("/services/kitchens")
+def services_kitchens():
+    """Custom kitchens service page."""
+    current_lang = get_current_language()
+    content = SERVICES.get(current_lang, SERVICES['ru'])
+    return render_template("services_kitchens.html", service=content['kitchens'])
 
 
-@main_bp.route("/services/academy")
-def services_academy():
-    """Function docstring."""
-    return render_template("services_academy.html")
+@main_bp.route("/services/children-rooms")
+def services_children_rooms():
+    """Children rooms service page."""
+    current_lang = get_current_language()
+    content = SERVICES.get(current_lang, SERVICES['ru'])
+    return render_template("services_children_rooms.html", service=content['children_rooms'])
 
 
 @main_bp.route("/portfolio")
 def portfolio():
-    """Function docstring."""
+    """Portfolio page."""
     return render_template("portfolio.html")
 
 
 @main_bp.route("/contact", methods=["GET", "POST"])
 def contact():
-    """Function docstring."""
+    """Contact page with consultation form."""
+    current_lang = get_current_language()
+    form_content = CONTACT_FORM.get(current_lang, CONTACT_FORM['ru'])
+    
     if request.method == "POST":
-        name = request.form.get("name")
-        email = request.form.get("email")
-        subject = request.form.get("subject")
-        request.form.get("message")
-        flash(
-            f"Сообщение от {name} ({email}) на тему '{subject}' получено! Мы скоро свяжемся с вами.",
-            "success",
-        )
-        return redirect(url_for("main.contact"))
-    return render_template("contact.html")
+        try:
+            # Create consultation request
+            consultation = ConsultationRequest(
+                name=request.form.get("name"),
+                phone=request.form.get("phone"),
+                email=request.form.get("email"),
+                service_type=request.form.get("service_type"),
+                message=request.form.get("message"),
+                language=current_lang
+            )
+            
+            db.session.add(consultation)
+            db.session.commit()
+            
+            flash(form_content['success_message'], "success")
+            return redirect(url_for("main.contact"))
+            
+        except Exception as e:
+            db.session.rollback()
+            flash(form_content['error_message'], "error")
+            print(f"Error saving consultation request: {e}")
+    
+    return render_template("contact.html", form_content=form_content)
 
 
-@main_bp.route("/contact/submit", methods=["POST"])
-def contact_submit():
-    """Function docstring."""
-    if request.method == "POST":
-        name = request.form.get("name")
-        email = request.form.get("email")
-        phone = request.form.get("phone")
-        subject = request.form.get("subject")
-        message = request.form.get("message")
-        print(
-            f"Получено новое сообщение: Имя: {name}, Email: {email}, Телефон: {phone}, Тема: {subject}, Сообщение: {message}"
+@main_bp.route("/api/consultation", methods=["POST"])
+def api_consultation():
+    """API endpoint for consultation requests."""
+    try:
+        data = request.get_json()
+        
+        consultation = ConsultationRequest(
+            name=data.get("name"),
+            phone=data.get("phone"),
+            email=data.get("email"),
+            service_type=data.get("service_type"),
+            message=data.get("message"),
+            language=data.get("language", "ru")
         )
-        flash(
-            "Ваше сообщение успешно отправлено! Мы свяжемся с вами в ближайшее время.",
-            "success",
-        )
-        return redirect(url_for("main.contact"))
-    return redirect(url_for("main.contact"))
+        
+        db.session.add(consultation)
+        db.session.commit()
+        
+        return jsonify({
+            "success": True,
+            "message": "Consultation request submitted successfully",
+            "id": consultation.id
+        }), 201
+        
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            "success": False,
+            "message": "Error submitting consultation request"
+        }), 500
+
+
+# Legacy routes for backward compatibility
+@main_bp.route("/services/custom-furniture")
+def services_custom_furniture():
+    """Legacy route redirect."""
+    return redirect(url_for('main.services_montessori'))
+
+
+@main_bp.route("/services/design-bureau")
+def services_design_bureau():
+    """Legacy route redirect."""
+    return redirect(url_for('main.services_kitchens'))
+
+
+@main_bp.route("/services/academy")
+def services_academy():
+    """Legacy route redirect."""
+    return redirect(url_for('main.services'))
 
 
 @main_bp.route("/blog")
 def blog():
-    """Function docstring."""
+    """Blog page (placeholder)."""
     return render_template("blog.html")
 
 
+# Dashboard routes (keeping existing functionality)
 @main_bp.route("/register", methods=["GET", "POST"])
 def register():
     """Register a new user."""
@@ -115,7 +183,7 @@ def register():
 
 @main_bp.route("/dashboard/login", methods=["GET", "POST"])
 def dashboard_login():
-    """Function docstring."""
+    """Dashboard login."""
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
@@ -132,7 +200,7 @@ def dashboard_login():
 
 @main_bp.route("/dashboard/logout")
 def dashboard_logout():
-    """Function docstring."""
+    """Dashboard logout."""
     session.pop("username", None)
     session.pop("is_authenticated", None)
     flash("Вы успешно вышли из системы.", "info")
@@ -141,18 +209,13 @@ def dashboard_logout():
 
 # Декоратор для защиты маршрутов дашборда
 def login_required(f):
-    """Function docstring."""
-
+    """Login required decorator."""
     @functools.wraps(f)
     def decorated_function(*args, **kwargs):
-        """Function docstring."""
         if not session.get("is_authenticated"):
-            flash(
-                "Пожалуйста, войдите, чтобы получить доступ к этой странице.", "warning"
-            )
+            flash("Пожалуйста, войдите, чтобы получить доступ к этой странице.", "warning")
             return redirect(url_for("main.dashboard_login"))
         return f(*args, **kwargs)
-
     return decorated_function
 
 
@@ -160,37 +223,29 @@ def login_required(f):
 @main_bp.route("/dashboard/overview")
 @login_required
 def dashboard_overview():
-    """Function docstring."""
-    return render_template(
-        "dashboard.html", dashboard_content_template="dashboard_overview.html"
-    )
+    """Dashboard overview."""
+    return render_template("dashboard.html", dashboard_content_template="dashboard_overview.html")
 
 
 @main_bp.route("/dashboard/leads")
 @login_required
 def dashboard_leads():
-    """Function docstring."""
-    from src.models.lead import Lead
-
-    leads = Lead.query.all()
-    return render_template(
-        "dashboard.html", dashboard_content_template="dashboard_leads.html", leads=leads
-    )
+    """Dashboard leads management."""
+    consultations = ConsultationRequest.query.order_by(ConsultationRequest.created_at.desc()).all()
+    return render_template("dashboard.html", 
+                         dashboard_content_template="dashboard_leads.html", 
+                         consultations=consultations)
 
 
 @main_bp.route("/dashboard/analytics")
 @login_required
 def dashboard_analytics():
-    """Function docstring."""
-    return render_template(
-        "dashboard.html", dashboard_content_template="dashboard_analytics.html"
-    )
+    """Dashboard analytics."""
+    return render_template("dashboard.html", dashboard_content_template="dashboard_analytics.html")
 
 
 @main_bp.route("/dashboard/settings")
 @login_required
 def dashboard_settings():
-    """Function docstring."""
-    return render_template(
-        "dashboard.html", dashboard_content_template="dashboard_settings.html"
-    )
+    """Dashboard settings."""
+    return render_template("dashboard.html", dashboard_content_template="dashboard_settings.html")

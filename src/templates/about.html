@@ -1,66 +1,206 @@
+
 {% extends "base.html" %}
 
-{% block title %}О компании - BaiMuras{% endblock %}
+{% block title %}{{ navigation.about }} - BaiMuras{% endblock %}
+{% block description %}О компании BaiMuras: наша философия, команда и подход к созданию мебели Монтессори и скандинавского дизайна.{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="mb-4">О Компании BaiMuras: Соединяя Наследие и Инновации</h1>
-
-    <p class="lead">BaiMuras – это не просто мебельная компания, это творческая мастерская, где рождаются уникальные интерьерные решения в стиле этно-модернизм. Мы основаны на глубоком уважении к культурному наследию Кыргызстана и Центральной Азии, стремясь привнести его красоту и аутентичность в современные жилые и коммерческие пространства.</p>
-
-    <div class="row align-items-center my-5 featurette-section">
-        <div class="col-md-6">
-            <img src="{{ url_for("static", filename="images/cosmic_neural_background_1.png") }}" class="img-fluid rounded mb-3 mb-md-0 shadow-lg" alt="Интерьер в стиле этно-модернизм" style="opacity:0.8;">
-        </div>
-        <div class="col-md-6">
-            <h2>Наша Миссия</h2>
-            <p>Создавать вдохновляющую и функциональную мебель и предметы интерьера, которые обогащают жизнь людей, отражают их индивидуальность и служат мостом между поколениями, сохраняя культурные традиции через современный дизайн.</p>
+<!-- Hero Section -->
+<section class="hero section-sm">
+    <div class="container">
+        <div class="text-center fade-in">
+            <h1>{{ navigation.about }}</h1>
+            <p class="lead">{% if current_language == 'ky' %}Биздин тарых, философия жана командабыз{% else %}Наша история, философия и команда{% endif %}</p>
         </div>
     </div>
+</section>
 
-    <h2 class="mt-5">Наша Философия (Этно-модернизм)</h2>
-    <p>Мы верим в силу синтеза. Этно-модернизм для нас – это гармоничное сочетание традиционных ремесленных техник, натуральных материалов и вековых орнаментов с чистыми линиями, современной эргономикой и инновационными технологиями производства. Это диалог прошлого с будущим, воплощенный в каждом нашем изделии.</p>
-
-    <div class="row my-5 p-4 rounded-lg featurette-section">
-        <div class="col-md-7">
-            <h2>Наша Команда</h2>
-            <p>За каждым проектом BaiMuras стоит команда талантливых и увлеченных своим делом профессионалов: опытные дизайнеры, конструкторы, мастера-краснодеревщики, специалисты по работе с металлом и текстилем. Мы объединены общей страстью к созданию прекрасного и стремлением к безупречному качеству.</p>
-        </div>
-        <div class="col-md-5">
-            <img src="{{ url_for("static", filename="images/cosmic_neural_background_2.png") }}" class="img-fluid rounded shadow-lg" alt="Команда BaiMuras" style="opacity:0.8;">
-        </div>
-    </div>
-
-    <h2 class="mt-5">Наши Ценности</h2>
-    <ul class="list-unstyled row gy-3">
-        <li class="col-md-6"><i class="bi bi-patch-check-fill text-primary me-2"></i><strong>Аутентичность:</strong> Мы черпаем вдохновение в подлинных культурных источниках, избегая поверхностных имитаций.</li>
-        <li class="col-md-6"><i class="bi bi-patch-check-fill text-primary me-2"></i><strong>Качество:</strong> Мы используем только лучшие, экологически чистые материалы и проверенные временем технологии, гарантируя долговечность и надежность нашей продукции.</li>
-        <li class="col-md-6"><i class="bi bi-patch-check-fill text-primary me-2"></i><strong>Индивидуальный подход:</strong> Мы внимательно прислушиваемся к пожеланиям каждого клиента, стремясь создать решения, идеально соответствующие его вкусам и потребностям.</li>
-        <li class="col-md-6"><i class="bi bi-patch-check-fill text-primary me-2"></i><strong>Инновации:</strong> Мы постоянно исследуем новые материалы, технологии и дизайнерские тренды, чтобы предлагать нашим клиентам самые актуальные и функциональные решения.</li>
-        <li class="col-md-6"><i class="bi bi-patch-check-fill text-primary me-2"></i><strong>Устойчивое развитие:</strong> Мы заботимся об окружающей среде, используя возобновляемые ресурсы и минимизируя отходы производства.</li>
-    </ul>
-
-    <div class="row align-items-center my-5 featurette-section">
-        <div class="col-md-5">
-            <img src="{{ url_for("static", filename="images/cosmic_particle_landscape_1.jpeg") }}" class="img-fluid rounded mb-3 mb-md-0 shadow-lg" alt="Мастер BaiMuras за работой" style="opacity:0.8;">
-        </div>
-        <div class="col-md-7">
-            <h2 class="mt-0">Что мы предлагаем:</h2>
-            <ul class="list-unstyled">
-                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Разработку и производство эксклюзивной мебели на заказ.</li>
-                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Комплексный дизайн интерьеров для жилых и общественных пространств.</li>
-                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Создание уникальных предметов декора и аксессуаров.</li>
-                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Профессиональные консультации и сопровождение проектов.</li>
-                <li><i class="bi bi-check-circle-fill text-secondary me-2"></i>Обучающие программы и мастер-классы в BaiMuras Academy.</li>
-            </ul>
+<!-- Mission Section -->
+<section class="section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 slide-in-left">
+                <img src="https://i.pinimg.com/originals/63/da/fa/63dafaeaa15ccca10b9878a38e00e8a7.jpg" 
+                     alt="Eco-friendly Modern Cabin Nordic Style" 
+                     class="img-fluid rounded-lg">
+            </div>
+            <div class="col-lg-6 slide-in-right">
+                <h2>{% if current_language == 'ky' %}Биздин миссия{% else %}Наша миссия{% endif %}</h2>
+                <p class="lead">{% if current_language == 'ky' %}Биз жөн гана эмерек эмес — мейкиндикте, ой жүгүртүүдө жана жашоодо тартипти долбоорлойбуз.{% else %}Мы создаем не просто мебель — мы проектируем порядок в пространстве, мышлении и жизни.{% endif %}</p>
+                <p>{% if current_language == 'ky' %}Биздин максат Борбор Азиянын салттарын заманбап скандинавиялык дизайн принциптери менен бириктирүү. Биз ар бир үй-бүлө үчүн уникалдуу, экологиялык жана функционалдуу чечимдерди түзөбүз.{% else %}Наша цель — объединить традиции Центральной Азии с современными принципами скандинавского дизайна. Мы создаем уникальные, экологичные и функциональные решения для каждой семьи.{% endif %}</p>
+            </div>
         </div>
     </div>
+</section>
 
-    <div class="p-4 rounded-lg text-center featurette-section">
-        <h2>Приглашение к сотрудничеству</h2>
-        <p>Мы открыты для сотрудничества с архитекторами, дизайнерами, девелоперами и всеми, кто разделяет нашу страсть к созданию уникальных и осмысленных пространств. Вместе мы можем реализовать самые смелые и амбициозные проекты. <a href="{{ url_for("main.contact") }}" class="btn btn-primary mt-2">Свяжитесь с нами</a>, чтобы обсудить возможности партнерства.</p>
+<!-- Values Section -->
+<section class="section" style="background-color: var(--light-gray);">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>{% if current_language == 'ky' %}Биздин баалуулуктар{% else %}Наши ценности{% endif %}</h2>
+        </div>
+        
+        <div class="grid grid-3">
+            <div class="text-center fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h4>{% if current_language == 'ky' %}Экологиялык жооптуулук{% else %}Экологическая ответственность{% endif %}</h4>
+                <p>{% if current_language == 'ky' %}Табигатты сыйлоо жана келечек муундар үчүн коопсуз материалдарды колдонуу{% else %}Уважение к природе и использование безопасных материалов для будущих поколений{% endif %}</p>
+            </div>
+            
+            <div class="text-center fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-child"></i>
+                </div>
+                <h4>{% if current_language == 'ky' %}Балдарды борбордо коюу{% else %}Ориентация на детей{% endif %}</h4>
+                <p>{% if current_language == 'ky' %}Монтессори философиясы боюнча балдардын өнүгүүсүн колдоо{% else %}Поддержка развития детей согласно философии Монтессори{% endif %}</p>
+            </div>
+            
+            <div class="text-center fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h4>{% if current_language == 'ky' %}Үй-бүлөлүк баалуулуктар{% else %}Семейные ценности{% endif %}</h4>
+                <p>{% if current_language == 'ky' %}Үй-бүлөнү бириктирген жана жылуулукту түзгөн мейкиндиктерди түзүү{% else %}Создание пространств, объединяющих семью и создающих уют{% endif %}</p>
+            </div>
+            
+            <div class="text-center fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <h4>{% if current_language == 'ky' %}Сапат жана так эсептөө{% else %}Качество и точность{% endif %}</h4>
+                <p>{% if current_language == 'ky' %}Ар бир деталга көңүл буруу жана жогорку сапатты камсыз кылуу{% else %}Внимание к каждой детали и обеспечение высокого качества{% endif %}</p>
+            </div>
+            
+            <div class="text-center fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h4>{% if current_language == 'ky' %}Дизайн жана эстетика{% else %}Дизайн и эстетика{% endif %}</h4>
+                <p>{% if current_language == 'ky' %}Сулуулук жана функционалдуулуктун гармониясы{% else %}Гармония красоты и функциональности{% endif %}</p>
+            </div>
+            
+            <div class="text-center fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h4>{% if current_language == 'ky' %}Ишенимдүүлүк{% else %}Надежность{% endif %}</h4>
+                <p>{% if current_language == 'ky' %}Убадаларды аткаруу жана узак мөөнөттүү серептештик{% else %}Выполнение обещаний и долгосрочное партнерство{% endif %}</p>
+            </div>
+        </div>
     </div>
+</section>
 
-</div>
+<!-- Philosophy Section -->
+<section class="section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 slide-in-left">
+                <h2>{% if current_language == 'ky' %}Этно-модернизм философиясы{% else %}Философия этно-модернизма{% endif %}</h2>
+                <p>{% if current_language == 'ky' %}Биз Борбор Азиянын байырку салттарын заманбап дизайн менен бириктирип, уникалдуу стилди түзөбүз. Бул "көчмөн рухту" адаптивдүүлүк, табигый мотивдер жана текстуралар аркылуу чагылдырат.{% else %}Мы объединяем древние традиции Центральной Азии с современным дизайном, создавая уникальный стиль. Это отражает "кочевой дух" через адаптивность, натуральные мотивы и текстуры.{% endif %}</p>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-primary me-2"></i>{% if current_language == 'ky' %}Табигый материалдар жана түстөр{% else %}Натуральные материалы и цвета{% endif %}</li>
+                    <li><i class="fas fa-check text-primary me-2"></i>{% if current_language == 'ky' %}Функционалдуулук жана минимализм{% else %}Функциональность и минимализм{% endif %}</li>
+                    <li><i class="fas fa-check text-primary me-2"></i>{% if current_language == 'ky' %}Маданий код жана заманбаптык{% else %}Культурный код и современность{% endif %}</li>
+                    <li><i class="fas fa-check text-primary me-2"></i>{% if current_language == 'ky' %}Адаптивдүү дизайн чечимдери{% else %}Адаптивные дизайнерские решения{% endif %}</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 slide-in-right">
+                <img src="https://cdn.homedit.com/wp-content/uploads/scandinavian-design/Scandinavian-Interior-Design-800x533.jpg" 
+                     alt="Scandinavian Interior Design Essentials" 
+                     class="img-fluid rounded-lg">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Process Section -->
+<section class="section" style="background-color: var(--light-gray);">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>{% if current_language == 'ky' %}Биздин иш процесси{% else %}Наш рабочий процесс{% endif %}</h2>
+            <p class="lead">{% if current_language == 'ky' %}Идеядан жеткирүүгө чейин{% else %}От идеи до воплощения{% endif %}</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-3 col-md-6 text-center mb-4 fade-in">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h4>{% if current_language == 'ky' %}Консультация{% else %}Консультация{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}Сиздин каалоолорду жана муктаждыктарыңызды талкуулайбыз{% else %}Обсуждаем ваши пожелания и потребности{% endif %}</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 text-center mb-4 fade-in">
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h4>{% if current_language == 'ky' %}Долбоорлоо{% else %}Проектирование{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}3D модель жана техникалык документацияны түзөбүз{% else %}Создаем 3D модель и техническую документацию{% endif %}</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 text-center mb-4 fade-in">
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h4>{% if current_language == 'ky' %}Жасоо{% else %}Изготовление{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}Сапаттуу материалдардан кылдаттык менен жасайбыз{% else %}Тщательно изготавливаем из качественных материалов{% endif %}</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 text-center mb-4 fade-in">
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h4>{% if current_language == 'ky' %}Жеткирүү{% else %}Доставка{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}Жеткирип, орнотуп, колдонууга даярдайбыз{% else %}Доставляем, устанавливаем и готовим к использованию{% endif %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section">
+    <div class="container">
+        <div class="text-center fade-in">
+            <h2>{% if current_language == 'ky' %}Биз менен байланышыңыз{% else %}Свяжитесь с нами{% endif %}</h2>
+            <p class="lead">{% if current_language == 'ky' %}Сиздин долбооруңузду талкуулайлы{% else %}Давайте обсудим ваш проект{% endif %}</p>
+            <a href="{{ url_for('main.contact') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-calendar-alt me-2"></i>{% if current_language == 'ky' %}Консультация алуу{% else %}Получить консультацию{% endif %}
+            </a>
+        </div>
+    </div>
+</section>
 {% endblock %}
 
+{% block extra_css %}
+<style>
+.process-step {
+    padding: var(--spacing-lg);
+}
+
+.step-number {
+    width: 60px;
+    height: 60px;
+    background-color: var(--primary-blue);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 auto var(--spacing-md);
+}
+
+.process-step h4 {
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-dark);
+}
+
+.process-step p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+</style>
+{% endblock %}

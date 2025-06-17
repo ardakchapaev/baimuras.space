@@ -1,0 +1,141 @@
+
+{% extends "base.html" %}
+
+{% block title %}{{ service.title }} - BaiMuras{% endblock %}
+{% block description %}{{ service.description }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero section-sm">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 fade-in">
+                <h1>{{ service.title }}</h1>
+                <p class="lead">{{ service.subtitle }}</p>
+                <p>{{ service.description }}</p>
+                <a href="{{ url_for('main.contact') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-calendar-alt me-2"></i>{% if current_language == 'ky' %}Консультация алуу{% else %}Получить консультацию{% endif %}
+                </a>
+            </div>
+            <div class="col-lg-6 fade-in">
+                <img src="https://www.architectureartdesigns.com/wp-content/uploads/2022/11/15-Wonderful-Scandinavian-Kids-Room-Interior-Designs-Perfect-For-Apartments-1.jpg" 
+                     alt="Wonderful Scandinavian Kids Room" 
+                     class="img-fluid rounded-lg">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="section">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>{% if current_language == 'ky' %}Биз сунуштаган чечимдер{% else %}Наши решения{% endif %}</h2>
+        </div>
+        
+        <div class="grid grid-2">
+            {% for feature in service.features %}
+            <div class="card fade-in">
+                <div class="card-body">
+                    <h4><i class="fas fa-check-circle text-primary me-2"></i>{{ feature }}</h4>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Section -->
+<section class="section" style="background-color: var(--light-gray);">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>{% if current_language == 'ky' %}Биздин долбоорлор{% else %}Наши проекты{% endif %}</h2>
+        </div>
+        
+        <div class="portfolio-grid">
+            <div class="portfolio-item fade-in">
+                <img src="https://i.pinimg.com/originals/53/06/01/5306018ad94befcda1a3a004066b8275.jpg" 
+                     alt="Montessori Design Play Room">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Монтессори оюн бөлмөсү{% else %}Монтессори игровая{% endif %}</h4>
+                </div>
+            </div>
+            
+            <div class="portfolio-item fade-in">
+                <img src="https://i.pinimg.com/originals/84/76/f4/8476f4f05e7e2a35885cbe22572ebae5.jpg" 
+                     alt="Nordic Kids Rooms">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Нордикалык стиль{% else %}Нордический стиль{% endif %}</h4>
+                </div>
+            </div>
+            
+            <div class="portfolio-item fade-in">
+                <img src="https://i.pinimg.com/originals/a3/7b/d6/a37bd6514346f1946433322e721d7056.jpg" 
+                     alt="Relaxed Scandi Kids Room">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Тынч атмосфера{% else %}Спокойная атмосфера{% endif %}</h4>
+                </div>
+            </div>
+            
+            <div class="portfolio-item fade-in">
+                <img src="https://i.pinimg.com/originals/74/43/ae/7443ae078becc4d96a4c96d982c8492c.jpg" 
+                     alt="Natural Materials Kids Room">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Табигый материалдар{% else %}Натуральные материалы{% endif %}</h4>
+                </div>
+            </div>
+            
+            <div class="portfolio-item fade-in">
+                <img src="https://i.pinimg.com/originals/94/79/20/9479204fe4c6259cc3ce7226cdc61858.jpg" 
+                     alt="Eos White Medium Light Shade Baby Room">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Жарык дизайн{% else %}Светлый дизайн{% endif %}</h4>
+                </div>
+            </div>
+            
+            <div class="portfolio-item fade-in">
+                <img src="https://www.kidsinteriors.com/wp-content/uploads/2020/03/15k.jpg" 
+                     alt="Nordic Kids Room Styling">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Стилдүү чечим{% else %}Стильное решение{% endif %}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Age Groups Section -->
+<section class="section">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>{% if current_language == 'ky' %}Курак топтору боюнча чечимдер{% else %}Решения по возрастным группам{% endif %}</h2>
+        </div>
+        
+        <div class="grid grid-3">
+            <div class="text-center fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-baby"></i>
+                </div>
+                <h4>0-3 {% if current_language == 'ky' %}жаш{% else %}года{% endif %}</h4>
+                <p>{% if current_language == 'ky' %}Коопсуздук жана сенсордук өнүгүү{% else %}Безопасность и сенсорное развитие{% endif %}</p>
+            </div>
+            
+            <div class="text-center fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-child"></i>
+                </div>
+                <h4>3-7 {% if current_language == 'ky' %}жаш{% else %}лет{% endif %}</h4>
+                <p>{% if current_language == 'ky' %}Чыгармачылык жана окуу зонасы{% else %}Творчество и учебная зона{% endif %}</p>
+            </div>
+            
+            <div class="text-center fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h4>7+ {% if current_language == 'ky' %}жаш{% else %}лет{% endif %}</h4>
+                <p>{% if current_language == 'ky' %}Окуу жана жеке мейкиндик{% else %}Учеба и личное пространство{% endif %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

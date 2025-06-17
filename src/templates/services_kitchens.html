@@ -1,0 +1,141 @@
+
+{% extends "base.html" %}
+
+{% block title %}{{ service.title }} - BaiMuras{% endblock %}
+{% block description %}{{ service.description }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero section-sm">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 fade-in">
+                <h1>{{ service.title }}</h1>
+                <p class="lead">{{ service.subtitle }}</p>
+                <p>{{ service.description }}</p>
+                <a href="{{ url_for('main.contact') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-calendar-alt me-2"></i>{% if current_language == 'ky' %}Консультация алуу{% else %}Получить консультацию{% endif %}
+                </a>
+            </div>
+            <div class="col-lg-6 fade-in">
+                <img src="https://www.sustainablekitchens.co.uk/wp-content/uploads/2022/07/Scandinavian-Kitchen-London-wood-kitchen-in-smooth-european-oak.jpg" 
+                     alt="Scandinavian Kitchen London" 
+                     class="img-fluid rounded-lg">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="section">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>{% if current_language == 'ky' %}Биздин артыкчылыктар{% else %}Наши преимущества{% endif %}</h2>
+        </div>
+        
+        <div class="grid grid-2">
+            {% for feature in service.features %}
+            <div class="card fade-in">
+                <div class="card-body">
+                    <h4><i class="fas fa-check-circle text-primary me-2"></i>{{ feature }}</h4>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Section -->
+<section class="section" style="background-color: var(--light-gray);">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>{% if current_language == 'ky' %}Биздин ашканалар{% else %}Наши кухни{% endif %}</h2>
+        </div>
+        
+        <div class="portfolio-grid">
+            <div class="portfolio-item fade-in">
+                <img src="https://lh5.googleusercontent.com/EEq7dq8aPj3UAoLVE1D3r6bzyntm4_I5KXsPkBJvQbHGLfHw_UJ3udaoO7RysuiGGSN4pe3KhZG0hXyTdCNgil2_NMIimNlXSjI9M0gZAf3wYAAVGxZaq05Rn0kphPhyaEZ3tdU9" 
+                     alt="Scandinavian Kitchen Design">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Скандинавиялык ашкана{% else %}Скандинавская кухня{% endif %}</h4>
+                </div>
+            </div>
+            
+            <div class="portfolio-item fade-in">
+                <img src="https://i.pinimg.com/originals/39/48/f3/3948f3a240764f315031f76c9f548f0c.jpg" 
+                     alt="Iceland Scandinavian Minimalism Kitchen">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Минималисттик дизайн{% else %}Минималистичный дизайн{% endif %}</h4>
+                </div>
+            </div>
+            
+            <div class="portfolio-item fade-in">
+                <img src="https://i.pinimg.com/originals/57/b6/dc/57b6dcbe0fe46f76adcb0149924f4c1e.jpg" 
+                     alt="Kitchen with Butcher Block Countertop">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Жыгач столешница{% else %}Деревянная столешница{% endif %}</h4>
+                </div>
+            </div>
+            
+            <div class="portfolio-item fade-in">
+                <img src="https://i.pinimg.com/originals/fe/c2/e1/fec2e1584cd5f44e2cbafbec0bd0b2ca.jpg" 
+                     alt="Cozy Scandinavian Kitchen">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Жылуу ашкана{% else %}Уютная кухня{% endif %}</h4>
+                </div>
+            </div>
+            
+            <div class="portfolio-item fade-in">
+                <img src="https://images.squarespace-cdn.com/content/v1/5f8d8bb5af1efd15303e6c91/1605710475134-MFITY78LG07KKV86YR5R/scandinavian-design-kitchen-in-copenhagen.jpg" 
+                     alt="Bespoke Wooden Kitchen">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Жеке буйрутма{% else %}Индивидуальный заказ{% endif %}</h4>
+                </div>
+            </div>
+            
+            <div class="portfolio-item fade-in">
+                <img src="https://cdn.blanco.com/media/01-bild/press/bcan/blogs/blog-17-(scandinavian-kitchen)/1-scandinavian-kitchen---header-image-1600w-900h.jpg" 
+                     alt="How to Design Scandinavian Kitchen">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Заманбап чечим{% else %}Современное решение{% endif %}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Materials Section -->
+<section class="section">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>{% if current_language == 'ky' %}Материалдар жана фурнитура{% else %}Материалы и фурнитура{% endif %}</h2>
+        </div>
+        
+        <div class="grid grid-3">
+            <div class="text-center fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h4>{% if current_language == 'ky' %}Экологиялык материалдар{% else %}Экологичные материалы{% endif %}</h4>
+                <p>{% if current_language == 'ky' %}E1 классындагы ЛДСП жана МДФ{% else %}ЛДСП и МДФ класса E1{% endif %}</p>
+            </div>
+            
+            <div class="text-center fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <h4>{% if current_language == 'ky' %}Сапаттуу фурнитура{% else %}Качественная фурнитура{% endif %}</h4>
+                <p>Blum, Hettich - {% if current_language == 'ky' %}дүйнөлүк лидерлер{% else %}мировые лидеры{% endif %}</p>
+            </div>
+            
+            <div class="text-center fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h4>{% if current_language == 'ky' %}Түстөрдүн тандоосу{% else %}Выбор цветов{% endif %}</h4>
+                <p>{% if current_language == 'ky' %}50дөн ашык түс жана текстура{% else %}Более 50 цветов и текстур{% endif %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
