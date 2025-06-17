@@ -1,5 +1,5 @@
 from src.main import app
 
-if __name__ == "__main__":
-    app.run()
+# Expose the WSGI application for production servers
+application = app
 

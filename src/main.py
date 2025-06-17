@@ -1,11 +1,12 @@
 import os
 import sys
-import datetime # Import datetime
-# DON'T CHANGE THIS !!!
+import datetime
+# НЕ МЕНЯТЬ !!!
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from flask import Flask, send_from_directory, session
 from src.routes.main_routes import main_bp
+from src.routes.user import user_bp
 
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'), template_folder='templates')
 secret_key = os.environ.get("SECRET_KEY")
@@ -19,10 +20,11 @@ if not secret_key:
     )
 app.config["SECRET_KEY"] = secret_key
 
-# Register blueprints
+# Регистрируем блюпринты
 app.register_blueprint(main_bp)
+app.register_blueprint(user_bp)
 
-# Make session and current_year available to all templates
+# Делаем session и current_year доступными во всех шаблонах
 @app.context_processor
 def inject_global_vars():
     return dict(session=session, current_year=datetime.datetime.utcnow().year)

@@ -1,8 +1,7 @@
-# src/routes/main_routes.py
 import functools
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 
-# Dummy user store for demonstration. In a real app, use a database.
+# Простое хранилище пользователей для демонстрации. В реальном приложении используйте базу данных.
 users_db = {
     "admin": {"password": "password123"}
 }
@@ -87,7 +86,7 @@ def dashboard_logout():
     flash("Вы успешно вышли из системы.", "info")
     return redirect(url_for("main.dashboard_login"))
 
-# Decorator to protect dashboard routes
+# Декоратор для защиты маршрутов дашборда
 def login_required(f):
     @functools.wraps(f)
     def decorated_function(*args, **kwargs):
