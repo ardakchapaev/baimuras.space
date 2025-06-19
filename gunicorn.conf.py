@@ -48,6 +48,7 @@ daemon = DAEMON
 pidfile = PIDFILE
 user = USER
 group = GROUP
+# pylint: disable=invalid-name
 tmp_upload_dir = TMP_UPLOAD_DIR
 
 # SSL (uncomment and configure for HTTPS)
