@@ -1,64 +1,88 @@
 
-"""Utility functions for BaiMuras application."""
+"""Utility functions for the BaiMuras application.
 
+This module contains helper functions used throughout the application.
+"""
+
+import os
+from typing import Optional
 from flask import session, request
-from src.config import Config
 
 
-def get_current_language():
-    """Get current language from session or default."""
-    return session.get('language', Config.DEFAULT_LANGUAGE)
-
-
-def set_language(language):
-    """Set language in session."""
-    if language in Config.LANGUAGES:
-        session['language'] = language
-        return True
-    return False
-
-
-def get_localized_content(content_dict):
-    """Get content in current language."""
-    current_lang = get_current_language()
-    return content_dict.get(current_lang, content_dict.get(Config.DEFAULT_LANGUAGE, ''))
-
-
-def is_mobile():
-    """Check if request is from mobile device."""
-    user_agent = request.headers.get('User-Agent', '').lower()
-    mobile_keywords = ['mobile', 'android', 'iphone', 'ipad', 'tablet']
-    return any(keyword in user_agent for keyword in mobile_keywords)
-
-
-def format_phone(phone):
-    """Format phone number for display."""
-    if not phone:
-        return ''
-    # Remove all non-digit characters
-    digits = ''.join(filter(str.isdigit, phone))
-    if len(digits) >= 10:
-        return f"+{digits[:3]} ({digits[3:6]}) {digits[6:9]}-{digits[9:]}"
-    return phone
-
-
-def generate_slug(text):
-    """Generate URL-friendly slug from text."""
-    import re
-    import unicodedata
+def get_current_language() -> str:
+    """Get the current language from session or request.
     
-    # Normalize unicode characters
-    text = unicodedata.normalize('NFKD', text)
-    # Remove non-ascii characters
-    text = text.encode('ascii', 'ignore').decode('ascii')
-    # Convert to lowercase and replace spaces with hyphens
-    text = re.sub(r'[^\w\s-]', '', text).strip().lower()
-    text = re.sub(r'[-\s]+', '-', text)
-    return text
+    Returns:
+        str: Current language code ('ru' or 'ky').
+    """
+    # Check session first
+    if 'language' in session:
+        return session['language']
+    
+    # Check Accept-Language header
+    if request and hasattr(request, 'accept_languages'):
+        best_match = request.accept_languages.best_match(['ru', 'ky'])
+        if best_match:
+            return best_match
+    
+    # Default to Russian
+    return 'ru'
 
-from src.version import APP_VERSION
 
-def get_app_version():
-    """Return current application version."""
-    return APP_VERSION
+def get_app_version() -> str:
+    """Get application version from version file.
+    
+    Returns:
+        str: Application version string.
+    """
+    try:
+        version_file = os.path.join(os.path.dirname(__file__), 'version.py')
+        if os.path.exists(version_file):
+            with open(version_file, 'r', encoding='utf-8') as f:
+                content = f.read().strip()
+                # Extract version from __version__ = "x.x.x" format
+                if '__version__' in content:
+                    version_line = [line for line in content.split('\n') 
+                                  if line.strip().startswith('__version__')][0]
+                    return version_line.split('=')[1].strip().strip('"\'')
+                return content
+        return "1.0.0"
+    except Exception:
+        return "1.0.0"
 
+
+def allowed_file(filename: str, allowed_extensions: Optional[set] = None) -> bool:
+    """Check if a file has an allowed extension.
+    
+    Args:
+        filename: Name of the file to check.
+        allowed_extensions: Set of allowed extensions. If None, uses default set.
+        
+    Returns:
+        bool: True if file extension is allowed, False otherwise.
+    """
+    if allowed_extensions is None:
+        allowed_extensions = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'doc', 'docx'}
+    
+    return ('.' in filename and 
+            filename.rsplit('.', 1)[1].lower() in allowed_extensions)
+
+
+def sanitize_filename(filename: str) -> str:
+    """Sanitize a filename for safe storage.
+    
+    Args:
+        filename: Original filename.
+        
+    Returns:
+        str: Sanitized filename.
+    """
+    # Remove or replace dangerous characters
+    import re
+    # Keep only alphanumeric, dots, hyphens, and underscores
+    sanitized = re.sub(r'[^a-zA-Z0-9._-]', '_', filename)
+    # Limit length
+    if len(sanitized) > 255:
+        name, ext = os.path.splitext(sanitized)
+        sanitized = name[:255-len(ext)] + ext
+    return sanitized

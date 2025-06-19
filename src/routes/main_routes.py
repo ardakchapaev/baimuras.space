@@ -5,7 +5,7 @@ import functools
 from flask import Blueprint, flash, redirect, render_template, request, session, url_for, jsonify
 from src.models.user import User, db
 from src.models.consultation import ConsultationRequest
-from src.utils import get_current_language, set_language, get_localized_content
+from src.utils import get_current_language
 from src.content import HOMEPAGE, SERVICES, CONTACT_FORM
 
 main_bp = Blueprint("main", __name__)
@@ -22,7 +22,8 @@ def index():
 @main_bp.route("/set-language/<language>")
 def set_language_route(language):
     """Set language preference."""
-    if set_language(language):
+    if language in ['ru', 'ky']:
+        session['language'] = language
         flash("Language updated successfully", "success")
     return redirect(request.referrer or url_for('main.index'))
 
@@ -30,7 +31,6 @@ def set_language_route(language):
 @main_bp.route("/about")
 def about():
     """About page."""
-    current_lang = get_current_language()
     return render_template("about.html")
 
 
@@ -128,7 +128,7 @@ def api_consultation():
             "id": consultation.id
         }), 201
         
-    except Exception as e:
+    except Exception:
         db.session.rollback()
         return jsonify({
             "success": False,
