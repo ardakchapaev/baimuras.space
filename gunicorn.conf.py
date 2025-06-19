@@ -67,7 +67,9 @@ PYTHONPATH = "."
 PRELOAD_APP = True
 
 # Apply settings
+# pylint: disable=invalid-name
 limit_request_line = LIMIT_REQUEST_LINE
+# pylint: disable=invalid-name
 limit_request_fields = LIMIT_REQUEST_FIELDS
 # pylint: disable=invalid-name
 limit_request_field_size = LIMIT_REQUEST_FIELD_SIZE
