@@ -17,7 +17,7 @@ from src.models.consultation import ConsultationRequest
 from src.routes.api import api_bp
 from src.routes.main_routes import main_bp
 from src.routes.user import user_bp
-from src.utils import get_current_language
+from src.utils import get_current_language, get_app_version
 from src.content import NAVIGATION, FOOTER
 
 
@@ -71,7 +71,8 @@ def create_app():
             current_language=current_lang,
             navigation=NAVIGATION.get(current_lang, NAVIGATION['ru']),
             footer_content=FOOTER.get(current_lang, FOOTER['ru']),
-            languages=Config.LANGUAGES
+            languages=Config.LANGUAGES,
+            app_version=get_app_version()
         )
 
     @app.route("/static/<path:filename>")

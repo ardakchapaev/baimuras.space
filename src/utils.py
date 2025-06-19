@@ -55,3 +55,10 @@ def generate_slug(text):
     text = re.sub(r'[^\w\s-]', '', text).strip().lower()
     text = re.sub(r'[-\s]+', '-', text)
     return text
+
+from src.version import APP_VERSION
+
+def get_app_version():
+    """Return current application version."""
+    return APP_VERSION
+
