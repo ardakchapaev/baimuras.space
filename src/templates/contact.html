@@ -22,8 +22,8 @@
             <div class="col-lg-8 mx-auto">
                 <div class="card fade-in">
                     <div class="card-body p-5">
-                        <form method="POST" action="{{ url_for('main.contact') }}" data-ajax="true">
-                            {{ csrf_token() }}
+                        <form method="POST" action="{{ url_for('main.contact') }}" id="contactForm">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                             
                             <div class="row">
                                 <div class="col-md-6">
@@ -171,49 +171,42 @@
 <script>
 // Form validation and submission
 document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('form[data-ajax="true"]');
+    const form = document.getElementById('contactForm');
     if (form) {
         form.addEventListener('submit', function(e) {
-            e.preventDefault();
+            // Basic validation
+            const name = this.querySelector('#name').value.trim();
+            const phone = this.querySelector('#phone').value.trim();
+            const serviceType = this.querySelector('#service_type').value;
+            const message = this.querySelector('#message').value.trim();
             
-            // Validate form
-            if (!BaiMuras.validateContactForm(this)) {
-                return;
+            if (!name || !phone || !serviceType || !message) {
+                e.preventDefault();
+                alert('{% if current_language == "ky" %}Милдеттүү талаалар толтурулушу керек{% else %}Пожалуйста, заполните все обязательные поля{% endif %}');
+                return false;
             }
             
-            // Submit form
-            const formData = new FormData(this);
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
+            // Phone validation
+            const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
+            if (!phoneRegex.test(phone)) {
+                e.preventDefault();
+                alert('{% if current_language == "ky" %}Туура телефон номерин киргизиңиз{% else %}Пожалуйста, введите корректный номер телефона{% endif %}');
+                return false;
+            }
             
             // Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="spinner"></span> {% if current_language == "ky" %}Жөнөтүлүүдө...{% else %}Отправка...{% endif %}';
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>{% if current_language == "ky" %}Жөнөтүлүүдө...{% else %}Отправка...{% endif %}';
             
-            fetch(this.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').content
+            // Reset button after 3 seconds if form submission takes too long
+            setTimeout(() => {
+                if (submitBtn.disabled) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
                 }
-            })
-            .then(response => {
-                if (response.ok) {
-                    BaiMuras.showAlert('success', '{{ form_content.success_message }}');
-                    this.reset();
-                } else {
-                    BaiMuras.showAlert('error', '{{ form_content.error_message }}');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                BaiMuras.showAlert('error', '{{ form_content.error_message }}');
-            })
-            .finally(() => {
-                // Reset button state
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
-            });
+            }, 3000);
         });
     }
 });

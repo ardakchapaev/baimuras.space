@@ -1,238 +1,154 @@
-"""Module docstring."""
 
-import os
-from functools import wraps
+"""API routes for BaiMuras application."""
 
-from flask import Blueprint, jsonify, request
-
-from src.models.lead import Lead
+from flask import Blueprint, request, jsonify
+from src.models.consultation import ConsultationRequest, db
+from src.models.user import User
 from src.models.project import Project
-from src.models.user import db
+from src.models.lead import Lead
+from src.utils.consultation_helper import (
+    create_consultation_request,
+    get_consultation_success_response,
+    get_consultation_error_response
+)
 
-api_bp = Blueprint("api", __name__)
-
-
-def require_api_key(f):
-    """Function docstring."""
-
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        """Function docstring."""
-        api_key = request.headers.get("X-API-Key") or request.args.get("api_key")
-        expected_key = os.environ.get("API_KEY", "dev-api-key-change-in-production")
-
-        if not api_key or api_key != expected_key:
-            return jsonify({"error": "Invalid or missing API key"}), 401
-
-        return f(*args, **kwargs)
-
-    return decorated_function
+api_bp = Blueprint("api", __name__, url_prefix="/api")
 
 
-@api_bp.route("/webhooks/contact", methods=["POST"])
-def webhook_contact():
-    """Webhook для получения контактных форм от n8n"""
+@api_bp.route("/health", methods=["GET"])
+def health_check():
+    """Health check endpoint."""
+    return jsonify({"status": "healthy", "message": "API is running"}), 200
+
+
+@api_bp.route("/consultations", methods=["GET"])
+def get_consultations():
+    """Get all consultation requests."""
+    try:
+        consultations = ConsultationRequest.query.all()
+        return jsonify({
+            "success": True,
+            "data": [consultation.to_dict() for consultation in consultations]
+        }), 200
+    except Exception:
+        return jsonify(get_consultation_error_response("Error fetching consultations")), 500
+
+
+@api_bp.route("/consultations", methods=["POST"])
+def create_consultation():
+    """Create new consultation request."""
+    try:
+        data = request.get_json()
+        consultation = create_consultation_request(data)
+        return jsonify(get_consultation_success_response(consultation)), 201
+
+    except ValueError as validation_error:
+        return jsonify(get_consultation_error_response(str(validation_error))), 400
+    except Exception:
+        db.session.rollback()
+        return jsonify(get_consultation_error_response()), 500
+
+
+@api_bp.route("/consultations/<int:consultation_id>", methods=["GET"])
+def get_consultation(consultation_id):
+    """Get specific consultation request."""
+    try:
+        consultation = ConsultationRequest.query.get_or_404(consultation_id)
+        return jsonify({
+            "success": True,
+            "data": consultation.to_dict()
+        }), 200
+    except Exception:
+        return jsonify(get_consultation_error_response("Consultation not found")), 404
+
+
+@api_bp.route("/consultations/<int:consultation_id>", methods=["PUT"])
+def update_consultation(consultation_id):
+    """Update consultation request status."""
+    try:
+        consultation = ConsultationRequest.query.get_or_404(consultation_id)
+        data = request.get_json()
+
+        if "status" in data:
+            consultation.status = data["status"]
+
+        db.session.commit()
+
+        return jsonify({
+            "success": True,
+            "message": "Consultation updated successfully",
+            "data": consultation.to_dict()
+        }), 200
+
+    except Exception:
+        db.session.rollback()
+        return jsonify(get_consultation_error_response("Error updating consultation")), 500
+
+
+@api_bp.route("/users", methods=["GET"])
+def get_users():
+    """Get all users."""
+    try:
+        users = User.query.all()
+        return jsonify({
+            "success": True,
+            "data": [user.to_dict() for user in users]
+        }), 200
+    except Exception:
+        return jsonify(get_consultation_error_response("Error fetching users")), 500
+
+
+@api_bp.route("/projects", methods=["GET"])
+def get_projects():
+    """Get all projects."""
+    try:
+        projects = Project.query.all()
+        return jsonify({
+            "success": True,
+            "data": [project.to_dict() for project in projects]
+        }), 200
+    except Exception:
+        return jsonify(get_consultation_error_response("Error fetching projects")), 500
+
+
+@api_bp.route("/leads", methods=["GET"])
+def get_leads():
+    """Get all leads."""
+    try:
+        leads = Lead.query.all()
+        return jsonify({
+            "success": True,
+            "data": [lead.to_dict() for lead in leads]
+        }), 200
+    except Exception:
+        return jsonify(get_consultation_error_response("Error fetching leads")), 500
+
+
+@api_bp.route("/leads", methods=["POST"])
+def create_lead():
+    """Create new lead."""
     try:
         data = request.get_json()
 
-        if not data:
-            return jsonify({"error": "No JSON data provided"}), 400
+        if not data.get("name") or not data.get("contact"):
+            return jsonify(get_consultation_error_response("Name and contact are required")), 400
 
-        # Создаем новый лид из контактной формы
         lead = Lead(
-            name=data.get("name", ""),
-            email=data.get("email", ""),
-            phone=data.get("phone", ""),
-            subject=data.get("subject", ""),
-            message=data.get("message", ""),
+            name=data.get("name"),
+            contact=data.get("contact"),
             source=data.get("source", "website"),
-            score=0.5,  # Базовый скор для контактных форм
+            status=data.get("status", "new")
         )
 
         db.session.add(lead)
         db.session.commit()
 
-        return (
-            jsonify(
-                {
-                    "success": True,
-                    "lead_id": lead.id,
-                    "message": "Contact form processed successfully",
-                }
-            ),
-            201,
-        )
+        return jsonify({
+            "success": True,
+            "message": "Lead created successfully",
+            "data": lead.to_dict()
+        }), 201
 
-    except Exception as e:
+    except Exception:
         db.session.rollback()
-        return jsonify({"error": str(e)}), 500
-
-
-@api_bp.route("/webhooks/lead", methods=["POST"])
-@require_api_key
-def webhook_lead():
-    """Webhook для создания/обновления лидов от n8n"""
-    try:
-        data = request.get_json()
-
-        if not data:
-            return jsonify({"error": "No JSON data provided"}), 400
-
-        lead_id = data.get("lead_id")
-
-        if lead_id:
-            # Обновляем существующий лид
-            lead = Lead.query.get(lead_id)
-            if not lead:
-                return jsonify({"error": "Lead not found"}), 404
-
-            # Обновляем поля
-            for field in [
-                "name",
-                "email",
-                "phone",
-                "subject",
-                "message",
-                "status",
-                "score",
-                "source",
-            ]:
-                if field in data:
-                    setattr(lead, field, data[field])
-        else:
-            # Создаем новый лид
-            lead = Lead(
-                name=data.get("name", ""),
-                email=data.get("email", ""),
-                phone=data.get("phone", ""),
-                subject=data.get("subject", ""),
-                message=data.get("message", ""),
-                status=data.get("status", "new"),
-                score=data.get("score", 0.0),
-                source=data.get("source", "api"),
-            )
-            db.session.add(lead)
-
-        db.session.commit()
-
-        return jsonify(
-            {
-                "success": True,
-                "lead_id": lead.id,
-                "message": "Lead processed successfully",
-            }
-        ), (201 if not lead_id else 200)
-
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({"error": str(e)}), 500
-
-
-@api_bp.route("/leads", methods=["GET"])
-@require_api_key
-def get_leads():
-    """Получить список всех лидов"""
-    try:
-        leads = Lead.query.all()
-        return jsonify({"success": True, "leads": [lead.to_dict() for lead in leads]})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
-@api_bp.route("/leads/<int:lead_id>", methods=["GET"])
-@require_api_key
-def get_lead(lead_id):
-    """Получить конкретный лид"""
-    try:
-        lead = Lead.query.get_or_404(lead_id)
-        return jsonify({"success": True, "lead": lead.to_dict()})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
-@api_bp.route("/leads/<int:lead_id>", methods=["PUT"])
-@require_api_key
-def update_lead(lead_id):
-    """Обновить лид"""
-    try:
-        lead = Lead.query.get_or_404(lead_id)
-        data = request.get_json()
-
-        for field in [
-            "name",
-            "email",
-            "phone",
-            "subject",
-            "message",
-            "status",
-            "score",
-            "source",
-        ]:
-            if field in data:
-                setattr(lead, field, data[field])
-
-        db.session.commit()
-
-        return jsonify({"success": True, "lead": lead.to_dict()})
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({"error": str(e)}), 500
-
-
-@api_bp.route("/projects", methods=["GET"])
-@require_api_key
-def get_projects():
-    """Получить список всех проектов"""
-    try:
-        projects = Project.query.all()
-        return jsonify(
-            {"success": True, "projects": [project.to_dict() for project in projects]}
-        )
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
-@api_bp.route("/projects", methods=["POST"])
-@require_api_key
-def create_project():
-    """Создать новый проект"""
-    try:
-        data = request.get_json()
-
-        if not data or not data.get("title"):
-            return jsonify({"error": "Title is required"}), 400
-
-        project = Project(
-            title=data.get("title"),
-            description=data.get("description", ""),
-            project_type=data.get("project_type", ""),
-            status=data.get("status", "planning"),
-            budget=data.get("budget"),
-            lead_id=data.get("lead_id"),
-        )
-
-        db.session.add(project)
-        db.session.commit()
-
-        return jsonify({"success": True, "project": project.to_dict()}), 201
-
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({"error": str(e)}), 500
-
-
-@api_bp.route("/health", methods=["GET"])
-def api_health():
-    """API health check"""
-    return jsonify(
-        {
-            "status": "healthy",
-            "version": "1.0.0",
-            "endpoints": [
-                "/api/webhooks/contact",
-                "/api/webhooks/lead",
-                "/api/leads",
-                "/api/projects",
-            ],
-        }
-    )
+        return jsonify(get_consultation_error_response("Error creating lead")), 500

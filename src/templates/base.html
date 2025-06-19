@@ -126,11 +126,11 @@
                             {{ navigation.services }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
-                            <li><a class="dropdown-item" href="{{ url_for('main.services') }}">{{ navigation.services }}</a></li>
-                            <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{{ url_for('main.services_montessori') }}">{{ navigation.montessori }}</a></li>
                             <li><a class="dropdown-item" href="{{ url_for('main.services_kitchens') }}">{{ navigation.kitchens }}</a></li>
                             <li><a class="dropdown-item" href="{{ url_for('main.services_children_rooms') }}">{{ navigation.children_rooms }}</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('main.services') }}">{% if current_language == 'ky' %}Бардык кызматтар{% else %}Все услуги{% endif %}</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">

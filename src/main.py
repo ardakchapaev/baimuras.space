@@ -11,179 +11,171 @@ import os
 import sys
 from typing import Dict, Any
 
-from flask import Flask, send_from_directory, session
-from flask_cors import CORS
-from flask_wtf.csrf import CSRFProtect
-from flask_talisman import Talisman
-
 # НЕ МЕНЯТЬ !!!
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from src.config import Config
-from src.models.user import db
-from src.routes.api import api_bp
-from src.routes.main_routes import main_bp
-from src.routes.user import user_bp
-from src.utils import get_current_language, get_app_version
-from src.content import NAVIGATION, FOOTER
+from flask import Flask, send_from_directory, session  # pylint: disable=wrong-import-position
+from flask_cors import CORS  # pylint: disable=wrong-import-position
+from flask_wtf.csrf import CSRFProtect  # pylint: disable=wrong-import-position
+from flask_talisman import Talisman  # pylint: disable=wrong-import-position
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+from src.config import Config, config  # pylint: disable=wrong-import-position
+from src.models.user import db  # pylint: disable=wrong-import-position
+from src.routes.api import api_bp  # pylint: disable=wrong-import-position
+from src.routes.main_routes import main_bp  # pylint: disable=wrong-import-position
+from src.routes.user import user_bp  # pylint: disable=wrong-import-position
+from src.utils import get_current_language, get_app_version  # pylint: disable=wrong-import-position
+from src.content import NAVIGATION, FOOTER  # pylint: disable=wrong-import-position
+from src.errors import register_error_handlers  # pylint: disable=wrong-import-position
 
 
-def create_app() -> Flask:
-    """Create and configure Flask application with security enhancements.
-    
+def create_app(config_name: str = 'default') -> Flask:
+    """Create and configure Flask application.
+
+    Args:
+        config_name: Configuration environment name
+
     Returns:
-        Flask: Configured Flask application instance.
+        Configured Flask application instance
     """
-    app = Flask(
-        __name__,
-        static_folder=os.path.join(os.path.dirname(__file__), "static"),
-        template_folder="templates",
-    )
+    application = Flask(__name__)
 
-    try:
-        # Загружаем конфигурацию
-        app.config.from_object(Config)
+    # Load configuration
+    application.config.from_object(config[config_name])
+    config[config_name].init_app(application)
 
-        # Security headers with Talisman
-        csp = {
-            'default-src': "'self'",
-            'script-src': "'self' 'unsafe-inline' https://cdnjs.cloudflare.com",
-            'style-src': "'self' 'unsafe-inline' https://fonts.googleapis.com",
-            'font-src': "'self' https://fonts.gstatic.com",
-            'img-src': "'self' data: https:",
-            'connect-src': "'self'",
+    # Initialize extensions
+    db.init_app(application)
+
+    # CSRF Protection
+    csrf = CSRFProtect(application)
+
+    # CORS Configuration
+    CORS(application, resources={
+        r"/api/*": {
+            "origins": ["https://baimuras.space", "https://www.baimuras.space"],
+            "methods": ["GET", "POST", "PUT", "DELETE"],
+            "allow_headers": ["Content-Type", "Authorization", "X-CSRFToken"]
         }
-        
-        Talisman(
-            app,
-            force_https=False,  # Set to True in production
-            content_security_policy=csp,
-            content_security_policy_nonce_in=['script-src', 'style-src']
-        )
+    })
 
-        # Инициализируем расширения
-        db.init_app(app)
-        csrf = CSRFProtect(app)
+    # Security Headers with Talisman
+    csp = {
+        'default-src': "'self'",
+        'script-src': [
+            "'self'",
+            "'unsafe-inline'",
+            "https://cdn.jsdelivr.net",
+            "https://cdnjs.cloudflare.com",
+            "https://www.google.com",
+            "https://www.gstatic.com"
+        ],
+        'style-src': [
+            "'self'",
+            "'unsafe-inline'",
+            "https://cdn.jsdelivr.net",
+            "https://cdnjs.cloudflare.com",
+            "https://fonts.googleapis.com"
+        ],
+        'font-src': [
+            "'self'",
+            "https://fonts.gstatic.com",
+            "https://cdnjs.cloudflare.com"
+        ],
+        'img-src': [
+            "'self'",
+            "data:",
+            "https:",
+            "http:"
+        ],
+        'connect-src': "'self'"
+    }
 
-        # Настраиваем CORS с безопасными политиками
-        CORS(
-            app,
-            resources={
-                r"/api/*": {
-                    "origins": [
-                        "https://hub.baimuras.space",
-                        "http://localhost:3000",
-                        "http://localhost:5000"
-                    ],
-                    "methods": ["GET", "POST", "PUT", "DELETE"],
-                    "allow_headers": ["Content-Type", "Authorization", "X-CSRFToken"],
-                    "supports_credentials": True,
-                    "expose_headers": ["X-CSRFToken"]
-                }
-            },
-            supports_credentials=True
-        )
+    Talisman(application, content_security_policy=csp)
 
-        # Регистрируем блюпринты
-        app.register_blueprint(main_bp)
-        app.register_blueprint(user_bp)
-        app.register_blueprint(api_bp, url_prefix="/api")
+    # Configure logging
+    if not application.debug and not application.testing:
+        if not os.path.exists('logs'):
+            os.mkdir('logs')
 
-        # Исключаем API endpoints от CSRF защиты
-        csrf.exempt(api_bp)
+        file_handler = logging.FileHandler('logs/baimuras.log')
+        file_handler.setFormatter(logging.Formatter(
+            '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+        ))
+        file_handler.setLevel(logging.INFO)
+        application.logger.addHandler(file_handler)
+        application.logger.setLevel(logging.INFO)
+        application.logger.info('BaiMuras startup')
 
-        # Создаем таблицы базы данных
-        with app.app_context():
-            try:
-                db.create_all()
-                logger.info("Database tables created successfully")
-            except Exception as e:
-                logger.error(f"Failed to create database tables: {e}")
-                raise
+    # Register blueprints
+    application.register_blueprint(main_bp)
+    application.register_blueprint(api_bp)
+    application.register_blueprint(user_bp)
 
-        # Делаем глобальные переменные доступными во всех шаблонах
-        @app.context_processor
-        def inject_global_vars() -> Dict[str, Any]:
-            """Inject global variables into templates.
-            
-            Returns:
-                Dict[str, Any]: Dictionary of global template variables.
-            """
-            try:
-                current_lang = get_current_language()
-                return {
-                    'session': session,
-                    'current_year': datetime.datetime.utcnow().year,
-                    'current_language': current_lang,
-                    'navigation': NAVIGATION.get(current_lang, NAVIGATION['ru']),
-                    'footer_content': FOOTER.get(current_lang, FOOTER['ru']),
-                    'languages': Config.LANGUAGES,
-                    'app_version': get_app_version()
-                }
-            except Exception as e:
-                logger.error(f"Error in context processor: {e}")
-                return {}
+    # Context processors
+    @application.context_processor
+    def inject_global_vars() -> Dict[str, Any]:
+        """Inject global variables into templates."""
+        current_lang = get_current_language()
+        return {
+            'current_language': current_lang,
+            'languages': {'ru': 'Русский', 'ky': 'Кыргызча'},
+            'navigation': NAVIGATION.get(current_lang, NAVIGATION['ru']),
+            'footer_content': FOOTER.get(current_lang, FOOTER['ru']),
+            'app_version': get_app_version(),
+            'current_year': datetime.datetime.now().year
+        }
 
-        @app.route("/static/<path:filename>")
-        def static_files(filename: str):
-            """Serve static files securely.
-            
-            Args:
-                filename: Path to the static file.
-                
-            Returns:
-                Response: Static file response.
-            """
-            try:
-                return send_from_directory(app.static_folder, filename)
-            except Exception as e:
-                logger.error(f"Error serving static file {filename}: {e}")
-                return "File not found", 404
+    @application.before_request
+    def before_request():
+        """Execute before each request."""
+        try:
+            session.permanent = True
+            application.permanent_session_lifetime = datetime.timedelta(hours=24)
+        except (KeyError, ValueError, TypeError) as request_error:
+            application.logger.warning('Session setup error: %s', str(request_error))
 
-        @app.route("/health")
-        def health_check():
-            """Health check endpoint for monitoring.
-            
-            Returns:
-                Tuple[str, int]: Health status and HTTP code.
-            """
-            try:
-                # Basic database connectivity check
-                with app.app_context():
-                    db.session.execute('SELECT 1')
-                return "OK", 200
-            except Exception as e:
-                logger.error(f"Health check failed: {e}")
-                return "Service Unavailable", 503
+    @application.after_request
+    def after_request(response):
+        """Execute after each request."""
+        try:
+            response.headers['X-Content-Type-Options'] = 'nosniff'
+            response.headers['X-Frame-Options'] = 'DENY'
+            response.headers['X-XSS-Protection'] = '1; mode=block'
+            return response
+        except (KeyError, ValueError, AttributeError) as response_error:
+            application.logger.warning('Response header error: %s', str(response_error))
+            return response
 
-        # Обработчики ошибок
-        from src.errors import register_error_handlers
-        register_error_handlers(app)
+    @application.route('/favicon.ico')
+    def favicon():
+        """Serve favicon."""
+        try:
+            return send_from_directory(
+                os.path.join(application.root_path, 'static', 'images'),
+                'favicon.ico',
+                mimetype='image/vnd.microsoft.icon'
+            )
+        except (FileNotFoundError, OSError, IOError) as favicon_error:
+            application.logger.warning('Favicon error: %s', str(favicon_error))
+            return '', 404
 
-        logger.info("Flask application created successfully")
-        return app
+    # Register error handlers
+    register_error_handlers(application)
 
-    except Exception as e:
-        logger.error(f"Failed to create Flask application: {e}")
-        raise
+    # Create database tables
+    with application.app_context():
+        try:
+            db.create_all()
+            application.logger.info('Database tables created successfully')
+        except (OSError, IOError, RuntimeError) as db_error:
+            application.logger.error('Database creation error: %s', str(db_error))
+
+    return application
 
 
-app = create_app()
+# Create application instance
+app = create_app(os.getenv('FLASK_ENV', 'development'))
 
-if __name__ == "__main__":
-    # Production-safe configuration
-    debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
-    port = int(os.environ.get('PORT', 5000))
-    host = os.environ.get('HOST', '127.0.0.1')
-    
-    if debug_mode:
-        logger.warning("Running in debug mode - NOT suitable for production!")
-    
-    app.run(host=host, port=port, debug=debug_mode)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8000, debug=True)

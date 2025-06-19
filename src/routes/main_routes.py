@@ -4,8 +4,8 @@
 import functools
 from flask import Blueprint, flash, redirect, render_template, request, session, url_for, jsonify
 from src.models.user import User, db
-from src.models.consultation import ConsultationRequest
 from src.utils import get_current_language
+from src.utils.consultation_helper import create_consultation_request, get_consultation_error_response
 from src.content import HOMEPAGE, SERVICES, CONTACT_FORM
 
 main_bp = Blueprint("main", __name__)
@@ -52,7 +52,7 @@ def services_montessori():
 
 @main_bp.route("/services/kitchens")
 def services_kitchens():
-    """Custom kitchens service page."""
+    """Kitchens service page."""
     current_lang = get_current_language()
     content = SERVICES.get(current_lang, SERVICES['ru'])
     return render_template("services_kitchens.html", service=content['kitchens'])
@@ -72,35 +72,42 @@ def portfolio():
     return render_template("portfolio.html")
 
 
+@main_bp.route("/blog")
+def blog():
+    """Blog page."""
+    return render_template("blog.html")
+
+
 @main_bp.route("/contact", methods=["GET", "POST"])
 def contact():
     """Contact page with consultation form."""
     current_lang = get_current_language()
     form_content = CONTACT_FORM.get(current_lang, CONTACT_FORM['ru'])
-    
+
     if request.method == "POST":
         try:
+            # Validate required fields
+            required_fields = ['name', 'phone', 'service_type', 'message']
+            form_data = request.form.to_dict()
+            
+            for field in required_fields:
+                if not form_data.get(field, '').strip():
+                    flash(f"Поле '{field}' обязательно для заполнения", "error")
+                    return render_template("contact.html", form_content=form_content)
+            
             # Create consultation request
-            consultation = ConsultationRequest(
-                name=request.form.get("name"),
-                phone=request.form.get("phone"),
-                email=request.form.get("email"),
-                service_type=request.form.get("service_type"),
-                message=request.form.get("message"),
-                language=current_lang
-            )
-            
-            db.session.add(consultation)
-            db.session.commit()
-            
+            create_consultation_request(form_data)
             flash(form_content['success_message'], "success")
             return redirect(url_for("main.contact"))
-            
-        except Exception as e:
+
+        except ValueError as validation_error:
+            flash(str(validation_error), "error")
+            return render_template("contact.html", form_content=form_content)
+        except (RuntimeError, OSError, IOError) as consultation_error:
             db.session.rollback()
             flash(form_content['error_message'], "error")
-            print(f"Error saving consultation request: {e}")
-    
+            print(f"Error saving consultation request: {consultation_error}")
+
     return render_template("contact.html", form_content=form_content)
 
 
@@ -109,143 +116,125 @@ def api_consultation():
     """API endpoint for consultation requests."""
     try:
         data = request.get_json()
-        
-        consultation = ConsultationRequest(
-            name=data.get("name"),
-            phone=data.get("phone"),
-            email=data.get("email"),
-            service_type=data.get("service_type"),
-            message=data.get("message"),
-            language=data.get("language", "ru")
-        )
-        
-        db.session.add(consultation)
-        db.session.commit()
-        
+        consultation = create_consultation_request(data)
+
         return jsonify({
             "success": True,
             "message": "Consultation request submitted successfully",
-            "id": consultation.id
-        }), 201
-        
-    except Exception:
+            "data": consultation.to_dict()
+        }), 200
+
+    except ValueError as validation_error:
+        return jsonify(get_consultation_error_response(str(validation_error))), 400
+    except (RuntimeError, OSError, IOError):
         db.session.rollback()
-        return jsonify({
-            "success": False,
-            "message": "Error submitting consultation request"
-        }), 500
+        return jsonify(get_consultation_error_response()), 500
 
 
-# Legacy routes for backward compatibility
 @main_bp.route("/services/custom-furniture")
 def services_custom_furniture():
-    """Legacy route redirect."""
-    return redirect(url_for('main.services_montessori'))
+    """Custom furniture service page."""
+    current_lang = get_current_language()
+    content = SERVICES.get(current_lang, SERVICES['ru'])
+    return render_template("services_custom_furniture.html", service=content.get('custom_furniture', content['montessori']))
 
 
 @main_bp.route("/services/design-bureau")
 def services_design_bureau():
-    """Legacy route redirect."""
-    return redirect(url_for('main.services_kitchens'))
+    """Design bureau service page."""
+    current_lang = get_current_language()
+    content = SERVICES.get(current_lang, SERVICES['ru'])
+    return render_template("services_design_bureau.html", service=content.get('design_bureau', content['kitchens']))
 
 
 @main_bp.route("/services/academy")
 def services_academy():
-    """Legacy route redirect."""
-    return redirect(url_for('main.services'))
-
-
-@main_bp.route("/blog")
-def blog():
-    """Blog page (placeholder)."""
-    return render_template("blog.html")
-
-
-# Dashboard routes (keeping existing functionality)
-@main_bp.route("/register", methods=["GET", "POST"])
-def register():
-    """Register a new user."""
-    if request.method == "POST":
-        username = request.form.get("username")
-        email = request.form.get("email")
-        password = request.form.get("password")
-        if User.query.filter_by(username=username).first():
-            flash("Имя пользователя уже занято.", "danger")
-        else:
-            user = User(username=username, email=email)
-            user.set_password(password)
-            db.session.add(user)
-            db.session.commit()
-            flash("Регистрация успешна. Теперь войдите в систему.", "success")
-            return redirect(url_for("main.dashboard_login"))
-    return render_template("register.html")
-
-
-@main_bp.route("/dashboard/login", methods=["GET", "POST"])
-def dashboard_login():
-    """Dashboard login."""
-    if request.method == "POST":
-        username = request.form.get("username")
-        password = request.form.get("password")
-        user = User.query.filter_by(username=username).first()
-        if user and user.check_password(password):
-            session["username"] = username
-            session["is_authenticated"] = True
-            flash("Вход выполнен успешно!", "success")
-            return redirect(url_for("main.dashboard_overview"))
-        else:
-            flash("Неверное имя пользователя или пароль.", "danger")
-    return render_template("dashboard_login.html")
-
-
-@main_bp.route("/dashboard/logout")
-def dashboard_logout():
-    """Dashboard logout."""
-    session.pop("username", None)
-    session.pop("is_authenticated", None)
-    flash("Вы успешно вышли из системы.", "info")
-    return redirect(url_for("main.dashboard_login"))
-
-
-# Декоратор для защиты маршрутов дашборда
-def login_required(f):
-    """Login required decorator."""
-    @functools.wraps(f)
-    def decorated_function(*args, **kwargs):
-        if not session.get("is_authenticated"):
-            flash("Пожалуйста, войдите, чтобы получить доступ к этой странице.", "warning")
-            return redirect(url_for("main.dashboard_login"))
-        return f(*args, **kwargs)
-    return decorated_function
+    """Academy service page."""
+    current_lang = get_current_language()
+    content = SERVICES.get(current_lang, SERVICES['ru'])
+    return render_template("services_academy.html", service=content.get('academy', content['montessori']))
 
 
 @main_bp.route("/dashboard")
-@main_bp.route("/dashboard/overview")
-@login_required
-def dashboard_overview():
+def dashboard():
     """Dashboard overview."""
-    return render_template("dashboard.html", dashboard_content_template="dashboard_overview.html")
-
-
-@main_bp.route("/dashboard/leads")
-@login_required
-def dashboard_leads():
-    """Dashboard leads management."""
-    consultations = ConsultationRequest.query.order_by(ConsultationRequest.created_at.desc()).all()
-    return render_template("dashboard.html", 
-                         dashboard_content_template="dashboard_leads.html", 
-                         consultations=consultations)
+    return render_template("dashboard_overview.html")
 
 
 @main_bp.route("/dashboard/analytics")
-@login_required
 def dashboard_analytics():
-    """Dashboard analytics."""
-    return render_template("dashboard.html", dashboard_content_template="dashboard_analytics.html")
+    """Dashboard analytics page."""
+    return render_template("dashboard_analytics.html")
 
 
-@main_bp.route("/dashboard/settings")
-@login_required
-def dashboard_settings():
-    """Dashboard settings."""
-    return render_template("dashboard.html", dashboard_content_template="dashboard_settings.html")
+@main_bp.route("/register", methods=["GET", "POST"])
+def register():
+    """User registration."""
+    if request.method == "POST":
+        try:
+            username = request.form.get("username")
+            email = request.form.get("email")
+            password = request.form.get("password")
+
+            # Check if user already exists
+            if User.query.filter_by(username=username).first():
+                flash("Username already exists", "error")
+                return render_template("register.html")
+
+            if User.query.filter_by(email=email).first():
+                flash("Email already registered", "error")
+                return render_template("register.html")
+
+            # Create new user
+            user = User(username=username, email=email)
+            user.set_password(password)
+
+            db.session.add(user)
+            db.session.commit()
+
+            flash("Registration successful", "success")
+            return redirect(url_for("main.index"))
+
+        except (ValueError, RuntimeError, OSError) as register_error:
+            db.session.rollback()
+            flash("Registration failed", "error")
+            print(f"Registration error: {register_error}")
+
+    return render_template("register.html")
+
+
+@main_bp.route("/login", methods=["GET", "POST"])
+def login():
+    """User login."""
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+
+        user = User.query.filter_by(username=username).first()
+
+        if user and user.check_password(password):
+            session['user_id'] = user.id
+            flash("Login successful", "success")
+            return redirect(url_for("main.dashboard"))
+
+        flash("Invalid credentials", "error")
+
+    return render_template("login.html")
+
+
+@main_bp.route("/logout")
+def logout():
+    """User logout."""
+    session.pop('user_id', None)
+    flash("Logged out successfully", "success")
+    return redirect(url_for("main.index"))
+
+
+def login_required(func):
+    """Decorator for login required routes."""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        if 'user_id' not in session:
+            return redirect(url_for('main.login'))
+        return func(*args, **kwargs)
+    return wrapper
