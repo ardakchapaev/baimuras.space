@@ -1,9 +1,8 @@
 """Module docstring."""
 
-from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
-
-db = SQLAlchemy()
+from . import db
+from .role import roles_users
 
 
 class User(db.Model):
@@ -13,6 +12,11 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
+    roles = db.relationship(
+        'Role',
+        secondary=roles_users,
+        backref=db.backref('users', lazy='dynamic'),
+    )
 
     def __repr__(self):
         """Function docstring."""

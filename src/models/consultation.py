@@ -2,9 +2,7 @@
 """Consultation request model for BaiMuras application."""
 
 from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from . import db
 
 
 class ConsultationRequest(db.Model):
