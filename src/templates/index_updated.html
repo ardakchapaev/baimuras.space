@@ -1,0 +1,619 @@
+
+{% extends "base_updated.html" %}
+
+{% block title %}BaiMuras - Мебельный инжиниринг и дизайн на заказ{% endblock %}
+{% block description %}Профессиональное изготовление корпусной мебели на заказ в Бишкеке. Кухни, шкафы, детская мебель, мебель Монтессори. Современный дизайн, качественные материалы, гарантия качества.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="furniture-hero">
+    <div class="hero-background">
+        <div class="hero-overlay"></div>
+        <div class="hero-image">
+            <img src="https://i.pinimg.com/originals/4e/12/4d/4e124dbefc86bcaf0b20e6b31646e6fc.jpg" 
+                 alt="Современная кухня BaiMuras" class="hero-bg-image">
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="hero-content">
+                    <span class="hero-badge">Мебельный инжиниринг</span>
+                    <h1 class="hero-title">
+                        Создаем мебель<br>
+                        <span class="hero-accent">вашей мечты</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Профессиональное изготовление корпусной мебели на заказ. 
+                        От консультации до установки — полный цикл создания уникальных интерьерных решений.
+                    </p>
+                    
+                    <div class="hero-features">
+                        <div class="hero-feature">
+                            <i class="fas fa-drafting-compass feature-icon"></i>
+                            <span>Индивидуальный дизайн</span>
+                        </div>
+                        <div class="hero-feature">
+                            <i class="fas fa-leaf feature-icon"></i>
+                            <span>Экологичные материалы</span>
+                        </div>
+                        <div class="hero-feature">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <span>5 лет гарантии</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-actions">
+                        <a href="{{ url_for('main.contact') }}" class="btn btn-furniture-primary btn-lg">
+                            <i class="fas fa-calendar-alt me-2"></i>
+                            Бесплатная консультация
+                        </a>
+                        <a href="{{ url_for('main.calculator') }}" class="btn btn-furniture-outline btn-lg">
+                            <i class="fas fa-calculator me-2"></i>
+                            Рассчитать стоимость
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
+                <div class="hero-showcase">
+                    <div class="showcase-grid">
+                        <div class="showcase-item showcase-main">
+                            <img src="https://i.pinimg.com/originals/9b/97/50/9b9750cf65aca15e50b509655c7b3d78.jpg" 
+                                 alt="Кухня на заказ BaiMuras" class="img-fluid">
+                            <div class="showcase-label">Кухни на заказ</div>
+                        </div>
+                        <div class="showcase-item">
+                            <img src="https://i.pinimg.com/originals/64/bb/0c/64bb0cd96e8076d610f6ac5137ec8e6a.jpg" 
+                                 alt="Шкаф на заказ" class="img-fluid">
+                            <div class="showcase-label">Шкафы</div>
+                        </div>
+                        <div class="showcase-item">
+                            <img src="https://i.pinimg.com/originals/a7/40/b4/a740b495ad89565e747a4b3690c73f11.jpg" 
+                                 alt="Детская мебель Монтессори" class="img-fluid">
+                            <div class="showcase-label">Детская мебель</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="800">
+        <div class="scroll-text">Узнать больше</div>
+        <div class="scroll-line"></div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="furniture-services">
+    <div class="container">
+        <div class="section-header text-center" data-aos="fade-up">
+            <span class="section-badge">Наши услуги</span>
+            <h2 class="section-title">Полный спектр мебельных решений</h2>
+            <p class="section-subtitle">
+                От проектирования до установки — создаем мебель, которая прослужит десятилетия
+            </p>
+        </div>
+        
+        <div class="services-grid">
+            <!-- Kitchen Service -->
+            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-image">
+                    <img src="https://i.pinimg.com/originals/a2/58/95/a25895d430a2d3dc8d1acd399078c7fb.jpg" 
+                         alt="Кухни на заказ" class="img-fluid">
+                    <div class="service-overlay">
+                        <a href="{{ url_for('main.services_kitchens') }}" class="service-link">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <div class="service-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 class="service-title">Кухни на заказ</h3>
+                    <p class="service-description">
+                        Современные кухонные гарнитуры с индивидуальным дизайном. 
+                        Оптимальное использование пространства и эргономика.
+                    </p>
+                    <ul class="service-features">
+                        <li>3D-проектирование</li>
+                        <li>Качественная фурнитура</li>
+                        <li>Монтаж и подключение</li>
+                    </ul>
+                    <div class="service-price">
+                        от <span class="price-amount">25,000</span> сом/м²
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wardrobe Service -->
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-image">
+                    <img src="https://i.pinimg.com/originals/95/3a/af/953aaf06235592e684997b1a5edb946c.jpg" 
+                         alt="Шкафы и гардеробные" class="img-fluid">
+                    <div class="service-overlay">
+                        <a href="{{ url_for('main.services_wardrobes') }}" class="service-link">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <div class="service-icon">
+                        <i class="fas fa-door-open"></i>
+                    </div>
+                    <h3 class="service-title">Шкафы и гардеробные</h3>
+                    <p class="service-description">
+                        Встроенные и корпусные шкафы, гардеробные системы. 
+                        Максимум места для хранения в любом помещении.
+                    </p>
+                    <ul class="service-features">
+                        <li>Системы хранения</li>
+                        <li>Раздвижные механизмы</li>
+                        <li>Освещение LED</li>
+                    </ul>
+                    <div class="service-price">
+                        от <span class="price-amount">18,000</span> сом/м²
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Children's Furniture -->
+            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="service-image">
+                    <img src="https://i.pinimg.com/originals/ad/f2/1e/adf21e455b76d54ab166572904937cb8.jpg" 
+                         alt="Детская мебель" class="img-fluid">
+                    <div class="service-overlay">
+                        <a href="{{ url_for('main.services_children_rooms') }}" class="service-link">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <div class="service-icon">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <h3 class="service-title">Детская мебель</h3>
+                    <p class="service-description">
+                        Безопасная и функциональная мебель для детских комнат. 
+                        Развивающая среда для роста и творчества.
+                    </p>
+                    <ul class="service-features">
+                        <li>Безопасные материалы</li>
+                        <li>Растущая мебель</li>
+                        <li>Яркий дизайн</li>
+                    </ul>
+                    <div class="service-price">
+                        от <span class="price-amount">15,000</span> сом/м²
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Montessori Furniture -->
+            <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="service-image">
+                    <img src="https://i.pinimg.com/originals/e6/8d/fc/e68dfc682e3f6cd337ac6e69f8b3d554.png" 
+                         alt="Мебель Монтессори" class="img-fluid">
+                    <div class="service-overlay">
+                        <a href="{{ url_for('main.services_montessori') }}" class="service-link">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <div class="service-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="service-title">Мебель Монтессори</h3>
+                    <p class="service-description">
+                        Развивающая мебель по методике Монтессори. 
+                        Способствует самостоятельности и развитию ребенка.
+                    </p>
+                    <ul class="service-features">
+                        <li>Методика Монтессори</li>
+                        <li>Натуральные материалы</li>
+                        <li>Адаптивная высота</li>
+                    </ul>
+                    <div class="service-price">
+                        от <span class="price-amount">12,000</span> сом/шт
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="500">
+            <a href="{{ url_for('main.services') }}" class="btn btn-furniture-outline btn-lg">
+                <i class="fas fa-list me-2"></i>
+                Все услуги и цены
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="furniture-about">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="about-images">
+                    <div class="about-image-main">
+                        <img src="https://img.freepik.com/premium-photo/wood-working-carpenter-workshop-making-furniture_1059430-82852.jpg" 
+                             alt="Мебельная мастерская BaiMuras" class="img-fluid">
+                    </div>
+                    <div class="about-image-secondary">
+                        <img src="https://img.freepik.com/premium-photo/closeup-carpenters-hands-working-wooden-plank-with-sawdust-tools-workshop-demonstrating-craftsmanship-detail_1099133-18284.jpg" 
+                             alt="Мастерство изготовления мебели" class="img-fluid">
+                        <div class="experience-badge">
+                            <div class="experience-number">10+</div>
+                            <div class="experience-text">лет опыта</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="about-content">
+                    <span class="section-badge">О компании</span>
+                    <h2 class="section-title">Мастерство в каждой детали</h2>
+                    <p class="about-text">
+                        BaiMuras — это команда профессионалов с более чем 10-летним опытом в области 
+                        мебельного производства. Мы специализируемся на создании уникальной корпусной 
+                        мебели, которая сочетает в себе функциональность, красоту и долговечность.
+                    </p>
+                    
+                    <div class="about-values">
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <div class="value-content">
+                                <h4>Экологичность</h4>
+                                <p>Используем только сертифицированные материалы класса E1</p>
+                            </div>
+                        </div>
+                        
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div class="value-content">
+                                <h4>Инновации</h4>
+                                <p>Современное оборудование и передовые технологии производства</p>
+                            </div>
+                        </div>
+                        
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="value-content">
+                                <h4>Надежность</h4>
+                                <p>Гарантия 5 лет на всю изготовленную мебель</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="500">0</div>
+                            <div class="stat-label">Проектов</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="450">0</div>
+                            <div class="stat-label">Клиентов</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="98">0</div>
+                            <div class="stat-label">% довольных</div>
+                        </div>
+                    </div>
+                    
+                    <a href="{{ url_for('main.about') }}" class="btn btn-furniture-primary">
+                        <i class="fas fa-users me-2"></i>
+                        Узнать больше о нас
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Preview -->
+<section class="furniture-portfolio-preview">
+    <div class="container">
+        <div class="section-header text-center" data-aos="fade-up">
+            <span class="section-badge">Наши работы</span>
+            <h2 class="section-title">Портфолио проектов</h2>
+            <p class="section-subtitle">
+                Каждый проект — это воплощение мечты наших клиентов о красивом и функциональном интерьере
+            </p>
+        </div>
+        
+        <div class="portfolio-grid" data-aos="fade-up" data-aos-delay="200">
+            <div class="portfolio-item portfolio-large">
+                <div class="portfolio-image">
+                    <img src="https://i.pinimg.com/originals/32/c2/47/32c2477919994fd0eb80e8c0d3c0af1e.jpg" 
+                         alt="Проект кухни - Современная классика" class="img-fluid">
+                </div>
+                <div class="portfolio-overlay">
+                    <div class="portfolio-content">
+                        <span class="portfolio-category">Кухня</span>
+                        <h3 class="portfolio-title">Современная классика</h3>
+                        <p class="portfolio-description">Элегантная кухня с островом в загородном доме</p>
+                        <a href="{{ url_for('main.portfolio') }}" class="portfolio-link">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-item">
+                <div class="portfolio-image">
+                    <img src="https://i.pinimg.com/originals/5d/ff/c8/5dffc8cf702187be79e54c3c584e0f5f.jpg" 
+                         alt="Встроенный шкаф" class="img-fluid">
+                </div>
+                <div class="portfolio-overlay">
+                    <div class="portfolio-content">
+                        <span class="portfolio-category">Шкаф</span>
+                        <h3 class="portfolio-title">Встроенная система</h3>
+                        <a href="{{ url_for('main.portfolio') }}" class="portfolio-link">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-item">
+                <div class="portfolio-image">
+                    <img src="https://i.pinimg.com/originals/67/f6/ab/67f6ab6de13191e12a0e329cdd810a24.jpg" 
+                         alt="Детская комната" class="img-fluid">
+                </div>
+                <div class="portfolio-overlay">
+                    <div class="portfolio-content">
+                        <span class="portfolio-category">Детская</span>
+                        <h3 class="portfolio-title">Комната мечты</h3>
+                        <a href="{{ url_for('main.portfolio') }}" class="portfolio-link">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-item">
+                <div class="portfolio-image">
+                    <img src="https://i.pinimg.com/originals/af/66/e0/af66e0c07272a9b2aaa7693f963afe5f.jpg" 
+                         alt="Домашний офис" class="img-fluid">
+                </div>
+                <div class="portfolio-overlay">
+                    <div class="portfolio-content">
+                        <span class="portfolio-category">Офис</span>
+                        <h3 class="portfolio-title">Рабочее место</h3>
+                        <a href="{{ url_for('main.portfolio') }}" class="portfolio-link">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-item">
+                <div class="portfolio-image">
+                    <img src="https://i.pinimg.com/736x/72/8c/b4/728cb4c2a815e27455c6118f3879200f.jpg" 
+                         alt="Мебель Монтессори" class="img-fluid">
+                </div>
+                <div class="portfolio-overlay">
+                    <div class="portfolio-content">
+                        <span class="portfolio-category">Монтессори</span>
+                        <h3 class="portfolio-title">Развивающая среда</h3>
+                        <a href="{{ url_for('main.portfolio') }}" class="portfolio-link">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="400">
+            <a href="{{ url_for('main.portfolio') }}" class="btn btn-furniture-outline btn-lg">
+                <i class="fas fa-image me-2"></i>
+                Посмотреть все проекты
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Process Section -->
+<section class="furniture-process">
+    <div class="container">
+        <div class="section-header text-center" data-aos="fade-up">
+            <span class="section-badge">Как мы работаем</span>
+            <h2 class="section-title">Простой процесс — отличный результат</h2>
+            <p class="section-subtitle">
+                От первой консультации до установки готовой мебели — весь процесс занимает 15-20 дней
+            </p>
+        </div>
+        
+        <div class="process-timeline">
+            <div class="process-item" data-aos="fade-up" data-aos-delay="100">
+                <div class="process-number">01</div>
+                <div class="process-content">
+                    <div class="process-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="process-title">Консультация</h3>
+                    <p class="process-description">
+                        Обсуждаем ваши потребности, стиль и бюджет. 
+                        Консультация бесплатная и ни к чему не обязывает.
+                    </p>
+                    <div class="process-duration">30 мин - 1 час</div>
+                </div>
+            </div>
+            
+            <div class="process-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="process-number">02</div>
+                <div class="process-content">
+                    <div class="process-icon">
+                        <i class="fas fa-ruler"></i>
+                    </div>
+                    <h3 class="process-title">Замер</h3>
+                    <p class="process-description">
+                        Выезжаем для точного замера помещения. 
+                        Учитываем все особенности пространства.
+                    </p>
+                    <div class="process-duration">1-2 дня</div>
+                </div>
+            </div>
+            
+            <div class="process-item" data-aos="fade-up" data-aos-delay="300">
+                <div class="process-number">03</div>
+                <div class="process-content">
+                    <div class="process-icon">
+                        <i class="fas fa-drafting-compass"></i>
+                    </div>
+                    <h3 class="process-title">3D-проект</h3>
+                    <p class="process-description">
+                        Создаем детальный 3D-проект с визуализацией. 
+                        Вы увидите результат еще до производства.
+                    </p>
+                    <div class="process-duration">3-5 дней</div>
+                </div>
+            </div>
+            
+            <div class="process-item" data-aos="fade-up" data-aos-delay="400">
+                <div class="process-number">04</div>
+                <div class="process-content">
+                    <div class="process-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="process-title">Производство</h3>
+                    <p class="process-description">
+                        Изготавливаем мебель на современном оборудовании 
+                        с контролем качества на каждом этапе.
+                    </p>
+                    <div class="process-duration">7-10 дней</div>
+                </div>
+            </div>
+            
+            <div class="process-item" data-aos="fade-up" data-aos-delay="500">
+                <div class="process-number">05</div>
+                <div class="process-content">
+                    <div class="process-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="process-title">Установка</h3>
+                    <p class="process-description">
+                        Доставляем и устанавливаем мебель с соблюдением 
+                        всех технологических требований.
+                    </p>
+                    <div class="process-duration">1-2 дня</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="furniture-cta">
+    <div class="container">
+        <div class="cta-content" data-aos="fade-up">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h2 class="cta-title">Готовы создать мебель вашей мечты?</h2>
+                    <p class="cta-description">
+                        Запишитесь на бесплатную консультацию сегодня и получите скидку 10% на первый заказ
+                    </p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <div class="cta-actions">
+                        <a href="{{ url_for('main.contact') }}" class="btn btn-furniture-white btn-lg">
+                            <i class="fas fa-phone me-2"></i>
+                            Записаться на консультацию
+                        </a>
+                        <div class="cta-phone">
+                            <i class="fas fa-phone-alt me-2"></i>
+                            <a href="tel:+996509912569">+996 509 912 569</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Дополнительные стили для главной страницы */
+.hero-showcase .showcase-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 15px;
+    height: 400px;
+}
+
+.showcase-main {
+    grid-row: 1 / 3;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--furniture-primary);
+}
+
+@media (max-width: 768px) {
+    .hero-showcase .showcase-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        height: auto;
+    }
+    
+    .showcase-main {
+        grid-row: auto;
+    }
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Counter animation for statistics
+function animateCounters() {
+    const counters = document.querySelectorAll('[data-count]');
+    
+    counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-count'));
+        const increment = target / 100;
+        let current = 0;
+        
+        const updateCounter = () => {
+            if (current < target) {
+                current += increment;
+                counter.textContent = Math.ceil(current);
+                requestAnimationFrame(updateCounter);
+            } else {
+                counter.textContent = target;
+            }
+        };
+        
+        // Start animation when element is in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    updateCounter();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+        
+        observer.observe(counter);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', animateCounters);
+</script>
+{% endblock %}

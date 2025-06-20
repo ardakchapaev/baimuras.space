@@ -1,0 +1,829 @@
+
+{% extends "base_updated.html" %}
+
+{% block title %}Калькулятор стоимости мебели - BaiMuras{% endblock %}
+{% block description %}Рассчитайте примерную стоимость изготовления мебели на заказ онлайн. Калькулятор учитывает тип мебели, материалы, размеры и дополнительные услуги.{% endblock %}
+
+{% block content %}
+<section class="calculator-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                <span class="section-badge">Калькулятор стоимости</span>
+                <h1 class="section-title">Рассчитайте стоимость вашей мебели</h1>
+                <p class="section-subtitle">
+                    Получите предварительную оценку стоимости изготовления мебели на заказ. 
+                    Укажите параметры проекта и получите расчет за несколько секунд.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="calculator-section">
+    <div class="container">
+        <div class="row g-5">
+            <!-- Форма калькулятора -->
+            <div class="col-lg-7" data-aos="fade-right">
+                <div class="calculator-form">
+                    <form id="calculatorForm">
+                        <!-- Тип мебели -->
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-couch me-2"></i>
+                                Тип мебели
+                            </label>
+                            <div class="furniture-types-grid">
+                                {% for type in furniture_types %}
+                                <div class="furniture-type-option">
+                                    <input type="radio" name="furniture_type" value="{{ type.value }}" 
+                                           id="type_{{ type.value }}" data-price="{{ type.base_price }}">
+                                    <label for="type_{{ type.value }}" class="type-label">
+                                        <div class="type-icon">
+                                            <i class="fas fa-{{ 
+                                                'utensils' if type.value == 'kitchen' else
+                                                'door-open' if type.value == 'wardrobe' else
+                                                'child' if type.value == 'children_room' else
+                                                'graduation-cap' if type.value == 'montessori' else
+                                                'briefcase' if type.value == 'office' else
+                                                'home'
+                                            }}"></i>
+                                        </div>
+                                        <span class="type-name">{{ type.label }}</span>
+                                        <span class="type-price">от {{ "{:,}".format(type.base_price) }} сом/м²</span>
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Размеры -->
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    <i class="fas fa-ruler me-2"></i>
+                                    Площадь (м²)
+                                </label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="area" 
+                                           value="1" min="0.1" max="100" step="0.1" required>
+                                    <span class="input-group-text">м²</span>
+                                </div>
+                                <small class="form-text">Укажите общую площадь мебели</small>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    <i class="fas fa-layer-group me-2"></i>
+                                    Сложность проекта
+                                </label>
+                                <select class="form-select" name="complexity">
+                                    <option value="simple">Простая (-20%)</option>
+                                    <option value="standard" selected>Стандартная</option>
+                                    <option value="complex">Сложная (+30%)</option>
+                                    <option value="premium">Премиум (+60%)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Материалы -->
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-tree me-2"></i>
+                                Материал
+                            </label>
+                            <div class="materials-grid">
+                                {% for material in materials %}
+                                <div class="material-option">
+                                    <input type="radio" name="material" value="{{ material.value }}" 
+                                           id="material_{{ material.value }}" 
+                                           data-multiplier="{{ material.multiplier }}"
+                                           {{ 'checked' if material.value == 'laminate' else '' }}>
+                                    <label for="material_{{ material.value }}" class="material-label">
+                                        <span class="material-name">{{ material.label }}</span>
+                                        <span class="material-multiplier">
+                                            {{ '+' if material.multiplier > 1 else '' }}{{ ((material.multiplier - 1) * 100) | round | int }}%
+                                        </span>
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Дополнительные услуги -->
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-plus-circle me-2"></i>
+                                Дополнительные услуги
+                            </label>
+                            <div class="services-grid">
+                                <div class="service-option">
+                                    <input type="checkbox" name="services" value="design" id="service_design">
+                                    <label for="service_design" class="service-label">
+                                        <i class="fas fa-drafting-compass service-icon"></i>
+                                        <div class="service-info">
+                                            <span class="service-name">3D-дизайн проекта</span>
+                                            <span class="service-desc">+10% от стоимости</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                
+                                <div class="service-option">
+                                    <input type="checkbox" name="services" value="delivery" id="service_delivery">
+                                    <label for="service_delivery" class="service-label">
+                                        <i class="fas fa-truck service-icon"></i>
+                                        <div class="service-info">
+                                            <span class="service-name">Доставка</span>
+                                            <span class="service-desc">+5,000 сом</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                
+                                <div class="service-option">
+                                    <input type="checkbox" name="services" value="installation" id="service_installation">
+                                    <label for="service_installation" class="service-label">
+                                        <i class="fas fa-tools service-icon"></i>
+                                        <div class="service-info">
+                                            <span class="service-name">Установка</span>
+                                            <span class="service-desc">+15% от стоимости</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                
+                                <div class="service-option">
+                                    <input type="checkbox" name="services" value="warranty_extended" id="service_warranty">
+                                    <label for="service_warranty" class="service-label">
+                                        <i class="fas fa-shield-alt service-icon"></i>
+                                        <div class="service-info">
+                                            <span class="service-name">Расширенная гарантия</span>
+                                            <span class="service-desc">+5% от стоимости</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-furniture-primary btn-lg w-100" id="calculateBtn">
+                            <i class="fas fa-calculator me-2"></i>
+                            Рассчитать стоимость
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Результат расчета -->
+            <div class="col-lg-5" data-aos="fade-left">
+                <div class="calculator-result" id="calculatorResult">
+                    <div class="result-placeholder">
+                        <div class="placeholder-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3>Калькулятор готов к работе</h3>
+                        <p>Выберите тип мебели и параметры проекта, чтобы получить предварительную оценку стоимости.</p>
+                        
+                        <div class="calculation-features">
+                            <div class="feature-item">
+                                <i class="fas fa-clock feature-icon"></i>
+                                <span>Мгновенный расчет</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-chart-line feature-icon"></i>
+                                <span>Точная оценка</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-handshake feature-icon"></i>
+                                <span>Без обязательств</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Результат расчета (скрыто по умолчанию) -->
+                    <div class="result-content" id="resultContent" style="display: none;">
+                        <div class="result-header">
+                            <h3>Расчет стоимости</h3>
+                            <div class="result-type" id="resultType"></div>
+                        </div>
+
+                        <div class="price-breakdown">
+                            <div class="price-item">
+                                <span class="price-label">Базовая стоимость:</span>
+                                <span class="price-value" id="basePrice">0 сом</span>
+                            </div>
+                            <div class="price-item" id="additionalServices" style="display: none;">
+                                <span class="price-label">Дополнительные услуги:</span>
+                                <span class="price-value" id="servicesPrice">0 сом</span>
+                            </div>
+                        </div>
+
+                        <div class="total-price">
+                            <span class="total-label">Итого:</span>
+                            <span class="total-value" id="totalPrice">0 сом</span>
+                        </div>
+
+                        <div class="result-note">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Это предварительная оценка. Точная стоимость определяется после замера и утверждения проекта.
+                        </div>
+
+                        <div class="result-actions">
+                            <a href="{{ url_for('main.contact') }}" class="btn btn-furniture-primary">
+                                <i class="fas fa-phone me-2"></i>
+                                Заказать консультацию
+                            </a>
+                            <button type="button" class="btn btn-furniture-outline" id="saveCalculation">
+                                <i class="fas fa-download me-2"></i>
+                                Сохранить расчет
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Информационные блоки -->
+                <div class="calculator-info">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-ruler-combined"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Бесплатный замер</h4>
+                            <p>Выезжаем для точного замера помещения и консультации по проекту</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Гарантия 5 лет</h4>
+                            <p>Предоставляем официальную гарантию на всю изготовленную мебель</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Сроки изготовления</h4>
+                            <p>Изготавливаем мебель за 15-20 дней с момента утверждения проекта</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="calculator-faq">
+    <div class="container">
+        <div class="section-header text-center" data-aos="fade-up">
+            <h2 class="section-title">Часто задаваемые вопросы</h2>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="accordion" id="calculatorFAQ" data-aos="fade-up" data-aos-delay="200">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                Насколько точен расчет калькулятора?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#calculatorFAQ">
+                            <div class="accordion-body">
+                                Калькулятор дает предварительную оценку с точностью ±15%. Окончательная стоимость определяется после замера помещения и детального проектирования.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                Что влияет на итоговую стоимость?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#calculatorFAQ">
+                            <div class="accordion-body">
+                                На стоимость влияют: тип и площадь мебели, выбранные материалы, сложность проекта, качество фурнитуры, дополнительные услуги и индивидуальные требования.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Входит ли проект в стоимость?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#calculatorFAQ">
+                            <div class="accordion-body">
+                                Эскизный проект входит в стоимость. 3D-визуализация и детальные чертежи оплачиваются отдельно, но их стоимость засчитывается при заказе мебели.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                Какие гарантии вы предоставляете?
+                            </button>
+                        </h2>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#calculatorFAQ">
+                            <div class="accordion-body">
+                                Мы предоставляем гарантию 5 лет на всю изготовленную мебель. Гарантия покрывает дефекты материалов и производственные недостатки.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.calculator-hero {
+    padding: 6rem 0 3rem;
+    background: var(--furniture-bg-alt);
+}
+
+.calculator-section {
+    padding: 4rem 0;
+}
+
+.calculator-form {
+    background: white;
+    padding: 2.5rem;
+    border-radius: var(--furniture-radius-lg);
+    box-shadow: var(--furniture-shadow-lg);
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--furniture-dark);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.furniture-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.furniture-type-option input[type="radio"] {
+    display: none;
+}
+
+.type-label {
+    display: block;
+    padding: 1.5rem 1rem;
+    border: 2px solid var(--furniture-light);
+    border-radius: var(--furniture-radius);
+    text-align: center;
+    cursor: pointer;
+    transition: var(--furniture-transition);
+    background: white;
+}
+
+.furniture-type-option input[type="radio"]:checked + .type-label {
+    border-color: var(--furniture-primary);
+    background: var(--furniture-gradient-light);
+}
+
+.type-icon {
+    font-size: 2rem;
+    color: var(--furniture-primary);
+    margin-bottom: 0.5rem;
+}
+
+.type-name {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.type-price {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--furniture-text-light);
+}
+
+.materials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.material-option input[type="radio"] {
+    display: none;
+}
+
+.material-label {
+    display: block;
+    padding: 1rem;
+    border: 2px solid var(--furniture-light);
+    border-radius: var(--furniture-radius);
+    cursor: pointer;
+    transition: var(--furniture-transition);
+    text-align: center;
+}
+
+.material-option input[type="radio"]:checked + .material-label {
+    border-color: var(--furniture-primary);
+    background: var(--furniture-gradient-light);
+}
+
+.material-name {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.material-multiplier {
+    font-size: 0.875rem;
+    color: var(--furniture-text-light);
+}
+
+.services-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.service-option input[type="checkbox"] {
+    display: none;
+}
+
+.service-label {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border: 2px solid var(--furniture-light);
+    border-radius: var(--furniture-radius);
+    cursor: pointer;
+    transition: var(--furniture-transition);
+}
+
+.service-option input[type="checkbox"]:checked + .service-label {
+    border-color: var(--furniture-primary);
+    background: var(--furniture-gradient-light);
+}
+
+.service-icon {
+    font-size: 1.5rem;
+    color: var(--furniture-primary);
+    margin-right: 1rem;
+}
+
+.service-name {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.service-desc {
+    font-size: 0.875rem;
+    color: var(--furniture-text-light);
+}
+
+.calculator-result {
+    background: white;
+    border-radius: var(--furniture-radius-lg);
+    box-shadow: var(--furniture-shadow-lg);
+    padding: 2.5rem;
+    position: sticky;
+    top: 100px;
+}
+
+.result-placeholder {
+    text-align: center;
+}
+
+.placeholder-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--furniture-gradient-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.placeholder-icon i {
+    font-size: 2rem;
+    color: var(--furniture-primary);
+}
+
+.calculation-features {
+    margin-top: 2rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: var(--furniture-text-light);
+}
+
+.feature-icon {
+    color: var(--furniture-primary);
+    margin-right: 0.75rem;
+}
+
+.result-header {
+    border-bottom: 1px solid var(--furniture-light);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.result-type {
+    color: var(--furniture-primary);
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.price-breakdown {
+    margin-bottom: 1.5rem;
+}
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    color: var(--furniture-text-light);
+}
+
+.total-price {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background: var(--furniture-gradient-light);
+    border-radius: var(--furniture-radius);
+    margin-bottom: 1.5rem;
+}
+
+.total-label {
+    font-weight: 600;
+    font-size: 1.125rem;
+}
+
+.total-value {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--furniture-primary);
+}
+
+.result-note {
+    background: var(--furniture-bg-alt);
+    padding: 1rem;
+    border-radius: var(--furniture-radius);
+    font-size: 0.875rem;
+    color: var(--furniture-text-light);
+    margin-bottom: 1.5rem;
+}
+
+.result-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.calculator-info {
+    margin-top: 2rem;
+}
+
+.info-card {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--furniture-radius);
+    box-shadow: var(--furniture-shadow-sm);
+    margin-bottom: 1rem;
+}
+
+.info-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--furniture-gradient-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.info-icon i {
+    font-size: 1.5rem;
+    color: var(--furniture-primary);
+}
+
+.info-content h4 {
+    margin-bottom: 0.5rem;
+    color: var(--furniture-dark);
+}
+
+.info-content p {
+    margin: 0;
+    color: var(--furniture-text-light);
+    font-size: 0.875rem;
+}
+
+.calculator-faq {
+    padding: 4rem 0;
+    background: var(--furniture-bg-alt);
+}
+
+.accordion-item {
+    border: none;
+    margin-bottom: 1rem;
+    border-radius: var(--furniture-radius) !important;
+    overflow: hidden;
+    box-shadow: var(--furniture-shadow-sm);
+}
+
+.accordion-button {
+    background: white;
+    border: none;
+    color: var(--furniture-dark);
+    font-weight: 600;
+    padding: 1.25rem 1.5rem;
+}
+
+.accordion-button:not(.collapsed) {
+    background: var(--furniture-gradient-light);
+    color: var(--furniture-primary);
+    box-shadow: none;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.accordion-body {
+    color: var(--furniture-text-light);
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .calculator-form,
+    .calculator-result {
+        padding: 1.5rem;
+    }
+    
+    .furniture-types-grid,
+    .materials-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .calculator-result {
+        position: static;
+        margin-top: 2rem;
+    }
+    
+    .result-actions {
+        flex-direction: column;
+    }
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('calculatorForm');
+    const calculateBtn = document.getElementById('calculateBtn');
+    const resultContent = document.getElementById('resultContent');
+    const placeholder = document.querySelector('.result-placeholder');
+    
+    calculateBtn.addEventListener('click', calculatePrice);
+    
+    // Автоматический пересчет при изменении параметров
+    form.addEventListener('change', function() {
+        if (resultContent.style.display === 'block') {
+            calculatePrice();
+        }
+    });
+    
+    async function calculatePrice() {
+        const formData = new FormData(form);
+        const data = {
+            furniture_type: formData.get('furniture_type'),
+            area: parseFloat(formData.get('area')) || 1,
+            material: formData.get('material') || 'laminate',
+            complexity: formData.get('complexity') || 'standard',
+            services: formData.getAll('services')
+        };
+        
+        if (!data.furniture_type) {
+            FurnitureTheme.showNotification('Пожалуйста, выберите тип мебели', 'error');
+            return;
+        }
+        
+        calculateBtn.classList.add('loading');
+        calculateBtn.disabled = true;
+        
+        try {
+            const response = await fetch('{{ url_for("main.calculate_price") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify(data)
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                displayResult(result, data);
+            } else {
+                FurnitureTheme.showNotification('Ошибка расчета: ' + result.error, 'error');
+            }
+        } catch (error) {
+            FurnitureTheme.showNotification('Ошибка соединения', 'error');
+        } finally {
+            calculateBtn.classList.remove('loading');
+            calculateBtn.disabled = false;
+        }
+    }
+    
+    function displayResult(result, data) {
+        // Скрываем placeholder и показываем результат
+        placeholder.style.display = 'none';
+        resultContent.style.display = 'block';
+        
+        // Заполняем данные
+        document.getElementById('resultType').textContent = getFurnitureTypeName(data.furniture_type);
+        document.getElementById('basePrice').textContent = formatPrice(result.base_price);
+        document.getElementById('totalPrice').textContent = formatPrice(result.total_price);
+        
+        // Дополнительные услуги
+        const additionalServices = document.getElementById('additionalServices');
+        if (result.additional_services > 0) {
+            document.getElementById('servicesPrice').textContent = formatPrice(result.additional_services);
+            additionalServices.style.display = 'flex';
+        } else {
+            additionalServices.style.display = 'none';
+        }
+        
+        // Анимация появления результата
+        resultContent.style.opacity = '0';
+        resultContent.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            resultContent.style.transition = 'all 0.3s ease';
+            resultContent.style.opacity = '1';
+            resultContent.style.transform = 'translateY(0)';
+        }, 100);
+    }
+    
+    function getFurnitureTypeName(type) {
+        const names = {
+            'kitchen': 'Кухня',
+            'wardrobe': 'Шкаф/Гардеробная',
+            'children_room': 'Детская мебель',
+            'montessori': 'Мебель Монтессори',
+            'office': 'Офисная мебель',
+            'living_room': 'Гостиная'
+        };
+        return names[type] || type;
+    }
+    
+    function formatPrice(amount) {
+        return new Intl.NumberFormat('ru-RU').format(amount) + ' сом';
+    }
+    
+    // Сохранение расчета
+    document.getElementById('saveCalculation').addEventListener('click', function() {
+        const resultData = {
+            type: document.getElementById('resultType').textContent,
+            total: document.getElementById('totalPrice').textContent,
+            date: new Date().toLocaleDateString('ru-RU')
+        };
+        
+        const dataStr = JSON.stringify(resultData, null, 2);
+        const blob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'baimuras-calculation.json';
+        a.click();
+        
+        URL.revokeObjectURL(url);
+        FurnitureTheme.showNotification('Расчет сохранен', 'success');
+    });
+});
+</script>
+{% endblock %}

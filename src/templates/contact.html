@@ -1,97 +1,259 @@
 
-{% extends "base.html" %}
+{% extends "base_updated.html" %}
 
-{% block title %}{{ navigation.contact }} - BaiMuras{% endblock %}
-{% block description %}Свяжитесь с BaiMuras для консультации по мебели Монтессори, кухням на заказ и детским комнатам.{% endblock %}
+{% block title %}Контакты - BaiMuras{% endblock %}
+{% block description %}Свяжитесь с BaiMuras для заказа мебели на заказ. Бесплатная консультация, быстрый отклик, профессиональный сервис. Телефон, email, адрес в Бишкеке.{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<section class="hero section-sm">
+<section class="contact-hero">
     <div class="container">
-        <div class="text-center fade-in">
-            <h1>{{ form_content.title }}</h1>
-            <p class="lead">{{ form_content.subtitle }}</p>
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                <span class="section-badge">Контакты</span>
+                <h1 class="section-title">Свяжитесь с нами</h1>
+                <p class="section-subtitle">
+                    Готовы обсудить ваш проект? Оставьте заявку или свяжитесь с нами удобным способом. 
+                    Мы отвечаем быстро и предоставляем бесплатную консультацию.
+                </p>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Contact Form Section -->
-<section class="section">
+<section class="contact-section">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <div class="card fade-in">
-                    <div class="card-body p-5">
-                        <form method="POST" action="{{ url_for('main.contact') }}" id="contactForm">
-                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <div class="row g-5">
+            <!-- Контактная форма -->
+            <div class="col-lg-7" data-aos="fade-right">
+                <div class="contact-form">
+                    <h2 class="form-title">
+                        <i class="fas fa-envelope me-3"></i>
+                        Оставить заявку
+                    </h2>
+                    <p class="form-subtitle">
+                        Заполните форму, и мы свяжемся с вами в течение 15 минут
+                    </p>
+
+                    <form method="POST" id="contactForm" class="needs-validation" novalidate>
+                        {{ csrf_token() }}
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">
+                                    <i class="fas fa-user me-2"></i>Ваше имя *
+                                </label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                                <div class="invalid-feedback">
+                                    Пожалуйста, укажите ваше имя
+                                </div>
+                            </div>
                             
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="name" class="form-label">{{ form_content.name_label }} *</label>
-                                        <input type="text" 
-                                               class="form-control" 
-                                               id="name" 
-                                               name="name" 
-                                               placeholder="{{ form_content.name_placeholder }}" 
-                                               required>
-                                    </div>
+                            <div class="col-md-6">
+                                <label for="phone" class="form-label">
+                                    <i class="fas fa-phone me-2"></i>Телефон *
+                                </label>
+                                <input type="tel" class="form-control" id="phone" name="phone" 
+                                       placeholder="+996 XXX XXX XXX" required>
+                                <div class="invalid-feedback">
+                                    Укажите корректный номер телефона
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">
+                                <i class="fas fa-envelope me-2"></i>Email
+                            </label>
+                            <input type="email" class="form-control" id="email" name="email" 
+                                   placeholder="your@email.com">
+                            <div class="invalid-feedback">
+                                Укажите корректный email адрес
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="furniture_type" class="form-label">
+                                <i class="fas fa-couch me-2"></i>Тип мебели *
+                            </label>
+                            <select class="form-select" id="furniture_type" name="furniture_type" required>
+                                <option value="">Выберите тип мебели</option>
+                                {% for option in furniture_options %}
+                                <option value="{{ option.value }}">{{ option.label }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="invalid-feedback">
+                                Выберите тип мебели
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="consultation_type" class="form-label">
+                                <i class="fas fa-comments me-2"></i>Тип консультации
+                            </label>
+                            <div class="consultation-options">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="consultation_type" 
+                                           id="consultation_phone" value="phone" checked>
+                                    <label class="form-check-label" for="consultation_phone">
+                                        <i class="fas fa-phone consultation-icon"></i>
+                                        <div class="consultation-info">
+                                            <span class="consultation-name">Телефонная консультация</span>
+                                            <span class="consultation-desc">Обсудим проект по телефону</span>
+                                        </div>
+                                    </label>
                                 </div>
                                 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="phone" class="form-label">{{ form_content.phone_label }} *</label>
-                                        <input type="tel" 
-                                               class="form-control" 
-                                               id="phone" 
-                                               name="phone" 
-                                               placeholder="{{ form_content.phone_placeholder }}" 
-                                               required>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="email" class="form-label">{{ form_content.email_label }}</label>
-                                        <input type="email" 
-                                               class="form-control" 
-                                               id="email" 
-                                               name="email" 
-                                               placeholder="{{ form_content.email_placeholder }}">
-                                    </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="consultation_type" 
+                                           id="consultation_visit" value="home_visit">
+                                    <label class="form-check-label" for="consultation_visit">
+                                        <i class="fas fa-home consultation-icon"></i>
+                                        <div class="consultation-info">
+                                            <span class="consultation-name">Выезд на объект</span>
+                                            <span class="consultation-desc">Бесплатный замер и консультация</span>
+                                        </div>
+                                    </label>
                                 </div>
                                 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="service_type" class="form-label">{{ form_content.service_label }} *</label>
-                                        <select class="form-control" id="service_type" name="service_type" required>
-                                            <option value="">{% if current_language == 'ky' %}Тандаңыз{% else %}Выберите услугу{% endif %}</option>
-                                            {% for key, value in form_content.service_options.items() %}
-                                            <option value="{{ key }}">{{ value }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="consultation_type" 
+                                           id="consultation_office" value="office_visit">
+                                    <label class="form-check-label" for="consultation_office">
+                                        <i class="fas fa-building consultation-icon"></i>
+                                        <div class="consultation-info">
+                                            <span class="consultation-name">Встреча в офисе</span>
+                                            <span class="consultation-desc">Приходите к нам в офис</span>
+                                        </div>
+                                    </label>
                                 </div>
                             </div>
-                            
-                            <div class="form-group">
-                                <label for="message" class="form-label">{{ form_content.message_label }} *</label>
-                                <textarea class="form-control" 
-                                          id="message" 
-                                          name="message" 
-                                          rows="5" 
-                                          placeholder="{{ form_content.message_placeholder }}" 
-                                          required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message" class="form-label">
+                                <i class="fas fa-comment me-2"></i>Сообщение
+                            </label>
+                            <textarea class="form-control" id="message" name="message" rows="4" 
+                                      placeholder="Опишите ваш проект, пожелания по дизайну, бюджет..."></textarea>
+                        </div>
+
+                        <div class="form-check privacy-check">
+                            <input class="form-check-input" type="checkbox" id="privacy_agreement" required>
+                            <label class="form-check-label" for="privacy_agreement">
+                                Я согласен на обработку персональных данных в соответствии с 
+                                <a href="#" onclick="showModal('privacyModal')">политикой конфиденциальности</a>
+                            </label>
+                            <div class="invalid-feedback">
+                                Необходимо согласие на обработку данных
                             </div>
-                            
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary btn-lg">
-                                    <i class="fas fa-paper-plane me-2"></i>{{ form_content.submit_button }}
-                                </button>
+                        </div>
+
+                        <button type="submit" class="btn btn-furniture-primary btn-lg w-100">
+                            <i class="fas fa-paper-plane me-2"></i>
+                            Отправить заявку
+                        </button>
+                    </form>
+
+                    <div class="form-benefits">
+                        <div class="benefit-item">
+                            <i class="fas fa-clock benefit-icon"></i>
+                            <span>Ответим в течение 15 минут</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-gift benefit-icon"></i>
+                            <span>Бесплатная консультация</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-percent benefit-icon"></i>
+                            <span>Скидка 10% на первый заказ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Контактная информация -->
+            <div class="col-lg-5" data-aos="fade-left">
+                <div class="contact-info">
+                    <h2 class="info-title">
+                        <i class="fas fa-map-marker-alt me-3"></i>
+                        Как нас найти
+                    </h2>
+
+                    <div class="contact-cards">
+                        <div class="contact-card">
+                            <div class="contact-card-icon">
+                                <i class="fas fa-phone"></i>
                             </div>
-                        </form>
+                            <div class="contact-card-content">
+                                <h4>Телефон</h4>
+                                <p><a href="tel:{{ contact_info.phone }}">{{ contact_info.phone }}</a></p>
+                                <small>Звоните с 9:00 до 18:00</small>
+                            </div>
+                        </div>
+
+                        <div class="contact-card">
+                            <div class="contact-card-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-card-content">
+                                <h4>WhatsApp</h4>
+                                <p><a href="https://wa.me/996509912569" target="_blank">Написать в WhatsApp</a></p>
+                                <small>Отвечаем быстро</small>
+                            </div>
+                        </div>
+
+                        <div class="contact-card">
+                            <div class="contact-card-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-card-content">
+                                <h4>Email</h4>
+                                <p><a href="mailto:{{ contact_info.email }}">{{ contact_info.email }}</a></p>
+                                <small>Подробные запросы</small>
+                            </div>
+                        </div>
+
+                        <div class="contact-card">
+                            <div class="contact-card-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-card-content">
+                                <h4>Адрес</h4>
+                                <p>{{ contact_info.address }}</p>
+                                <small>Приезжайте в гости</small>
+                            </div>
+                        </div>
+
+                        <div class="contact-card">
+                            <div class="contact-card-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-card-content">
+                                <h4>Режим работы</h4>
+                                <p>{{ contact_info.working_hours.weekdays }}</p>
+                                <p>{{ contact_info.working_hours.saturday }}</p>
+                                <small>{{ contact_info.working_hours.sunday }}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Социальные сети -->
+                    <div class="social-section">
+                        <h4>Мы в социальных сетях</h4>
+                        <div class="social-links-large">
+                            <a href="#" class="social-link-large" target="_blank">
+                                <i class="fab fa-instagram"></i>
+                                <span>Instagram</span>
+                            </a>
+                            <a href="#" class="social-link-large" target="_blank">
+                                <i class="fab fa-telegram"></i>
+                                <span>Telegram</span>
+                            </a>
+                            <a href="#" class="social-link-large" target="_blank">
+                                <i class="fab fa-facebook"></i>
+                                <span>Facebook</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -99,65 +261,74 @@
     </div>
 </section>
 
-<!-- Contact Info Section -->
-<section class="section" style="background-color: var(--light-gray);">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 text-center mb-4 fade-in">
-                <div class="service-icon">
-                    <i class="fas fa-phone"></i>
+<!-- Карта -->
+<section class="map-section">
+    <div class="container-fluid p-0">
+        <div class="map-container" data-aos="fade-up">
+            <div class="map-placeholder">
+                <div class="map-info">
+                    <h3>Наш адрес</h3>
+                    <p>{{ contact_info.address }}</p>
+                    <a href="https://maps.google.com/?q={{ contact_info.coordinates.lat }},{{ contact_info.coordinates.lng }}" 
+                       target="_blank" class="btn btn-furniture-outline">
+                        <i class="fas fa-directions me-2"></i>
+                        Маршрут
+                    </a>
                 </div>
-                <h4>{% if current_language == 'ky' %}Телефон{% else %}Телефон{% endif %}</h4>
-                <p>{{ footer_content.phone }}</p>
-            </div>
-            
-            <div class="col-lg-4 text-center mb-4 fade-in">
-                <div class="service-icon">
-                    <i class="fas fa-envelope"></i>
-                </div>
-                <h4>Email</h4>
-                <p>{{ footer_content.email }}</p>
-            </div>
-            
-            <div class="col-lg-4 text-center mb-4 fade-in">
-                <div class="service-icon">
-                    <i class="fas fa-map-marker-alt"></i>
-                </div>
-                <h4>{% if current_language == 'ky' %}Дарек{% else %}Адрес{% endif %}</h4>
-                <p>{{ footer_content.address }}</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- FAQ Section -->
-<section class="section">
+<section class="contact-faq">
     <div class="container">
-        <div class="text-center mb-5 fade-in">
-            <h2>{% if current_language == 'ky' %}Көп берилүүчү суроолор{% else %}Часто задаваемые вопросы{% endif %}</h2>
+        <div class="section-header text-center" data-aos="fade-up">
+            <h2 class="section-title">Часто задаваемые вопросы</h2>
         </div>
-        
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <div class="accordion fade-in">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5>{% if current_language == 'ky' %}Канча убакытта эмерек даяр болот?{% else %}Сколько времени занимает изготовление мебели?{% endif %}</h5>
-                            <p>{% if current_language == 'ky' %}Адатта 2-4 жума, долбоордун татаалдыгына жараша.{% else %}Обычно 2-4 недели, в зависимости от сложности проекта.{% endif %}</p>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="accordion" id="contactFAQ" data-aos="fade-up" data-aos-delay="200">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                Как быстро вы отвечаете на заявки?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#contactFAQ">
+                            <div class="accordion-body">
+                                Мы стараемся отвечать на все заявки в течение 15 минут в рабочее время. 
+                                В выходные дни ответ может занять до 2 часов.
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5>{% if current_language == 'ky' %}Кандай материалдарды колдоносуз?{% else %}Какие материалы вы используете?{% endif %}</h5>
-                            <p>{% if current_language == 'ky' %}Биз E1 классындагы экологиялык ЛДСП, МДФ жана табигый жыгачты колдонобуз.{% else %}Мы используем экологичные ЛДСП, МДФ класса E1 и натуральное дерево.{% endif %}</p>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                Выезжаете ли вы для замера бесплатно?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#contactFAQ">
+                            <div class="accordion-body">
+                                Да, мы бесплатно выезжаем для замера в пределах Бишкека. 
+                                Замер включает консультацию и предварительные рекомендации.
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5>{% if current_language == 'ky' %}Жеткирүү кандай жүрөт?{% else %}Как происходит доставка?{% endif %}</h5>
-                            <p>{% if current_language == 'ky' %}Биз Бишкек боюнча акысыз жеткирүү жана орнотуу кызматын көрсөтөбүз.{% else %}Мы предоставляем бесплатную доставку и установку по Бишкеку.{% endif %}</p>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Можно ли прийти в ваш офис без записи?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#contactFAQ">
+                            <div class="accordion-body">
+                                Конечно! Мы работаем с 9:00 до 18:00 в будни и с 10:00 до 16:00 по субботам. 
+                                Однако лучше предварительно позвонить, чтобы убедиться в нашем присутствии.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -167,48 +338,350 @@
 </section>
 {% endblock %}
 
+{% block extra_css %}
+<style>
+.contact-hero {
+    padding: 6rem 0 3rem;
+    background: var(--furniture-bg-alt);
+}
+
+.contact-section {
+    padding: 4rem 0;
+}
+
+.contact-form {
+    background: white;
+    padding: 2.5rem;
+    border-radius: var(--furniture-radius-lg);
+    box-shadow: var(--furniture-shadow-lg);
+}
+
+.form-title {
+    color: var(--furniture-dark);
+    margin-bottom: 0.5rem;
+}
+
+.form-subtitle {
+    color: var(--furniture-text-light);
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--furniture-dark);
+    margin-bottom: 0.5rem;
+}
+
+.form-control, .form-select {
+    border: 2px solid var(--furniture-light);
+    border-radius: var(--furniture-radius);
+    padding: 0.75rem 1rem;
+    transition: var(--furniture-transition);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--furniture-primary);
+    box-shadow: 0 0 0 0.2rem rgba(139, 69, 19, 0.1);
+}
+
+.consultation-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-check {
+    border: 2px solid var(--furniture-light);
+    border-radius: var(--furniture-radius);
+    padding: 1rem;
+    transition: var(--furniture-transition);
+}
+
+.form-check:has(.form-check-input:checked) {
+    border-color: var(--furniture-primary);
+    background: var(--furniture-gradient-light);
+}
+
+.form-check-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.consultation-icon {
+    font-size: 1.5rem;
+    color: var(--furniture-primary);
+    margin-right: 1rem;
+}
+
+.consultation-name {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.consultation-desc {
+    font-size: 0.875rem;
+    color: var(--furniture-text-light);
+}
+
+.privacy-check {
+    background: var(--furniture-bg-alt);
+    padding: 1rem;
+    border-radius: var(--furniture-radius);
+    margin: 1.5rem 0;
+}
+
+.form-benefits {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--furniture-light);
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    color: var(--furniture-text-light);
+}
+
+.benefit-icon {
+    color: var(--furniture-primary);
+    margin-right: 0.5rem;
+}
+
+.contact-info {
+    position: sticky;
+    top: 100px;
+}
+
+.info-title {
+    color: var(--furniture-dark);
+    margin-bottom: 2rem;
+}
+
+.contact-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.contact-card {
+    display: flex;
+    align-items: flex-start;
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--furniture-radius);
+    box-shadow: var(--furniture-shadow-sm);
+    transition: var(--furniture-transition);
+}
+
+.contact-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--furniture-shadow-md);
+}
+
+.contact-card-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--furniture-gradient-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.contact-card-icon i {
+    font-size: 1.25rem;
+    color: var(--furniture-primary);
+}
+
+.contact-card-content h4 {
+    margin-bottom: 0.5rem;
+    color: var(--furniture-dark);
+}
+
+.contact-card-content p {
+    margin-bottom: 0.25rem;
+}
+
+.contact-card-content a {
+    color: var(--furniture-primary);
+    text-decoration: none;
+}
+
+.contact-card-content small {
+    color: var(--furniture-text-light);
+}
+
+.social-section {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--furniture-radius);
+    box-shadow: var(--furniture-shadow-sm);
+}
+
+.social-section h4 {
+    margin-bottom: 1rem;
+    color: var(--furniture-dark);
+}
+
+.social-links-large {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-link-large {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background: var(--furniture-bg-alt);
+    border-radius: var(--furniture-radius);
+    text-decoration: none;
+    color: var(--furniture-text);
+    transition: var(--furniture-transition);
+}
+
+.social-link-large:hover {
+    background: var(--furniture-primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.social-link-large i {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.map-section {
+    padding: 4rem 0;
+    background: var(--furniture-bg-alt);
+}
+
+.map-container {
+    height: 400px;
+    border-radius: var(--furniture-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--furniture-shadow-lg);
+}
+
+.map-placeholder {
+    height: 100%;
+    background: linear-gradient(135deg, var(--furniture-primary) 0%, var(--furniture-secondary) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.map-info h3 {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.map-info p {
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+}
+
+.contact-faq {
+    padding: 4rem 0;
+}
+
+@media (max-width: 768px) {
+    .contact-form {
+        padding: 1.5rem;
+    }
+    
+    .contact-info {
+        position: static;
+        margin-top: 2rem;
+    }
+    
+    .form-benefits {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .social-links-large {
+        flex-direction: column;
+    }
+    
+    .consultation-options .form-check {
+        padding: 0.75rem;
+    }
+    
+    .consultation-icon {
+        font-size: 1.25rem;
+    }
+}
+</style>
+{% endblock %}
+
 {% block extra_js %}
 <script>
-// Form validation and submission
 document.addEventListener('DOMContentLoaded', function() {
+    // Форма валидации
     const form = document.getElementById('contactForm');
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            // Basic validation
-            const name = this.querySelector('#name').value.trim();
-            const phone = this.querySelector('#phone').value.trim();
-            const serviceType = this.querySelector('#service_type').value;
-            const message = this.querySelector('#message').value.trim();
-            
-            if (!name || !phone || !serviceType || !message) {
-                e.preventDefault();
-                alert('{% if current_language == "ky" %}Милдеттүү талаалар толтурулушу керек{% else %}Пожалуйста, заполните все обязательные поля{% endif %}');
-                return false;
-            }
-            
-            // Phone validation
-            const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
-            if (!phoneRegex.test(phone)) {
-                e.preventDefault();
-                alert('{% if current_language == "ky" %}Туура телефон номерин киргизиңиз{% else %}Пожалуйста, введите корректный номер телефона{% endif %}');
-                return false;
-            }
-            
-            // Show loading state
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>{% if current_language == "ky" %}Жөнөтүлүүдө...{% else %}Отправка...{% endif %}';
-            
-            // Reset button after 3 seconds if form submission takes too long
-            setTimeout(() => {
-                if (submitBtn.disabled) {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalText;
-                }
-            }, 3000);
-        });
-    }
+    const phoneInput = document.getElementById('phone');
+    
+    // Маска для телефона
+    phoneInput.addEventListener('input', function() {
+        let value = this.value.replace(/\D/g, '');
+        if (value.startsWith('996')) {
+            value = '+' + value;
+        } else if (value.length > 0) {
+            value = '+996' + value;
+        }
+        this.value = value;
+    });
+    
+    // Отправка формы
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (!form.checkValidity()) {
+            e.stopPropagation();
+            form.classList.add('was-validated');
+            return;
+        }
+        
+        const submitBtn = form.querySelector('[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Отправляем...';
+        
+        // Имитация отправки (в реальном приложении будет реальная отправка)
+        setTimeout(() => {
+            FurnitureTheme.showNotification('Заявка отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
+            form.reset();
+            form.classList.remove('was-validated');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+        }, 2000);
+    });
+    
+    // Анимация появления карточек контактов
+    const contactCards = document.querySelectorAll('.contact-card');
+    contactCards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
+        card.classList.add('animate-slide-in');
+    });
 });
 </script>
 {% endblock %}

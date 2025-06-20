@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html lang="{{ current_language }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>{% block title %}BaiMuras - Мебельный инжиниринг и дизайн{% endblock %}</title>
+    <meta name="description" content="{% block description %}BaiMuras - профессиональное изготовление корпусной мебели на заказ. Кухни, шкафы, детская мебель Монтессори. Современный дизайн, качественные материалы.{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}мебель на заказ, корпусная мебель, кухни на заказ, шкафы купе, детская мебель, мебель Монтессори, мебельный инжиниринг, BaiMuras, Кыргызстан{% endblock %}">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:title" content="{% block og_title %}{{ self.title() }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ self.description() }}{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{{ url_for('static', filename='images/og-furniture.jpg', _external=True) }}{% endblock %}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    
+    <!-- Google Fonts - Современные шрифты для мебельной тематики -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS для мебельной тематики -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/furniture-style.css') }}">
+    
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="furniture-theme">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top furniture-navbar">
+        <div class="container">
+            <a class="navbar-brand furniture-brand" href="{{ url_for('main.index') }}">
+                <div class="brand-logo">
+                    <i class="fas fa-cube brand-icon"></i>
+                    <span class="brand-text">BaiMuras</span>
+                </div>
+                <small class="brand-tagline">Мебельный инжиниринг</small>
+            </a>
+            
+            <button class="navbar-toggler furniture-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="toggler-line"></span>
+                <span class="toggler-line"></span>
+                <span class="toggler-line"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'main.index' %}active{% endif %}" 
+                           href="{{ url_for('main.index') }}">
+                            <i class="fas fa-home nav-icon"></i>Главная
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'main.about' %}active{% endif %}" 
+                           href="{{ url_for('main.about') }}">
+                            <i class="fas fa-users nav-icon"></i>О нас
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if request.endpoint.startswith('main.services') %}active{% endif %}" 
+                           href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-tools nav-icon"></i>Услуги
+                        </a>
+                        <ul class="dropdown-menu furniture-dropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('main.services_kitchens') }}">
+                                <i class="fas fa-utensils me-2"></i>Кухни на заказ
+                            </a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('main.services_wardrobes') }}">
+                                <i class="fas fa-door-open me-2"></i>Шкафы и гардеробные
+                            </a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('main.services_children_rooms') }}">
+                                <i class="fas fa-child me-2"></i>Детская мебель
+                            </a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('main.services_montessori') }}">
+                                <i class="fas fa-graduation-cap me-2"></i>Мебель Монтессори
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('main.services') }}">
+                                <i class="fas fa-list me-2"></i>Все услуги
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'main.portfolio' %}active{% endif %}" 
+                           href="{{ url_for('main.portfolio') }}">
+                            <i class="fas fa-image nav-icon"></i>Портфолио
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'main.calculator' %}active{% endif %}" 
+                           href="{{ url_for('main.calculator') }}">
+                            <i class="fas fa-calculator nav-icon"></i>Калькулятор
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'main.contact' %}active{% endif %}" 
+                           href="{{ url_for('main.contact') }}">
+                            <i class="fas fa-envelope nav-icon"></i>Контакты
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="navbar-nav align-items-center">
+                    <!-- Language Switcher -->
+                    <div class="language-switcher me-3">
+                        {% for lang_code, lang_name in languages.items() %}
+                            {% if lang_code != current_language %}
+                                <a href="{{ url_for('main.set_language_route', language=lang_code) }}" 
+                                   class="lang-link">{{ lang_code.upper() }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- CTA Button -->
+                    <a class="btn btn-furniture-primary furniture-cta" href="{{ url_for('main.contact') }}">
+                        <i class="fas fa-phone me-2"></i>Консультация
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="container pt-4">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible furniture-alert" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="furniture-footer">
+        <div class="container">
+            <!-- Main Footer Content -->
+            <div class="row g-5">
+                <!-- Company Info -->
+                <div class="col-lg-4">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <i class="fas fa-cube brand-icon"></i>
+                            <span class="brand-text">BaiMuras</span>
+                        </div>
+                        <p class="footer-description">
+                            Профессиональное изготовление корпусной мебели на заказ. 
+                            Мы создаем уникальные интерьерные решения, сочетающие функциональность, 
+                            красоту и качество.
+                        </p>
+                        <div class="social-links">
+                            <a href="#" class="social-link" aria-label="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link" aria-label="WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="#" class="social-link" aria-label="Telegram">
+                                <i class="fab fa-telegram"></i>
+                            </a>
+                            <a href="#" class="social-link" aria-label="Facebook">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Services -->
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-title">Услуги</h5>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('main.services_kitchens') }}">Кухни</a></li>
+                        <li><a href="{{ url_for('main.services_wardrobes') }}">Шкафы</a></li>
+                        <li><a href="{{ url_for('main.services_children_rooms') }}">Детская мебель</a></li>
+                        <li><a href="{{ url_for('main.services_montessori') }}">Монтессори</a></li>
+                        <li><a href="{{ url_for('main.services') }}">Все услуги</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Company -->
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-title">Компания</h5>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('main.about') }}">О нас</a></li>
+                        <li><a href="{{ url_for('main.portfolio') }}">Портфолио</a></li>
+                        <li><a href="#" onclick="showModal('testimonialsModal')">Отзывы</a></li>
+                        <li><a href="#" onclick="showModal('careersModal')">Вакансии</a></li>
+                        <li><a href="#" onclick="showModal('blogModal')">Блог</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="col-lg-4">
+                    <h5 class="footer-title">Контакты</h5>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt contact-icon"></i>
+                            <div>
+                                <strong>Адрес:</strong><br>
+                                г. Бишкек, ул. Фрунзе 123<br>
+                                Мебельный центр "Доника", 2 этаж
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone contact-icon"></i>
+                            <div>
+                                <strong>Телефон:</strong><br>
+                                <a href="tel:+996509912569">+996 509 912 569</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope contact-icon"></i>
+                            <div>
+                                <strong>Email:</strong><br>
+                                <a href="mailto:info@baimuras.space">info@baimuras.space</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock contact-icon"></i>
+                            <div>
+                                <strong>Режим работы:</strong><br>
+                                Пн-Пт: 9:00-18:00<br>
+                                Сб: 10:00-16:00, Вс: выходной
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <p class="copyright">
+                            &copy; {{ current_year }} BaiMuras. Все права защищены.
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <div class="footer-meta">
+                            <a href="#" onclick="showModal('privacyModal')" class="footer-link">Политика конфиденциальности</a>
+                            <span class="separator">|</span>
+                            <span class="version">v{{ app_version }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Наверх">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/furniture-main.js') }}"></script>
+    
+    {% block extra_js %}{% endblock %}
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 50
+        });
+        
+        // Initialize furniture theme
+        document.addEventListener('DOMContentLoaded', function() {
+            FurnitureTheme.init();
+        });
+    </script>
+</body>
+</html>
