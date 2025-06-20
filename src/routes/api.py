@@ -11,6 +11,7 @@ from src.utils.consultation_helper import (
     get_consultation_success_response,
     get_consultation_error_response
 )
+from src.utils import send_event
 
 api_bp = Blueprint("api", __name__, url_prefix="/api")
 
@@ -40,6 +41,7 @@ def create_consultation():
     try:
         data = request.get_json()
         consultation = create_consultation_request(data)
+        send_event('consultation.created', consultation.to_dict())
         return jsonify(get_consultation_success_response(consultation)), 201
 
     except ValueError as validation_error:
@@ -142,6 +144,7 @@ def create_lead():
 
         db.session.add(lead)
         db.session.commit()
+        send_event('lead.created', lead.to_dict())
 
         return jsonify({
             "success": True,
@@ -152,3 +155,12 @@ def create_lead():
     except Exception:
         db.session.rollback()
         return jsonify(get_consultation_error_response("Error creating lead")), 500
+
+
+@api_bp.route("/webhooks", methods=["POST"])
+def trigger_webhook():
+    """Endpoint to receive webhook events and forward to n8n."""
+    data = request.get_json() or {}
+    event = data.get("event", "unknown")
+    send_event(event, data.get("payload", {}))
+    return jsonify({"success": True}), 201

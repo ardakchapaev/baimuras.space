@@ -20,10 +20,13 @@ from flask_wtf.csrf import CSRFProtect  # pylint: disable=wrong-import-position
 from flask_talisman import Talisman  # pylint: disable=wrong-import-position
 
 from src.config import Config, config  # pylint: disable=wrong-import-position
-from src.models.user import db  # pylint: disable=wrong-import-position
+from src.models import db  # pylint: disable=wrong-import-position
 from src.routes.api import api_bp  # pylint: disable=wrong-import-position
 from src.routes.main_routes import main_bp  # pylint: disable=wrong-import-position
 from src.routes.user import user_bp  # pylint: disable=wrong-import-position
+from src.routes.crm import crm_bp  # pylint: disable=wrong-import-position
+from flask_limiter import Limiter  # pylint: disable=wrong-import-position
+from flask_limiter.util import get_remote_address  # pylint: disable=wrong-import-position
 from src.utils import get_current_language, get_app_version  # pylint: disable=wrong-import-position
 from src.content import NAVIGATION, FOOTER  # pylint: disable=wrong-import-position
 from src.errors import register_error_handlers  # pylint: disable=wrong-import-position
@@ -46,6 +49,13 @@ def create_app(config_name: str = 'default') -> Flask:
 
     # Initialize extensions
     db.init_app(application)
+
+    # Rate limiting
+    Limiter(
+        get_remote_address,
+        app=application,
+        default_limits=[application.config.get('RATELIMIT_DEFAULT', '1000 per hour')]
+    )
 
     # CSRF Protection
     csrf = CSRFProtect(application)
@@ -91,7 +101,7 @@ def create_app(config_name: str = 'default') -> Flask:
         'connect-src': "'self'"
     }
 
-    Talisman(application, content_security_policy=csp)
+    Talisman(application, content_security_policy=csp, force_https=False)
 
     # Configure logging
     if not application.debug and not application.testing:
@@ -111,6 +121,7 @@ def create_app(config_name: str = 'default') -> Flask:
     application.register_blueprint(main_bp)
     application.register_blueprint(api_bp)
     application.register_blueprint(user_bp)
+    application.register_blueprint(crm_bp)
 
     # Context processors
     @application.context_processor

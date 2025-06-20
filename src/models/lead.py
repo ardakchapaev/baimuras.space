@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-from src.models.user import db
+from . import db
 
 
 class Lead(db.Model):
