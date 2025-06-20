@@ -22,9 +22,11 @@ from flask_talisman import Talisman  # pylint: disable=wrong-import-position
 from src.config import Config, config  # pylint: disable=wrong-import-position
 from src.models import db  # pylint: disable=wrong-import-position
 from src.routes.api import api_bp  # pylint: disable=wrong-import-position
+from src.routes.api_v1 import api_v1_bp  # pylint: disable=wrong-import-position
 from src.routes.main_routes import main_bp  # pylint: disable=wrong-import-position
 from src.routes.user import user_bp  # pylint: disable=wrong-import-position
 from src.routes.crm import crm_bp  # pylint: disable=wrong-import-position
+from src.routes.webhooks import webhooks_bp  # pylint: disable=wrong-import-position
 from flask_limiter import Limiter  # pylint: disable=wrong-import-position
 from flask_limiter.util import get_remote_address  # pylint: disable=wrong-import-position
 from src.utils import get_current_language, get_app_version  # pylint: disable=wrong-import-position
@@ -120,8 +122,10 @@ def create_app(config_name: str = 'default') -> Flask:
     # Register blueprints
     application.register_blueprint(main_bp)
     application.register_blueprint(api_bp)
+    application.register_blueprint(api_v1_bp)
     application.register_blueprint(user_bp)
     application.register_blueprint(crm_bp)
+    application.register_blueprint(webhooks_bp)
 
     # Context processors
     @application.context_processor

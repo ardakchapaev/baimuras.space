@@ -1,0 +1,46 @@
+
+# Dockerfile для Flask приложения
+FROM python:3.11-slim
+
+# Установка системных зависимостей
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    libpq-dev \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Создание пользователя приложения
+RUN useradd --create-home --shell /bin/bash app
+
+# Установка рабочей директории
+WORKDIR /app
+
+# Копирование requirements
+COPY requirements.txt requirements_updated.txt ./
+
+# Установка Python зависимостей
+RUN pip install --no-cache-dir -r requirements_updated.txt
+
+# Копирование кода приложения
+COPY . .
+
+# Создание необходимых директорий
+RUN mkdir -p logs uploads instance
+
+# Установка прав доступа
+RUN chown -R app:app /app
+
+# Переключение на пользователя приложения
+USER app
+
+# Переменные окружения
+ENV FLASK_APP=src.main:create_app
+ENV FLASK_ENV=production
+ENV PYTHONPATH=/app
+
+# Порт приложения
+EXPOSE 5000
+
+# Команда запуска
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "--timeout", "120", "src.main:create_app()"]
