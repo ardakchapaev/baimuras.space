@@ -1,0 +1,166 @@
+sending incremental file list
+components.json
+middleware.ts
+next-env.d.ts
+next.config.js
+package.json
+postcss.config.js
+tailwind.config.ts
+tsconfig.json
+tsconfig.tsbuildinfo
+app/
+app/globals.css
+app/layout.tsx
+app/page.tsx
+app/admin/
+app/admin/layout.tsx
+app/admin/page.tsx
+app/admin/calendar/
+app/admin/calendar/page.tsx
+app/admin/crm/
+app/admin/crm/page.tsx
+app/admin/estimates/
+app/admin/estimates/page.tsx
+app/admin/materials/
+app/admin/materials/page.tsx
+app/admin/orders/
+app/admin/orders/page.tsx
+app/admin/projects/
+app/admin/projects/page.tsx
+app/admin/reports/
+app/admin/reports/page.tsx
+app/admin/settings/
+app/admin/settings/page.tsx
+app/api/
+app/api/auth/
+app/api/auth/[...nextauth]/
+app/api/auth/[...nextauth]/route.ts
+app/auth/
+app/auth/signin/
+app/auth/signin/page.tsx
+components/
+components/theme-provider.tsx
+components/dashboard/
+components/dashboard/recent-activities.tsx
+components/dashboard/revenue-chart.tsx
+components/dashboard/stats-card.tsx
+components/layout/
+components/layout/admin-header.tsx
+components/layout/admin-layout.tsx
+components/layout/admin-sidebar.tsx
+components/providers/
+components/providers/session-provider.tsx
+components/ui/
+components/ui/accordion.tsx
+components/ui/alert-dialog.tsx
+components/ui/alert.tsx
+components/ui/aspect-ratio.tsx
+components/ui/avatar.tsx
+components/ui/badge.tsx
+components/ui/breadcrumb.tsx
+components/ui/button.tsx
+components/ui/calendar.tsx
+components/ui/card.tsx
+components/ui/carousel.tsx
+components/ui/checkbox.tsx
+components/ui/collapsible.tsx
+components/ui/command.tsx
+components/ui/context-menu.tsx
+components/ui/date-range-picker.tsx
+components/ui/dialog.tsx
+components/ui/drawer.tsx
+components/ui/dropdown-menu.tsx
+components/ui/form.tsx
+components/ui/hover-card.tsx
+components/ui/input-otp.tsx
+components/ui/input.tsx
+components/ui/label.tsx
+components/ui/menubar.tsx
+components/ui/navigation-menu.tsx
+components/ui/pagination.tsx
+components/ui/popover.tsx
+components/ui/progress.tsx
+components/ui/radio-group.tsx
+components/ui/resizable.tsx
+components/ui/scroll-area.tsx
+components/ui/select.tsx
+components/ui/separator.tsx
+components/ui/sheet.tsx
+components/ui/skeleton.tsx
+components/ui/slider.tsx
+components/ui/sonner.tsx
+components/ui/switch.tsx
+components/ui/table.tsx
+components/ui/tabs.tsx
+components/ui/task-card.tsx
+components/ui/textarea.tsx
+components/ui/toast.tsx
+components/ui/toaster.tsx
+components/ui/toggle-group.tsx
+components/ui/toggle.tsx
+components/ui/tooltip.tsx
+components/ui/use-toast.ts
+hooks/
+hooks/use-toast.ts
+lib/
+lib/auth.ts
+lib/db.ts
+lib/types.ts
+lib/utils.ts
+lib/db/
+prisma/
+prisma/schema.prisma
+scripts/
+scripts/seed.ts
+types/
+types/next-auth.d.ts
+
+sent 548,894 bytes  received 1,847 bytes  367,160.67 bytes/sec
+total size is 541,983  speedup is 0.98
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+  ▲ Next.js 14.2.28
+  - Experiments (use with caution):
+    · outputFileTracingRoot
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Skipping linting
+   Checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/14) ...
+   Generating static pages (3/14) 
+   Generating static pages (6/14) 
+   Generating static pages (10/14) 
+ ✓ Generating static pages (14/14)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    1.15 kB        98.3 kB
+├ ○ /_not-found                          876 B          88.3 kB
+├ ○ /admin                               9.81 kB         237 kB
+├ ○ /admin/calendar                      5.84 kB         159 kB
+├ ○ /admin/crm                           9.51 kB         162 kB
+├ ○ /admin/estimates                     6.44 kB         159 kB
+├ ○ /admin/materials                     4.07 kB         161 kB
+├ ○ /admin/orders                        3.72 kB         160 kB
+├ ○ /admin/projects                      3.25 kB         160 kB
+├ ○ /admin/reports                       12.7 kB         264 kB
+├ ○ /admin/settings                      8.89 kB         162 kB
+├ ƒ /api/auth/[...nextauth]              0 B                0 B
+└ ○ /auth/signin                         4.29 kB         142 kB
++ First Load JS shared by all            87.4 kB
+  ├ chunks/117-2944b53e6d4b4c52.js       31.8 kB
+  ├ chunks/fd9d1056-9aca97ab67458473.js  53.6 kB
+  └ other shared chunks (total)          2 kB
+
+
+ƒ Middleware                             49.4 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
