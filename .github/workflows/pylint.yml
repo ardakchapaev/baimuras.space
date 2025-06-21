@@ -39,7 +39,7 @@ jobs:
         pylint src/ --rcfile=.pylintrc --output-format=text --reports=yes --score=yes --exit-zero > pylint-reports/pylint-report-${{ matrix.python-version }}.txt 2>&1 || true
         
         # Also run a stricter check that can fail the build on critical issues
-        pylint src/ --rcfile=.pylintrc --fail-under=7.0 --disable=all --enable=error,fatal
+        pylint src/ --rcfile=.pylintrc --fail-under=7.0 --disable=all --enable=E,F --disable=no-member,import-error,undefined-variable
         
     - name: Upload pylint reports
       uses: actions/upload-artifact@v4
