@@ -2,7 +2,6 @@
 """Gunicorn configuration for BaiMuras application."""
 
 import multiprocessing
-import os
 
 # Server socket
 BIND = "0.0.0.0:8000"
@@ -53,25 +52,31 @@ LIMIT_REQUEST_FIELD_SIZE = 8190
 WORKER_TMP_DIR = "/dev/shm"
 WORKER_CLASS = "sync"
 
+
 def when_ready(server):
     """Called just after the server is started."""
     server.log.info("Server is ready. Spawning workers")
+
 
 def worker_int(worker):
     """Called just after a worker has been killed by a signal."""
     worker.log.info("worker received INT or QUIT signal")
 
+
 def pre_fork(server, worker):
     """Called just before a worker is forked."""
     server.log.info("Worker spawned (pid: %s)", worker.pid)
+
 
 def post_fork(server, worker):
     """Called just after a worker has been forked."""
     server.log.info("Worker spawned (pid: %s)", worker.pid)
 
+
 def post_worker_init(worker):
     """Called just after a worker has initialized the application."""
     worker.log.info("Worker initialized (pid: %s)", worker.pid)
+
 
 def worker_abort(worker):
     """Called when a worker received the SIGABRT signal."""

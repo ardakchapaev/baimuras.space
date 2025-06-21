@@ -1,7 +1,7 @@
 
+
 """Задачи для отправки email уведомлений."""
 
-from datetime import datetime
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -10,15 +10,15 @@ from email import encoders
 import os
 
 from automation.celery_app import celery_app
-from flask import current_app
-from flask_mail import Message
 
-@celery_app.task(bind=True, autoretry_for=(Exception,), retry_kwargs={'max_retries': 3, 'countdown': 60})
+
+@celery_app.task(bind=True, autoretry_for=(Exception,),
+                 retry_kwargs={'max_retries': 3, 'countdown': 60})
 def send_welcome_email(self, user_email: str, user_name: str):
     """Отправка приветственного email новому пользователю."""
     try:
         subject = "Добро пожаловать в BaiMuras!"
-        
+
         html_content = f"""
         <html>
         <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
@@ -27,12 +27,12 @@ def send_welcome_email(self, user_email: str, user_name: str):
                     <h1 style="margin: 0;">BaiMuras</h1>
                     <p style="margin: 5px 0 0 0;">Мебельный инжиниринг</p>
                 </div>
-                
+
                 <div style="background: #f8f9fa; padding: 30px; border-radius: 0 0 8px 8px;">
                     <h2 style="color: #6b70ba;">Добро пожаловать, {user_name}!</h2>
-                    
+
                     <p>Спасибо за регистрацию на платформе BaiMuras. Мы рады приветствовать вас в нашем сообществе любителей качественной мебели.</p>
-                    
+
                     <div style="background: white; padding: 20px; margin: 20px 0; border-radius: 5px; border-left: 4px solid #6b70ba;">
                         <h3 style="margin-top: 0; color: #6b70ba;">Что вы можете делать:</h3>
                         <ul>
@@ -42,14 +42,14 @@ def send_welcome_email(self, user_email: str, user_name: str):
                             <li>Получать эксклюзивные предложения</li>
                         </ul>
                     </div>
-                    
+
                     <div style="text-align: center; margin: 30px 0;">
-                        <a href="https://baimuras.space/services" 
+                        <a href="https://baimuras.space/services"
                            style="background: #6b70ba; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; display: inline-block;">
                             Изучить наши услуги
                         </a>
                     </div>
-                    
+
                     <p style="color: #666; font-size: 14px;">
                         Если у вас есть вопросы, свяжитесь с нами:<br>
                         📞 +996 509 912 569<br>
@@ -60,11 +60,12 @@ def send_welcome_email(self, user_email: str, user_name: str):
         </body>
         </html>
         """
-        
+
         return send_email(user_email, subject, html_content)
-        
+
     except Exception as exc:
         self.retry(exc=exc)
+
 
 @celery_app.task(bind=True)
 def send_consultation_confirmation(self, consultation_id: int):
@@ -72,7 +73,7 @@ def send_consultation_confirmation(self, consultation_id: int):
     try:
         # Здесь можно получить данные консультации из БД
         subject = "Консультация BaiMuras - Подтверждение"
-        
+
         html_content = f"""
         <html>
         <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
@@ -84,19 +85,20 @@ def send_consultation_confirmation(self, consultation_id: int):
         </body>
         </html>
         """
-        
+
         # В реальном приложении здесь будет получение email из БД
         return send_email("client@example.com", subject, html_content)
-        
+
     except Exception as exc:
         self.retry(exc=exc)
+
 
 @celery_app.task(bind=True)
 def send_project_status_update(self, project_id: int, new_status: str):
     """Уведомление об изменении статуса проекта."""
     try:
         subject = f"Обновление статуса проекта - {new_status}"
-        
+
         status_messages = {
             'measurement': 'Запланирован замер помещения',
             'design': 'Начата работа над дизайн-проектом',
@@ -105,9 +107,9 @@ def send_project_status_update(self, project_id: int, new_status: str):
             'installation': 'Мебель готова к установке',
             'completed': 'Проект успешно завершен'
         }
-        
+
         message = status_messages.get(new_status, 'Статус проекта обновлен')
-        
+
         html_content = f"""
         <html>
         <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
@@ -119,17 +121,18 @@ def send_project_status_update(self, project_id: int, new_status: str):
         </body>
         </html>
         """
-        
+
         return send_email("client@example.com", subject, html_content)
-        
+
     except Exception as exc:
         self.retry(exc=exc)
+
 
 @celery_app.task
 def send_measurement_reminder(measurement_id: int):
     """Напоминание о предстоящем замере."""
     subject = "Напоминание о замере - BaiMuras"
-    
+
     html_content = """
     <html>
     <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
@@ -141,10 +144,15 @@ def send_measurement_reminder(measurement_id: int):
     </body>
     </html>
     """
-    
+
     return send_email("client@example.com", subject, html_content)
 
-def send_email(to_email: str, subject: str, html_content: str, attachments=None):
+
+def send_email(
+        to_email: str,
+        subject: str,
+        html_content: str,
+        attachments=None):
     """Универсальная функция отправки email."""
     try:
         # Настройки SMTP (в реальном приложении из конфигурации)
@@ -153,17 +161,17 @@ def send_email(to_email: str, subject: str, html_content: str, attachments=None)
         smtp_username = os.environ.get('SMTP_USERNAME', '')
         smtp_password = os.environ.get('SMTP_PASSWORD', '')
         from_email = os.environ.get('FROM_EMAIL', 'info@baimuras.space')
-        
+
         # Создание сообщения
         msg = MIMEMultipart('alternative')
         msg['Subject'] = subject
         msg['From'] = from_email
         msg['To'] = to_email
-        
+
         # Добавление HTML контента
         html_part = MIMEText(html_content, 'html', 'utf-8')
         msg.attach(html_part)
-        
+
         # Добавление вложений если есть
         if attachments:
             for attachment in attachments:
@@ -176,14 +184,14 @@ def send_email(to_email: str, subject: str, html_content: str, attachments=None)
                         f'attachment; filename= {os.path.basename(attachment)}'
                     )
                     msg.attach(part)
-        
+
         # Отправка email
         with smtplib.SMTP(smtp_server, smtp_port) as server:
             server.starttls()
             server.login(smtp_username, smtp_password)
             server.send_message(msg)
-        
+
         return {'status': 'success', 'message': f'Email sent to {to_email}'}
-        
+
     except Exception as e:
         return {'status': 'error', 'message': str(e)}

@@ -32,7 +32,8 @@ def get_consultations():
             "data": [consultation.to_dict() for consultation in consultations]
         }), 200
     except Exception:
-        return jsonify(get_consultation_error_response("Error fetching consultations")), 500
+        return jsonify(get_consultation_error_response(
+            "Error fetching consultations")), 500
 
 
 @api_bp.route("/consultations", methods=["POST"])
@@ -45,7 +46,9 @@ def create_consultation():
         return jsonify(get_consultation_success_response(consultation)), 201
 
     except ValueError as validation_error:
-        return jsonify(get_consultation_error_response(str(validation_error))), 400
+        return jsonify(
+            get_consultation_error_response(
+                str(validation_error))), 400
     except Exception:
         db.session.rollback()
         return jsonify(get_consultation_error_response()), 500
@@ -61,7 +64,8 @@ def get_consultation(consultation_id):
             "data": consultation.to_dict()
         }), 200
     except Exception:
-        return jsonify(get_consultation_error_response("Consultation not found")), 404
+        return jsonify(get_consultation_error_response(
+            "Consultation not found")), 404
 
 
 @api_bp.route("/consultations/<int:consultation_id>", methods=["PUT"])
@@ -84,7 +88,8 @@ def update_consultation(consultation_id):
 
     except Exception:
         db.session.rollback()
-        return jsonify(get_consultation_error_response("Error updating consultation")), 500
+        return jsonify(get_consultation_error_response(
+            "Error updating consultation")), 500
 
 
 @api_bp.route("/users", methods=["GET"])
@@ -97,7 +102,8 @@ def get_users():
             "data": [user.to_dict() for user in users]
         }), 200
     except Exception:
-        return jsonify(get_consultation_error_response("Error fetching users")), 500
+        return jsonify(get_consultation_error_response(
+            "Error fetching users")), 500
 
 
 @api_bp.route("/projects", methods=["GET"])
@@ -110,7 +116,8 @@ def get_projects():
             "data": [project.to_dict() for project in projects]
         }), 200
     except Exception:
-        return jsonify(get_consultation_error_response("Error fetching projects")), 500
+        return jsonify(get_consultation_error_response(
+            "Error fetching projects")), 500
 
 
 @api_bp.route("/leads", methods=["GET"])
@@ -123,7 +130,8 @@ def get_leads():
             "data": [lead.to_dict() for lead in leads]
         }), 200
     except Exception:
-        return jsonify(get_consultation_error_response("Error fetching leads")), 500
+        return jsonify(get_consultation_error_response(
+            "Error fetching leads")), 500
 
 
 @api_bp.route("/leads", methods=["POST"])
@@ -133,7 +141,8 @@ def create_lead():
         data = request.get_json()
 
         if not data.get("name") or not data.get("contact"):
-            return jsonify(get_consultation_error_response("Name and contact are required")), 400
+            return jsonify(get_consultation_error_response(
+                "Name and contact are required")), 400
 
         lead = Lead(
             name=data.get("name"),
@@ -154,7 +163,8 @@ def create_lead():
 
     except Exception:
         db.session.rollback()
-        return jsonify(get_consultation_error_response("Error creating lead")), 500
+        return jsonify(get_consultation_error_response(
+            "Error creating lead")), 500
 
 
 @api_bp.route("/webhooks", methods=["POST"])

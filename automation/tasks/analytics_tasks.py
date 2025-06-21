@@ -1,15 +1,17 @@
+from src.utils.logging_config import automation_logger as logger
 
 """Задачи для аналитики и отчетности."""
 
 from datetime import datetime, timedelta
 from automation.celery_app import celery_app
 
+
 @celery_app.task
 def generate_weekly_report():
     """Генерация еженедельного отчета."""
     try:
         week_ago = datetime.now() - timedelta(days=7)
-        
+
         # В реальном приложении здесь будут запросы к БД
         report_data = {
             'period': {
@@ -24,8 +26,8 @@ def generate_weekly_report():
             },
             'projects': {
                 'new': 0,       # Новые проекты
-                'completed': 0, # Завершенные
-                'in_progress': 0, # В работе
+                'completed': 0,  # Завершенные
+                'in_progress': 0,  # В работе
                 'average_value': 0  # Средняя стоимость
             },
             'consultations': {
@@ -38,17 +40,18 @@ def generate_weekly_report():
                 'by_category': {}  # По категориям мебели
             }
         }
-        
+
         # Здесь можно добавить отправку отчета по email
-        print(f"Weekly report generated: {report_data}")
-        
+        logger.info(f"Weekly report generated: {report_data}")
+
         return {
             'status': 'success',
             'report': report_data
         }
-        
+
     except Exception as e:
         return {'status': 'error', 'message': str(e)}
+
 
 @celery_app.task
 def calculate_lead_metrics():
@@ -56,7 +59,7 @@ def calculate_lead_metrics():
     try:
         # Метрики за последний месяц
         month_ago = datetime.now() - timedelta(days=30)
-        
+
         metrics = {
             'lead_sources': {
                 'website': 0,
@@ -73,15 +76,16 @@ def calculate_lead_metrics():
             'average_response_time': 0,  # Среднее время ответа в часах
             'lead_quality_score': 0      # Балл качества лидов
         }
-        
+
         return {
             'status': 'success',
             'metrics': metrics,
             'period': month_ago.isoformat()
         }
-        
+
     except Exception as e:
         return {'status': 'error', 'message': str(e)}
+
 
 @celery_app.task
 def project_profitability_analysis():
@@ -89,7 +93,7 @@ def project_profitability_analysis():
     try:
         # Анализ завершенных проектов за последние 3 месяца
         three_months_ago = datetime.now() - timedelta(days=90)
-        
+
         analysis = {
             'total_projects': 0,
             'total_revenue': 0,
@@ -118,15 +122,16 @@ def project_profitability_analysis():
                 'longest': 0
             }
         }
-        
+
         return {
             'status': 'success',
             'analysis': analysis,
             'period': three_months_ago.isoformat()
         }
-        
+
     except Exception as e:
         return {'status': 'error', 'message': str(e)}
+
 
 @celery_app.task
 def customer_satisfaction_metrics():
@@ -140,14 +145,15 @@ def customer_satisfaction_metrics():
             'referral_rate': 0,   # Процент рекомендаций
             'complaint_resolution_time': 0  # Время решения жалоб
         }
-        
+
         return {
             'status': 'success',
             'metrics': metrics
         }
-        
+
     except Exception as e:
         return {'status': 'error', 'message': str(e)}
+
 
 @celery_app.task
 def update_dashboard_cache():
@@ -169,14 +175,14 @@ def update_dashboard_cache():
             'recent_activities': [],
             'notifications': []
         }
-        
+
         # В реальном приложении здесь будет сохранение в Redis или другой кэш
-        print(f"Dashboard cache updated: {dashboard_data}")
-        
+        logger.info(f"Dashboard cache updated: {dashboard_data}")
+
         return {
             'status': 'success',
             'cache_updated': datetime.now().isoformat()
         }
-        
+
     except Exception as e:
         return {'status': 'error', 'message': str(e)}

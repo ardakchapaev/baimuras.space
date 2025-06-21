@@ -67,7 +67,8 @@ def register_error_handlers(app):
     @app.errorhandler(405)
     def method_not_allowed(error):  # pylint: disable=unused-argument
         """Handle 405 Method Not Allowed errors."""
-        app.logger.warning('Method not allowed: %s %s', request.method, request.url)
+        app.logger.warning('Method not allowed: %s %s',
+                           request.method, request.url)
 
         if request.is_json:
             return jsonify({

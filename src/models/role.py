@@ -8,6 +8,7 @@ roles_users = db.Table(
     db.Column('role_id', db.Integer, db.ForeignKey('role.id')),
 )
 
+
 class Role(db.Model):
     """User role."""
 
@@ -16,5 +17,5 @@ class Role(db.Model):
     description = db.Column(db.String(255))
 
     def __repr__(self):
-    """__repr__ функция."""
+        """__repr__ функция."""
         return f"<Role {self.name}>"

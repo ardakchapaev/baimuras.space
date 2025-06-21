@@ -1,4 +1,4 @@
-import json
+
 
 def test_health(client):
     resp = client.get('/api/health')
