@@ -1,19 +1,19 @@
-
 """
 Система управления секретами для BaiMuras Platform
 Обеспечивает безопасное управление конфиденциальными данными
 """
 
-import os
 import logging
-from typing import Optional, Dict, Any
+import os
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any, Dict, Optional
 
 
 @dataclass
 class SecretConfig:
     """Конфигурация для управления секретами"""
+
     required_secrets: list
     optional_secrets: dict
     env_file_path: Optional[str] = None
@@ -49,11 +49,11 @@ class SecretManager:
         """Загружает переменные из .env файла"""
         try:
             from dotenv import load_dotenv
+
             load_dotenv(env_path)
             self.logger.info(f"Загружен .env файл: {env_path}")
         except ImportError:
-            self.logger.warning(
-                "python-dotenv не установлен, .env файл не загружен")
+            self.logger.warning("python-dotenv не установлен, .env файл не загружен")
         except Exception as e:
             self.logger.error(f"Ошибка загрузки .env файла: {e}")
 
@@ -84,7 +84,8 @@ class SecretManager:
             raise ValueError(error_msg)
 
         self.logger.info(
-            f"Все обязательные секреты загружены успешно ({len(self.config.required_secrets)} шт.)")
+            f"Все обязательные секреты загружены успешно ({len(self.config.required_secrets)} шт.)"
+        )
 
     def get_secret(self, name: str, default: Any = None) -> Any:
         """
@@ -101,22 +102,23 @@ class SecretManager:
 
     def get_database_url(self) -> str:
         """Формирует URL базы данных из компонентов"""
-        db_type = self.get_secret('DATABASE_TYPE', 'sqlite')
+        db_type = self.get_secret("DATABASE_TYPE", "sqlite")
 
-        if db_type.lower() == 'sqlite':
-            db_path = self.get_secret('DATABASE_PATH', 'instance/baimuras.db')
+        if db_type.lower() == "sqlite":
+            db_path = self.get_secret("DATABASE_PATH", "instance/baimuras.db")
             return f"sqlite:///{db_path}"
 
-        elif db_type.lower() == 'postgresql':
-            user = self.get_secret('DATABASE_USER')
-            password = self.get_secret('DATABASE_PASSWORD')
-            host = self.get_secret('DATABASE_HOST', 'localhost')
-            port = self.get_secret('DATABASE_PORT', '5432')
-            name = self.get_secret('DATABASE_NAME')
+        elif db_type.lower() == "postgresql":
+            user = self.get_secret("DATABASE_USER")
+            password = self.get_secret("DATABASE_PASSWORD")
+            host = self.get_secret("DATABASE_HOST", "localhost")
+            port = self.get_secret("DATABASE_PORT", "5432")
+            name = self.get_secret("DATABASE_NAME")
 
             if not all([user, password, name]):
                 raise ValueError(
-                    "Для PostgreSQL требуются DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME")
+                    "Для PostgreSQL требуются DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME"
+                )
 
             return f"postgresql://{user}:{password}@{host}:{port}/{name}"
 
@@ -125,10 +127,10 @@ class SecretManager:
 
     def get_redis_url(self) -> str:
         """Формирует URL Redis из компонентов"""
-        host = self.get_secret('REDIS_HOST', 'localhost')
-        port = self.get_secret('REDIS_PORT', '6379')
-        db = self.get_secret('REDIS_DB', '0')
-        password = self.get_secret('REDIS_PASSWORD')
+        host = self.get_secret("REDIS_HOST", "localhost")
+        port = self.get_secret("REDIS_PORT", "6379")
+        db = self.get_secret("REDIS_DB", "0")
+        password = self.get_secret("REDIS_PASSWORD")
 
         if password:
             return f"redis://:{password}@{host}:{port}/{db}"
@@ -159,15 +161,10 @@ class SecretManager:
         summary = {}
 
         for name, value in self.secrets.items():
-            if isinstance(
-                value,
-                str) and any(
-                keyword in name.upper() for keyword in [
-                    'PASSWORD',
-                    'SECRET',
-                    'KEY',
-                    'TOKEN',
-                    'API']):
+            if isinstance(value, str) and any(
+                keyword in name.upper()
+                for keyword in ["PASSWORD", "SECRET", "KEY", "TOKEN", "API"]
+            ):
                 summary[name] = self.mask_secret(value)
             else:
                 summary[name] = str(value)
@@ -179,28 +176,25 @@ class SecretManager:
 def get_development_config() -> SecretConfig:
     """Конфигурация для разработки"""
     return SecretConfig(
-        required_secrets=[
-            'SECRET_KEY',
-            'JWT_SECRET_KEY'
-        ],
+        required_secrets=["SECRET_KEY", "JWT_SECRET_KEY"],
         optional_secrets={
-            'DATABASE_TYPE': 'sqlite',
-            'DATABASE_PATH': 'instance/baimuras.db',
-            'REDIS_HOST': 'localhost',
-            'REDIS_PORT': '6379',
-            'REDIS_DB': '0',
-            'MAIL_SERVER': 'localhost',
-            'MAIL_PORT': '587',
-            'MAIL_USE_TLS': 'True',
-            'MAIL_USERNAME': '',
-            'MAIL_PASSWORD': '',
-            'CELERY_BROKER_URL': 'redis://localhost:6379/0',
-            'CELERY_RESULT_BACKEND': 'redis://localhost:6379/0',
-            'N8N_WEBHOOK_URL': '',
-            'FLASK_ENV': 'development',
-            'DEBUG': 'True'
+            "DATABASE_TYPE": "sqlite",
+            "DATABASE_PATH": "instance/baimuras.db",
+            "REDIS_HOST": "localhost",
+            "REDIS_PORT": "6379",
+            "REDIS_DB": "0",
+            "MAIL_SERVER": "localhost",
+            "MAIL_PORT": "587",
+            "MAIL_USE_TLS": "True",
+            "MAIL_USERNAME": "",
+            "MAIL_PASSWORD": "",
+            "CELERY_BROKER_URL": "redis://localhost:6379/0",
+            "CELERY_RESULT_BACKEND": "redis://localhost:6379/0",
+            "N8N_WEBHOOK_URL": "",
+            "FLASK_ENV": "development",
+            "DEBUG": "True",
         },
-        env_file_path='.env'
+        env_file_path=".env",
     )
 
 
@@ -208,56 +202,53 @@ def get_production_config() -> SecretConfig:
     """Конфигурация для продакшн"""
     return SecretConfig(
         required_secrets=[
-            'SECRET_KEY',
-            'JWT_SECRET_KEY',
-            'DATABASE_USER',
-            'DATABASE_PASSWORD',
-            'DATABASE_NAME',
-            'MAIL_USERNAME',
-            'MAIL_PASSWORD'
+            "SECRET_KEY",
+            "JWT_SECRET_KEY",
+            "DATABASE_USER",
+            "DATABASE_PASSWORD",
+            "DATABASE_NAME",
+            "MAIL_USERNAME",
+            "MAIL_PASSWORD",
         ],
         optional_secrets={
-            'DATABASE_TYPE': 'postgresql',
-            'DATABASE_HOST': 'localhost',
-            'DATABASE_PORT': '5432',
-            'REDIS_HOST': 'localhost',
-            'REDIS_PORT': '6379',
-            'REDIS_DB': '0',
-            'REDIS_PASSWORD': '',
-            'MAIL_SERVER': 'smtp.gmail.com',
-            'MAIL_PORT': '587',
-            'MAIL_USE_TLS': 'True',
-            'CELERY_BROKER_URL': '',
-            'CELERY_RESULT_BACKEND': '',
-            'N8N_WEBHOOK_URL': '',
-            'FLASK_ENV': 'production',
-            'DEBUG': 'False'
-        }
+            "DATABASE_TYPE": "postgresql",
+            "DATABASE_HOST": "localhost",
+            "DATABASE_PORT": "5432",
+            "REDIS_HOST": "localhost",
+            "REDIS_PORT": "6379",
+            "REDIS_DB": "0",
+            "REDIS_PASSWORD": "",
+            "MAIL_SERVER": "smtp.gmail.com",
+            "MAIL_PORT": "587",
+            "MAIL_USE_TLS": "True",
+            "CELERY_BROKER_URL": "",
+            "CELERY_RESULT_BACKEND": "",
+            "N8N_WEBHOOK_URL": "",
+            "FLASK_ENV": "production",
+            "DEBUG": "False",
+        },
     )
 
 
 def get_testing_config() -> SecretConfig:
     """Конфигурация для тестирования"""
     return SecretConfig(
-        required_secrets=[
-            'SECRET_KEY',
-            'JWT_SECRET_KEY'
-        ],
+        required_secrets=["SECRET_KEY", "JWT_SECRET_KEY"],
         optional_secrets={
-            'DATABASE_TYPE': 'sqlite',
-            'DATABASE_PATH': ':memory:',
-            'REDIS_HOST': 'localhost',
-            'REDIS_PORT': '6379',
-            'REDIS_DB': '1',
-            'MAIL_SERVER': 'localhost',
-            'MAIL_PORT': '587',
-            'MAIL_USE_TLS': 'False',
-            'MAIL_USERNAME': 'test@example.com',
-            'MAIL_PASSWORD': 'testpass',
-            'CELERY_BROKER_URL': 'redis://localhost:6379/1',
-            'CELERY_RESULT_BACKEND': 'redis://localhost:6379/1',
-            'FLASK_ENV': 'testing',
-            'DEBUG': 'True',
-            'TESTING': 'True'
-        }
+            "DATABASE_TYPE": "sqlite",
+            "DATABASE_PATH": ":memory:",
+            "REDIS_HOST": "localhost",
+            "REDIS_PORT": "6379",
+            "REDIS_DB": "1",
+            "MAIL_SERVER": "localhost",
+            "MAIL_PORT": "587",
+            "MAIL_USE_TLS": "False",
+            "MAIL_USERNAME": "test@example.com",
+            "MAIL_PASSWORD": "testpass",
+            "CELERY_BROKER_URL": "redis://localhost:6379/1",
+            "CELERY_RESULT_BACKEND": "redis://localhost:6379/1",
+            "FLASK_ENV": "testing",
+            "DEBUG": "True",
+            "TESTING": "True",
+        },
     )

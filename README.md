@@ -112,11 +112,18 @@ baimuras.space/
 │   ├── __init__.py              # Инициализация Flask приложения
 │   ├── main.py                  # Основная точка входа
 │   ├── config.py                # Конфигурация приложения
+│   ├── env_validator.py         # Валидация переменных окружения (НОВЫЙ)
+│   ├── security_middleware.py   # Middleware безопасности (НОВЫЙ)
+│   ├── secret_manager.py        # Управление секретами (НОВЫЙ)
+│   ├── config_secure.py         # Безопасная конфигурация (НОВЫЙ)
+│   ├── health_check.py          # Health check эндпоинты
+│   ├── version.py               # Версионирование
 │   ├── models/                  # Модели базы данных
 │   │   ├── user.py             # Модель пользователя
 │   │   ├── lead.py             # Модель лида
 │   │   ├── project.py          # Модель проекта
-│   │   └── consultation.py     # Модель консультации
+│   │   ├── consultation.py     # Модель консультации
+│   │   └── role.py             # Модель ролей
 │   ├── routes/                  # Маршруты и контроллеры
 │   │   ├── main_routes.py      # Основные маршруты
 │   │   ├── api.py              # API эндпоинты
@@ -126,19 +133,25 @@ baimuras.space/
 │   │   └── webhooks.py         # Webhook обработчики
 │   ├── templates/               # HTML шаблоны
 │   ├── static/                  # Статические файлы (CSS, JS, изображения)
-│   └── utils/                   # Утилиты и хелперы
-│       ├── auth.py             # Аутентификация
-│       ├── jwt_utils.py        # JWT утилиты
-│       └── n8n.py              # n8n интеграция
-├── automation/                  # Celery задачи
-│   ├── celery_app.py           # Конфигурация Celery
-│   └── tasks/                  # Задачи автоматизации
+│   ├── utils/                   # Утилиты и хелперы
+│   │   ├── auth.py             # Аутентификация
+│   │   ├── jwt_utils.py        # JWT утилиты
+│   │   ├── logging_config.py   # Конфигурация логирования
+│   │   ├── api_helpers.py      # API помощники
+│   │   └── n8n.py              # n8n интеграция
+│   └── automation/              # Celery задачи (перемещено в src)
+│       ├── __init__.py
+│       └── tasks/              # Задачи автоматизации
+│           ├── email_tasks.py
+│           └── notification_tasks.py
 ├── migrations/                  # Миграции базы данных
 ├── tests/                       # Тесты
 ├── nginx/                       # Конфигурация Nginx
 ├── docker-compose.yml          # Docker Compose конфигурация
 ├── requirements.txt            # Python зависимости
 ├── wsgi.py                     # WSGI точка входа
+├── app.py                      # Основное приложение Flask
+├── run_modernized.py           # Модернизированный запуск
 └── gunicorn.conf.py           # Конфигурация Gunicorn
 ```
 
@@ -183,9 +196,11 @@ Password: Admin123!
 - ✅ **JWT Authentication**: Токены доступа для API
 
 ### Аудит безопасности
-- **Pylint Score**: 9.21/10
+- **Pylint Score**: 8.53/10 (улучшен с 8.37)
 - **Bandit Scan**: Все критические уязвимости устранены
 - **Dependencies**: Актуальные версии без известных уязвимостей
+- **Environment Validation**: Автоматическая валидация переменных окружения
+- **Secret Management**: Удален хардкод секретов, добавлена валидация ключей
 
 Подробнее см. [SECURITY.md](./SECURITY.md)
 
@@ -257,13 +272,23 @@ bandit -r src/
 
 ### Основные переменные окружения
 
-| Переменная | Описание | Пример |
-|------------|----------|---------|
-| `SECRET_KEY` | Секретный ключ Flask | `your-secret-key` |
-| `DATABASE_URL` | URL базы данных | `postgresql://user:pass@localhost/db` |
-| `REDIS_URL` | URL Redis сервера | `redis://localhost:6379/0` |
-| `MAIL_SERVER` | SMTP сервер | `smtp.gmail.com` |
-| `N8N_WEBHOOK_URL` | URL webhook n8n | `http://localhost:5678/webhook/baimuras` |
+| Переменная | Описание | Обязательная | Пример |
+|------------|----------|--------------|---------|
+| `SECRET_KEY` | Секретный ключ Flask (мин. 32 символа) | ✅ | `your-very-long-secret-key-here` |
+| `JWT_SECRET_KEY` | Секретный ключ JWT (мин. 32 символа) | ✅ | `your-jwt-secret-key-here` |
+| `DATABASE_TYPE` | Тип базы данных | ❌ | `sqlite` или `postgresql` |
+| `DATABASE_PATH` | Путь к базе SQLite | ❌ | `instance/baimuras.db` |
+| `REDIS_HOST` | Хост Redis сервера | ❌ | `localhost` |
+| `REDIS_PORT` | Порт Redis сервера | ❌ | `6379` |
+| `REDIS_DB` | Номер базы Redis | ❌ | `0` |
+| `MAIL_SERVER` | SMTP сервер | ❌ | `smtp.gmail.com` |
+| `MAIL_USERNAME` | Пользователь SMTP | ❌ | `user@gmail.com` |
+| `MAIL_PASSWORD` | Пароль SMTP | ❌ | `app-password` |
+| `N8N_WEBHOOK_URL` | URL webhook n8n | ❌ | `http://localhost:5678/webhook/baimuras` |
+| `FLASK_ENV` | Окружение Flask | ❌ | `development` или `production` |
+| `LOG_LEVEL` | Уровень логирования | ❌ | `INFO`, `DEBUG`, `ERROR` |
+
+**Примечание**: Переменные с ✅ обязательны для запуска. Система автоматически проверяет их наличие при старте.
 
 Полный список переменных см. в [.env.example](./.env.example)
 
