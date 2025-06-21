@@ -1,11 +1,11 @@
+from src.main import create_app, db
 import os
 import sys
 import pytest
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.insert(0, os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..')))
 
-from src.main import create_app, db
-from src.config import TestingConfig
 
 @pytest.fixture()
 def app():
@@ -15,6 +15,7 @@ def app():
         yield app
         db.session.remove()
         db.drop_all()
+
 
 @pytest.fixture()
 def client(app):

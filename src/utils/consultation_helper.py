@@ -49,7 +49,8 @@ def get_consultation_success_response(consultation):
     }
 
 
-def get_consultation_error_response(message="Error creating consultation request"):
+def get_consultation_error_response(
+        message="Error creating consultation request"):
     """Get error response for consultation creation.
 
     Args:

@@ -1,11 +1,9 @@
 
 """Main routes for BaiMuras application."""
 
-import functools
 from flask import Blueprint, flash, redirect, render_template, request, session, url_for, jsonify
 from src.models.user import User, db
 from src.utils import get_current_language
-from src.utils.auth import login_required, admin_required
 from src.utils.consultation_helper import create_consultation_request, get_consultation_error_response
 from src.content import HOMEPAGE, SERVICES, CONTACT_FORM
 
@@ -48,7 +46,9 @@ def services_montessori():
     """Montessori furniture service page."""
     current_lang = get_current_language()
     content = SERVICES.get(current_lang, SERVICES['ru'])
-    return render_template("services_montessori.html", service=content['montessori'])
+    return render_template(
+        "services_montessori.html",
+        service=content['montessori'])
 
 
 @main_bp.route("/services/kitchens")
@@ -56,7 +56,9 @@ def services_kitchens():
     """Kitchens service page."""
     current_lang = get_current_language()
     content = SERVICES.get(current_lang, SERVICES['ru'])
-    return render_template("services_kitchens.html", service=content['kitchens'])
+    return render_template(
+        "services_kitchens.html",
+        service=content['kitchens'])
 
 
 @main_bp.route("/services/children-rooms")
@@ -64,7 +66,9 @@ def services_children_rooms():
     """Children rooms service page."""
     current_lang = get_current_language()
     content = SERVICES.get(current_lang, SERVICES['ru'])
-    return render_template("services_children_rooms.html", service=content['children_rooms'])
+    return render_template(
+        "services_children_rooms.html",
+        service=content['children_rooms'])
 
 
 @main_bp.route("/portfolio")
@@ -90,12 +94,14 @@ def contact():
             # Validate required fields
             required_fields = ['name', 'phone', 'service_type', 'message']
             form_data = request.form.to_dict()
-            
+
             for field in required_fields:
                 if not form_data.get(field, '').strip():
-                    flash(f"Поле '{field}' обязательно для заполнения", "error")
-                    return render_template("contact.html", form_content=form_content)
-            
+                    flash(
+                        f"Поле '{field}' обязательно для заполнения", "error")
+                    return render_template(
+                        "contact.html", form_content=form_content)
+
             # Create consultation request
             create_consultation_request(form_data)
             flash(form_content['success_message'], "success")
@@ -107,7 +113,9 @@ def contact():
         except (RuntimeError, OSError, IOError) as consultation_error:
             db.session.rollback()
             flash(form_content['error_message'], "error")
-            print(f"Error saving consultation request: {consultation_error}")
+            # Логирование ошибки сохранения запроса на консультацию
+            app.logger.error(
+                f"Error saving consultation request: {consultation_error}")
 
     return render_template("contact.html", form_content=form_content)
 
@@ -126,7 +134,9 @@ def api_consultation():
         }), 200
 
     except ValueError as validation_error:
-        return jsonify(get_consultation_error_response(str(validation_error))), 400
+        return jsonify(
+            get_consultation_error_response(
+                str(validation_error))), 400
     except (RuntimeError, OSError, IOError):
         db.session.rollback()
         return jsonify(get_consultation_error_response()), 500
@@ -137,7 +147,11 @@ def services_custom_furniture():
     """Custom furniture service page."""
     current_lang = get_current_language()
     content = SERVICES.get(current_lang, SERVICES['ru'])
-    return render_template("services_custom_furniture.html", service=content.get('custom_furniture', content['montessori']))
+    return render_template(
+        "services_custom_furniture.html",
+        service=content.get(
+            'custom_furniture',
+            content['montessori']))
 
 
 @main_bp.route("/services/design-bureau")
@@ -145,7 +159,11 @@ def services_design_bureau():
     """Design bureau service page."""
     current_lang = get_current_language()
     content = SERVICES.get(current_lang, SERVICES['ru'])
-    return render_template("services_design_bureau.html", service=content.get('design_bureau', content['kitchens']))
+    return render_template(
+        "services_design_bureau.html",
+        service=content.get(
+            'design_bureau',
+            content['kitchens']))
 
 
 @main_bp.route("/services/academy")
@@ -153,7 +171,11 @@ def services_academy():
     """Academy service page."""
     current_lang = get_current_language()
     content = SERVICES.get(current_lang, SERVICES['ru'])
-    return render_template("services_academy.html", service=content.get('academy', content['montessori']))
+    return render_template(
+        "services_academy.html",
+        service=content.get(
+            'academy',
+            content['montessori']))
 
 
 @main_bp.route("/dashboard")
@@ -199,7 +221,8 @@ def register():
         except (ValueError, RuntimeError, OSError) as register_error:
             db.session.rollback()
             flash("Registration failed", "error")
-            print(f"Registration error: {register_error}")
+            # Логирование ошибки регистрации
+            app.logger.error(f"Registration error: {register_error}")
 
     return render_template("register.html")
 
@@ -229,6 +252,3 @@ def logout():
     session.pop('user_id', None)
     flash("Logged out successfully", "success")
     return redirect(url_for("main.index"))
-
-
-

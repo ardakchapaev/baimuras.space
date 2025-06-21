@@ -1,0 +1,62 @@
+2025-06-21T09:52:30Z	WARN	[vulndb] Trivy DB may be corrupted and will be re-downloaded. If you manually downloaded DB - use the `--skip-db-update` flag to skip updating DB.
+2025-06-21T09:52:30Z	INFO	[vulndb] Need to update DB
+2025-06-21T09:52:30Z	INFO	[vulndb] Downloading vulnerability DB...
+2025-06-21T09:52:30Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
+30.34 MiB / 65.93 MiB [---------------------------->________________________________] 46.02% ? p/s ?65.93 MiB / 65.93 MiB [----------------------------------------------------------->] 100.00% ? p/s ?65.93 MiB / 65.93 MiB [----------------------------------------------------------->] 100.00% ? p/s ?65.93 MiB / 65.93 MiB [---------------------------------------------->] 100.00% 59.30 MiB p/s ETA 0s65.93 MiB / 65.93 MiB [---------------------------------------------->] 100.00% 59.30 MiB p/s ETA 0s65.93 MiB / 65.93 MiB [---------------------------------------------->] 100.00% 59.30 MiB p/s ETA 0s65.93 MiB / 65.93 MiB [---------------------------------------------->] 100.00% 55.48 MiB p/s ETA 0s65.93 MiB / 65.93 MiB [---------------------------------------------->] 100.00% 55.48 MiB p/s ETA 0s65.93 MiB / 65.93 MiB [---------------------------------------------->] 100.00% 55.48 MiB p/s ETA 0s65.93 MiB / 65.93 MiB [---------------------------------------------->] 100.00% 51.90 MiB p/s ETA 0s65.93 MiB / 65.93 MiB [---------------------------------------------->] 100.00% 51.90 MiB p/s ETA 0s65.93 MiB / 65.93 MiB [---------------------------------------------->] 100.00% 51.90 MiB p/s ETA 0s65.93 MiB / 65.93 MiB [---------------------------------------------->] 100.00% 48.55 MiB p/s ETA 0s65.93 MiB / 65.93 MiB [---------------------------------------------->] 100.00% 48.55 MiB p/s ETA 0s65.93 MiB / 65.93 MiB [---------------------------------------------->] 100.00% 48.55 MiB p/s ETA 0s65.93 MiB / 65.93 MiB [---------------------------------------------->] 100.00% 45.42 MiB p/s ETA 0s65.93 MiB / 65.93 MiB [---------------------------------------------->] 100.00% 45.42 MiB p/s ETA 0s65.93 MiB / 65.93 MiB [-------------------------------------------------] 100.00% 20.21 MiB p/s 3.5s2025-06-21T09:52:36Z	INFO	[vulndb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-db:2"
+2025-06-21T09:52:36Z	INFO	[vuln] Vulnerability scanning is enabled
+2025-06-21T09:52:36Z	INFO	[secret] Secret scanning is enabled
+2025-06-21T09:52:36Z	INFO	[secret] If your scanning is slow, please try '--scanners vuln' to disable secret scanning
+2025-06-21T09:52:36Z	INFO	[secret] Please see also https://trivy.dev/v0.63/docs/scanner/secret#recommendation for faster secret detection
+2025-06-21T09:52:37Z	INFO	Number of language-specific files	num=1
+2025-06-21T09:52:37Z	INFO	[pip] Detecting vulnerabilities...
+
+Report Summary
+
+┌──────────────────┬──────┬─────────────────┬─────────┐
+│      Target      │ Type │ Vulnerabilities │ Secrets │
+├──────────────────┼──────┼─────────────────┼─────────┤
+│ requirements.txt │ pip  │        8        │    -    │
+└──────────────────┴──────┴─────────────────┴─────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+
+requirements.txt (pip)
+======================
+Total: 8 (UNKNOWN: 0, LOW: 0, MEDIUM: 5, HIGH: 3, CRITICAL: 0)
+
+┌──────────┬────────────────┬──────────┬────────┬───────────────────┬───────────────┬──────────────────────────────────────────────────────────────┐
+│ Library  │ Vulnerability  │ Severity │ Status │ Installed Version │ Fixed Version │                            Title                             │
+├──────────┼────────────────┼──────────┼────────┼───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
+│ Werkzeug │ CVE-2024-34069 │ HIGH     │ fixed  │ 2.3.7             │ 3.0.3         │ python-werkzeug: user may execute code on a developer's      │
+│          │                │          │        │                   │               │ machine                                                      │
+│          │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2024-34069                   │
+│          ├────────────────┼──────────┤        │                   ├───────────────┼──────────────────────────────────────────────────────────────┤
+│          │ CVE-2023-46136 │ MEDIUM   │        │                   │ 3.0.1, 2.3.8  │ python-werkzeug: high resource consumption leading to denial │
+│          │                │          │        │                   │               │ of service                                                   │
+│          │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2023-46136                   │
+│          ├────────────────┤          │        │                   ├───────────────┼──────────────────────────────────────────────────────────────┤
+│          │ CVE-2024-49766 │          │        │                   │ 3.0.6         │ werkzeug: python-werkzeug: Werkzeug safe_join not safe on    │
+│          │                │          │        │                   │               │ Windows                                                      │
+│          │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2024-49766                   │
+│          ├────────────────┤          │        │                   │               ├──────────────────────────────────────────────────────────────┤
+│          │ CVE-2024-49767 │          │        │                   │               │ werkzeug: python-werkzeug: Werkzeug possible resource        │
+│          │                │          │        │                   │               │ exhaustion when parsing file data in forms...                │
+│          │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2024-49767                   │
+├──────────┼────────────────┼──────────┤        ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
+│ gunicorn │ CVE-2024-1135  │ HIGH     │        │ 21.2.0            │ 22.0.0        │ python-gunicorn: HTTP Request Smuggling due to improper      │
+│          │                │          │        │                   │               │ validation of Transfer-Encoding headers                      │
+│          │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2024-1135                    │
+│          ├────────────────┤          │        │                   ├───────────────┼──────────────────────────────────────────────────────────────┤
+│          │ CVE-2024-6827  │          │        │                   │ 23.0.0        │ gunicorn: HTTP Request Smuggling in benoitc/gunicorn         │
+│          │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2024-6827                    │
+├──────────┼────────────────┼──────────┤        ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
+│ requests │ CVE-2024-35195 │ MEDIUM   │        │ 2.31.0            │ 2.32.0        │ requests: subsequent requests to the same host ignore cert   │
+│          │                │          │        │                   │               │ verification                                                 │
+│          │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2024-35195                   │
+│          ├────────────────┤          │        │                   ├───────────────┼──────────────────────────────────────────────────────────────┤
+│          │ CVE-2024-47081 │          │        │                   │ 2.32.4        │ requests: Requests vulnerable to .netrc credentials leak via │
+│          │                │          │        │                   │               │ malicious URLs                                               │
+│          │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2024-47081                   │
+└──────────┴────────────────┴──────────┴────────┴───────────────────┴───────────────┴──────────────────────────────────────────────────────────────┘

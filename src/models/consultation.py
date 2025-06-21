@@ -33,5 +33,4 @@ class ConsultationRequest(db.Model):
             'service_type': self.service_type,
             'message': self.message,
             'created_at': self.created_at.isoformat() if self.created_at else None,
-            'status': self.status
-        }
+            'status': self.status}

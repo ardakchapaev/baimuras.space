@@ -1,0 +1,595 @@
+./admin_panel/__init__.py:10:1: E302 expected 2 blank lines, found 1
+./admin_panel/__init__.py:12:1: W293 blank line contains whitespace
+./admin_panel/__init__.py:16:1: W293 blank line contains whitespace
+./admin_panel/__init__.py:21:1: E302 expected 2 blank lines, found 1
+./admin_panel/__init__.py:23:1: W293 blank line contains whitespace
+./admin_panel/__init__.py:27:1: W293 blank line contains whitespace
+./admin_panel/__init__.py:32:1: E302 expected 2 blank lines, found 1
+./admin_panel/__init__.py:34:1: W293 blank line contains whitespace
+./admin_panel/__init__.py:41:1: W293 blank line contains whitespace
+./admin_panel/__init__.py:44:47: W291 trailing whitespace
+./admin_panel/__init__.py:47:1: W293 blank line contains whitespace
+./admin_panel/__init__.py:58:1: W293 blank line contains whitespace
+./automation/celery_app.py:8:1: E302 expected 2 blank lines, found 1
+./automation/celery_app.py:10:1: W293 blank line contains whitespace
+./automation/celery_app.py:12:1: W293 blank line contains whitespace
+./automation/celery_app.py:24:1: W293 blank line contains whitespace
+./automation/celery_app.py:32:1: W293 blank line contains whitespace
+./automation/celery_app.py:38:1: W293 blank line contains whitespace
+./automation/celery_app.py:46:1: W293 blank line contains whitespace
+./automation/celery_app.py:56:1: W293 blank line contains whitespace
+./automation/celery_app.py:60:1: W293 blank line contains whitespace
+./automation/celery_app.py:77:1: W293 blank line contains whitespace
+./automation/celery_app.py:81:1: E305 expected 2 blank lines after class or function definition, found 1
+./automation/tasks/analytics_tasks.py:7:1: E302 expected 2 blank lines, found 1
+./automation/tasks/analytics_tasks.py:12:1: W293 blank line contains whitespace
+./automation/tasks/analytics_tasks.py:27:32: E261 at least two spaces before inline comment
+./automation/tasks/analytics_tasks.py:28:34: E261 at least two spaces before inline comment
+./automation/tasks/analytics_tasks.py:41:1: W293 blank line contains whitespace
+./automation/tasks/analytics_tasks.py:44:1: W293 blank line contains whitespace
+./automation/tasks/analytics_tasks.py:49:1: W293 blank line contains whitespace
+./automation/tasks/analytics_tasks.py:53:1: E302 expected 2 blank lines, found 1
+./automation/tasks/analytics_tasks.py:59:1: W293 blank line contains whitespace
+./automation/tasks/analytics_tasks.py:76:1: W293 blank line contains whitespace
+./automation/tasks/analytics_tasks.py:82:1: W293 blank line contains whitespace
+./automation/tasks/analytics_tasks.py:86:1: E302 expected 2 blank lines, found 1
+./automation/tasks/analytics_tasks.py:92:1: W293 blank line contains whitespace
+./automation/tasks/analytics_tasks.py:121:1: W293 blank line contains whitespace
+./automation/tasks/analytics_tasks.py:127:1: W293 blank line contains whitespace
+./automation/tasks/analytics_tasks.py:131:1: E302 expected 2 blank lines, found 1
+./automation/tasks/analytics_tasks.py:143:1: W293 blank line contains whitespace
+./automation/tasks/analytics_tasks.py:148:1: W293 blank line contains whitespace
+./automation/tasks/analytics_tasks.py:152:1: E302 expected 2 blank lines, found 1
+./automation/tasks/analytics_tasks.py:172:1: W293 blank line contains whitespace
+./automation/tasks/analytics_tasks.py:175:1: W293 blank line contains whitespace
+./automation/tasks/analytics_tasks.py:180:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:11:1: E302 expected 2 blank lines, found 1
+./automation/tasks/backup_tasks.py:17:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:20:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:23:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:28:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:37:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:39:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:45:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:48:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:51:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:62:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:68:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:72:1: E302 expected 2 blank lines, found 1
+./automation/tasks/backup_tasks.py:79:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:82:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:86:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:89:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:95:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:99:1: E302 expected 2 blank lines, found 1
+./automation/tasks/backup_tasks.py:103:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:111:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:115:1: E302 expected 2 blank lines, found 1
+./automation/tasks/backup_tasks.py:121:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:124:1: W293 blank line contains whitespace
+./automation/tasks/backup_tasks.py:131:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:4:1: F401 'datetime.datetime' imported but unused
+./automation/tasks/email_tasks.py:13:1: F401 'flask.current_app' imported but unused
+./automation/tasks/email_tasks.py:14:1: F401 'flask_mail.Message' imported but unused
+./automation/tasks/email_tasks.py:16:1: E302 expected 2 blank lines, found 1
+./automation/tasks/email_tasks.py:21:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:26:121: E501 line too long (127 > 120 characters)
+./automation/tasks/email_tasks.py:30:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:33:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:34:121: E501 line too long (149 > 120 characters)
+./automation/tasks/email_tasks.py:35:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:36:121: E501 line too long (135 > 120 characters)
+./automation/tasks/email_tasks.py:45:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:47:66: W291 trailing whitespace
+./automation/tasks/email_tasks.py:48:121: E501 line too long (156 > 120 characters)
+./automation/tasks/email_tasks.py:52:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:63:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:65:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:69:1: E302 expected 2 blank lines, found 1
+./automation/tasks/email_tasks.py:75:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:76:24: F541 f-string is missing placeholders
+./automation/tasks/email_tasks.py:87:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:90:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:94:1: E302 expected 2 blank lines, found 1
+./automation/tasks/email_tasks.py:99:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:108:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:110:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:122:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:124:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:128:1: E302 expected 2 blank lines, found 1
+./automation/tasks/email_tasks.py:132:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:144:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:147:1: E302 expected 2 blank lines, found 1
+./automation/tasks/email_tasks.py:156:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:162:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:166:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:179:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:185:1: W293 blank line contains whitespace
+./automation/tasks/email_tasks.py:187:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:6:1: F401 'automation.tasks.email_tasks.send_measurement_reminder' imported but unused
+./automation/tasks/notification_tasks.py:8:1: E302 expected 2 blank lines, found 1
+./automation/tasks/notification_tasks.py:18:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:21:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:24:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:28:1: E302 expected 2 blank lines, found 1
+./automation/tasks/notification_tasks.py:32:9: F841 local variable 'tomorrow' is assigned to but never used
+./automation/tasks/notification_tasks.py:33:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:42:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:45:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:49:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:51:33: W291 trailing whitespace
+./automation/tasks/notification_tasks.py:54:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:58:1: E302 expected 2 blank lines, found 1
+./automation/tasks/notification_tasks.py:63:9: F841 local variable 'subject' is assigned to but never used
+./automation/tasks/notification_tasks.py:64:9: F841 local variable 'message' is assigned to but never used
+./automation/tasks/notification_tasks.py:65:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:69:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:71:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:73:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:77:1: E302 expected 2 blank lines, found 1
+./automation/tasks/notification_tasks.py:88:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:90:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:93:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:95:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:97:33: W291 trailing whitespace
+./automation/tasks/notification_tasks.py:98:38: W291 trailing whitespace
+./automation/tasks/notification_tasks.py:101:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:105:1: E302 expected 2 blank lines, found 1
+./automation/tasks/notification_tasks.py:110:9: F841 local variable 'week_ago' is assigned to but never used
+./automation/tasks/notification_tasks.py:111:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:116:121: E501 line too long (131 > 120 characters)
+./automation/tasks/notification_tasks.py:117:121: E501 line too long (121 > 120 characters)
+./automation/tasks/notification_tasks.py:119:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:121:1: W293 blank line contains whitespace
+./automation/tasks/notification_tasks.py:123:1: W293 blank line contains whitespace
+./gunicorn.conf.py:5:1: F401 'os' imported but unused
+./gunicorn.conf.py:56:1: E302 expected 2 blank lines, found 1
+./gunicorn.conf.py:60:1: E302 expected 2 blank lines, found 1
+./gunicorn.conf.py:64:1: E302 expected 2 blank lines, found 1
+./gunicorn.conf.py:68:1: E302 expected 2 blank lines, found 1
+./gunicorn.conf.py:72:1: E302 expected 2 blank lines, found 1
+./gunicorn.conf.py:76:1: E302 expected 2 blank lines, found 1
+./run_modernized.py:2:1: E265 block comment should start with '# '
+./run_modernized.py:14:1: E402 module level import not at top of file
+./run_modernized.py:18:1: E302 expected 2 blank lines, found 1
+./run_modernized.py:26:1: E302 expected 2 blank lines, found 1
+./run_modernized.py:29:5: F401 'src.models.updated_models.LeadStatus' imported but unused
+./run_modernized.py:29:5: F401 'src.models.updated_models.ProjectStatus' imported but unused
+./run_modernized.py:29:5: F401 'src.models.updated_models.OrderStatus' imported but unused
+./run_modernized.py:30:54: W291 trailing whitespace
+./run_modernized.py:33:1: W293 blank line contains whitespace
+./run_modernized.py:36:1: W293 blank line contains whitespace
+./run_modernized.py:50:1: W293 blank line contains whitespace
+./run_modernized.py:89:1: W293 blank line contains whitespace
+./run_modernized.py:95:1: W293 blank line contains whitespace
+./run_modernized.py:104:1: E302 expected 2 blank lines, found 1
+./run_modernized.py:118:1: W293 blank line contains whitespace
+./run_modernized.py:122:1: E305 expected 2 blank lines after class or function definition, found 1
+./src/automation/tasks/email_tasks.py:8:1: E302 expected 2 blank lines, found 1
+./src/automation/tasks/email_tasks.py:13:1: E302 expected 2 blank lines, found 1
+./src/automation/tasks/email_tasks.py:18:1: E302 expected 2 blank lines, found 1
+./src/automation/tasks/notification_tasks.py:8:1: E302 expected 2 blank lines, found 1
+./src/automation/tasks/notification_tasks.py:13:1: E302 expected 2 blank lines, found 1
+./src/config_environments.py:7:1: E302 expected 2 blank lines, found 1
+./src/config_environments.py:9:1: W293 blank line contains whitespace
+./src/config_environments.py:12:1: W293 blank line contains whitespace
+./src/config_environments.py:16:1: W293 blank line contains whitespace
+./src/config_environments.py:22:1: W293 blank line contains whitespace
+./src/config_environments.py:30:1: W293 blank line contains whitespace
+./src/config_environments.py:34:1: W293 blank line contains whitespace
+./src/config_environments.py:41:1: W293 blank line contains whitespace
+./src/config_environments.py:45:1: W293 blank line contains whitespace
+./src/config_environments.py:49:1: W293 blank line contains whitespace
+./src/config_environments.py:53:1: W293 blank line contains whitespace
+./src/config_environments.py:56:1: W293 blank line contains whitespace
+./src/config_environments.py:60:1: W293 blank line contains whitespace
+./src/config_environments.py:65:1: E302 expected 2 blank lines, found 1
+./src/config_environments.py:67:1: W293 blank line contains whitespace
+./src/config_environments.py:70:1: W293 blank line contains whitespace
+./src/config_environments.py:74:1: W293 blank line contains whitespace
+./src/config_environments.py:77:1: W293 blank line contains whitespace
+./src/config_environments.py:81:1: W293 blank line contains whitespace
+./src/config_environments.py:84:1: W293 blank line contains whitespace
+./src/config_environments.py:87:1: W293 blank line contains whitespace
+./src/config_environments.py:92:1: E302 expected 2 blank lines, found 1
+./src/config_environments.py:94:1: W293 blank line contains whitespace
+./src/config_environments.py:97:1: W293 blank line contains whitespace
+./src/config_environments.py:100:1: W293 blank line contains whitespace
+./src/config_environments.py:103:1: W293 blank line contains whitespace
+./src/config_environments.py:106:1: W293 blank line contains whitespace
+./src/config_environments.py:110:1: W293 blank line contains whitespace
+./src/config_environments.py:114:1: E302 expected 2 blank lines, found 1
+./src/config_environments.py:116:1: W293 blank line contains whitespace
+./src/config_environments.py:119:1: W293 blank line contains whitespace
+./src/config_environments.py:123:1: W293 blank line contains whitespace
+./src/config_environments.py:126:1: W293 blank line contains whitespace
+./src/config_environments.py:129:1: W293 blank line contains whitespace
+./src/config_environments.py:132:1: W293 blank line contains whitespace
+./src/config_environments.py:136:1: E302 expected 2 blank lines, found 1
+./src/config_environments.py:138:1: W293 blank line contains whitespace
+./src/config_environments.py:141:1: W293 blank line contains whitespace
+./src/config_environments.py:145:1: W293 blank line contains whitespace
+./src/config_environments.py:148:1: W293 blank line contains whitespace
+./src/config_environments.py:153:1: W293 blank line contains whitespace
+./src/config_environments.py:157:1: W293 blank line contains whitespace
+./src/config_environments.py:161:1: W293 blank line contains whitespace
+./src/config_environments.py:164:1: W293 blank line contains whitespace
+./src/config_environments.py:167:1: W293 blank line contains whitespace
+./src/config_environments.py:171:1: W293 blank line contains whitespace
+./src/config_environments.py:175:1: E302 expected 2 blank lines, found 1
+./src/config_environments.py:177:1: W293 blank line contains whitespace
+./src/config_environments.py:180:1: W293 blank line contains whitespace
+./src/config_environments.py:184:1: W293 blank line contains whitespace
+./src/config_environments.py:189:1: W293 blank line contains whitespace
+./src/config_environments.py:192:1: W293 blank line contains whitespace
+./src/config_environments.py:197:1: E305 expected 2 blank lines after class or function definition, found 1
+./src/config_environments.py:206:1: E302 expected 2 blank lines, found 1
+./src/config_environments.py:209:1: W293 blank line contains whitespace
+./src/config_environments.py:212:1: W293 blank line contains whitespace
+./src/config_environments.py:218:1: W293 blank line contains whitespace
+./src/content.py:39:121: E501 line too long (210 > 120 characters)
+./src/content.py:42:121: E501 line too long (133 > 120 characters)
+./src/content.py:44:121: E501 line too long (121 > 120 characters)
+./src/content.py:58:121: E501 line too long (215 > 120 characters)
+./src/content.py:61:121: E501 line too long (148 > 120 characters)
+./src/content.py:63:121: E501 line too long (123 > 120 characters)
+./src/content.py:80:121: E501 line too long (137 > 120 characters)
+./src/content.py:118:121: E501 line too long (152 > 120 characters)
+./src/content.py:130:121: E501 line too long (128 > 120 characters)
+./src/content.py:195:121: E501 line too long (122 > 120 characters)
+./src/main.py:17:1: E402 module level import not at top of file
+./src/main.py:18:1: E402 module level import not at top of file
+./src/main.py:19:1: E402 module level import not at top of file
+./src/main.py:20:1: E402 module level import not at top of file
+./src/main.py:22:1: F401 'src.config.Config' imported but unused
+./src/main.py:22:1: F401 'src.config.config' imported but unused
+./src/main.py:22:1: E402 module level import not at top of file
+./src/main.py:23:1: E402 module level import not at top of file
+./src/main.py:24:1: E402 module level import not at top of file
+./src/main.py:25:1: E402 module level import not at top of file
+./src/main.py:26:1: E402 module level import not at top of file
+./src/main.py:27:1: E402 module level import not at top of file
+./src/main.py:28:1: E402 module level import not at top of file
+./src/main.py:29:1: E402 module level import not at top of file
+./src/main.py:30:1: E402 module level import not at top of file
+./src/main.py:31:1: E402 module level import not at top of file
+./src/main.py:32:1: E402 module level import not at top of file
+./src/main.py:33:1: E402 module level import not at top of file
+./src/main.py:34:1: E402 module level import not at top of file
+./src/main.py:48:1: W293 blank line contains whitespace
+./src/main.py:55:1: W293 blank line contains whitespace
+./src/main.py:70:5: F841 local variable 'csrf' is assigned to but never used
+./src/models/role.py:19:6: E999 IndentationError: expected an indented block after function definition on line 18
+./src/models/updated_models.py:96:6: E999 IndentationError: expected an indented block after function definition on line 95
+./src/routes/api_v1.py:7:1: F401 'typing.Dict' imported but unused
+./src/routes/api_v1.py:7:1: F401 'typing.Any' imported but unused
+./src/routes/api_v1.py:7:1: F401 'typing.List' imported but unused
+./src/routes/api_v1.py:7:1: F401 'typing.Optional' imported but unused
+./src/routes/api_v1.py:8:1: F401 'json' imported but unused
+./src/routes/api_v1.py:10:1: F401 '..models.ConsultationRequest' imported but unused
+./src/routes/api_v1.py:12:57: W291 trailing whitespace
+./src/routes/api_v1.py:15:1: F401 '..utils.n8n.send_consultation_to_automation' imported but unused
+./src/routes/api_v1.py:17:1: F401 '..automation.tasks.notification_tasks.process_notification' imported but unused
+./src/routes/api_v1.py:23:1: E302 expected 2 blank lines, found 1
+./src/routes/api_v1.py:27:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:31:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:39:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:42:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:45:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:50:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:53:21: W291 trailing whitespace
+./src/routes/api_v1.py:54:24: W291 trailing whitespace
+./src/routes/api_v1.py:57:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:61:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:72:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:77:1: E302 expected 2 blank lines, found 1
+./src/routes/api_v1.py:81:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:84:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:92:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:96:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:101:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:106:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:111:1: E302 expected 2 blank lines, found 1
+./src/routes/api_v1.py:116:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:123:1: E302 expected 2 blank lines, found 1
+./src/routes/api_v1.py:128:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:133:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:147:1: E302 expected 2 blank lines, found 1
+./src/routes/api_v1.py:152:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:158:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:167:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:170:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:174:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:183:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:188:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:199:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:211:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:216:1: E302 expected 2 blank lines, found 1
+./src/routes/api_v1.py:221:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:227:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:235:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:240:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:243:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:247:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:252:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:260:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:263:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:266:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:268:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:279:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:285:1: E302 expected 2 blank lines, found 1
+./src/routes/api_v1.py:290:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:293:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:298:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:310:1: E302 expected 2 blank lines, found 1
+./src/routes/api_v1.py:315:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:318:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:324:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:331:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:334:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:338:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:345:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:351:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:354:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:356:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:358:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:370:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:376:1: E302 expected 2 blank lines, found 1
+./src/routes/api_v1.py:381:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:384:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:390:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:395:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:398:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:400:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:402:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:410:1: E302 expected 2 blank lines, found 1
+./src/routes/api_v1.py:415:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:422:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:432:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:435:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:439:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:442:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:451:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:454:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:459:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:473:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:485:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:490:1: E302 expected 2 blank lines, found 1
+./src/routes/api_v1.py:495:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:502:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:510:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:516:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:519:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:529:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:532:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:543:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:545:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:549:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:551:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:565:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:571:1: E302 expected 2 blank lines, found 1
+./src/routes/api_v1.py:576:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:579:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:584:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:601:1: E302 expected 2 blank lines, found 1
+./src/routes/api_v1.py:606:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:609:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:614:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:621:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:624:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:626:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:630:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:633:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:636:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:639:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:649:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:651:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:668:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:674:1: E302 expected 2 blank lines, found 1
+./src/routes/api_v1.py:679:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:682:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:687:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:694:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:697:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:701:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:704:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:715:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:717:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:721:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:723:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:732:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:734:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:748:1: W293 blank line contains whitespace
+./src/routes/api_v1.py:756:1: E302 expected 2 blank lines, found 1
+./src/routes/api_v1.py:760:1: W293 blank line contains whitespace
+./src/routes/crm.py:3:1: F401 'flask.redirect' imported but unused
+./src/routes/crm.py:3:1: F401 'flask.url_for' imported but unused
+./src/routes/crm.py:10:1: E302 expected 2 blank lines, found 1
+./src/routes/crm.py:17:1: E302 expected 2 blank lines, found 1
+./src/routes/crm.py:23:1: W391 blank line at end of file
+./src/routes/main_routes.py:4:1: F401 'functools' imported but unused
+./src/routes/main_routes.py:8:1: F401 'src.utils.auth.login_required' imported but unused
+./src/routes/main_routes.py:8:1: F401 'src.utils.auth.admin_required' imported but unused
+./src/routes/main_routes.py:93:1: W293 blank line contains whitespace
+./src/routes/main_routes.py:98:1: W293 blank line contains whitespace
+./src/routes/main_routes.py:140:121: E501 line too long (124 > 120 characters)
+./src/routes/main_routes.py:234:1: W391 blank line at end of file
+./src/routes/webhooks.py:6:1: F401 'json' imported but unused
+./src/routes/webhooks.py:10:1: F401 '..models.User' imported but unused
+./src/routes/webhooks.py:17:1: E302 expected 2 blank lines, found 1
+./src/routes/webhooks.py:21:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:27:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:30:1: E302 expected 2 blank lines, found 1
+./src/routes/webhooks.py:40:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:46:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:50:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:53:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:55:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:58:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:72:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:75:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:81:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:89:1: E302 expected 2 blank lines, found 1
+./src/routes/webhooks.py:98:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:101:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:105:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:119:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:122:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:127:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:129:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:136:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:141:1: E302 expected 2 blank lines, found 1
+./src/routes/webhooks.py:150:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:154:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:164:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:169:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:174:1: E302 expected 2 blank lines, found 1
+./src/routes/webhooks.py:183:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:187:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:192:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:204:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:212:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:219:1: E302 expected 2 blank lines, found 1
+./src/routes/webhooks.py:223:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:232:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:235:1: E302 expected 2 blank lines, found 1
+./src/routes/webhooks.py:239:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:241:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:244:1: E302 expected 2 blank lines, found 1
+./src/routes/webhooks.py:248:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:255:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:258:1: E302 expected 2 blank lines, found 1
+./src/routes/webhooks.py:262:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:271:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:274:1: E302 expected 2 blank lines, found 1
+./src/routes/webhooks.py:278:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:280:1: W293 blank line contains whitespace
+./src/routes/webhooks.py:283:1: E302 expected 2 blank lines, found 1
+./src/utils/auth.py:14:6: E999 IndentationError: expected an indented block after function definition on line 13
+./src/utils/jwt_utils.py:16:6: E999 IndentationError: expected an indented block after function definition on line 15
+./src/utils/n8n.py:17:6: E999 IndentationError: expected an indented block after function definition on line 16
+./test_forms.py:11:1: E302 expected 2 blank lines, found 1
+./test_forms.py:14:1: W293 blank line contains whitespace
+./test_forms.py:23:1: W293 blank line contains whitespace
+./test_forms.py:30:1: W293 blank line contains whitespace
+./test_forms.py:37:1: W293 blank line contains whitespace
+./test_forms.py:42:1: E302 expected 2 blank lines, found 1
+./test_forms.py:45:1: W293 blank line contains whitespace
+./test_forms.py:53:1: W293 blank line contains whitespace
+./test_forms.py:60:1: W293 blank line contains whitespace
+./test_forms.py:72:1: W293 blank line contains whitespace
+./test_forms.py:80:1: E302 expected 2 blank lines, found 1
+./test_forms.py:83:1: W293 blank line contains whitespace
+./test_forms.py:90:1: W293 blank line contains whitespace
+./test_forms.py:97:1: W293 blank line contains whitespace
+./test_forms.py:104:1: W293 blank line contains whitespace
+./test_forms.py:109:1: E302 expected 2 blank lines, found 1
+./test_forms.py:112:1: W293 blank line contains whitespace
+./test_forms.py:125:1: E302 expected 2 blank lines, found 1
+./test_forms.py:128:1: W293 blank line contains whitespace
+./test_forms.py:134:1: W293 blank line contains whitespace
+./test_forms.py:136:1: W293 blank line contains whitespace
+./test_forms.py:143:1: W293 blank line contains whitespace
+./test_forms.py:148:1: W293 blank line contains whitespace
+./test_forms.py:152:1: W293 blank line contains whitespace
+./test_forms.py:155:1: W293 blank line contains whitespace
+./test_forms.py:163:1: E305 expected 2 blank lines after class or function definition, found 1
+./tests/conftest.py:7:1: E402 module level import not at top of file
+./tests/conftest.py:8:1: F401 'src.config.TestingConfig' imported but unused
+./tests/conftest.py:8:1: E402 module level import not at top of file
+./tests/conftest.py:10:1: E302 expected 2 blank lines, found 1
+./tests/conftest.py:19:1: E302 expected 2 blank lines, found 1
+./tests/test_api.py:1:1: F401 'json' imported but unused
+./tests/test_api.py:3:1: E302 expected 2 blank lines, found 1
+./tests/test_integration.py:7:1: F401 'datetime.datetime' imported but unused
+./tests/test_integration.py:10:1: F401 'src.models.Project' imported but unused
+./tests/test_integration.py:10:1: F401 'src.models.ConsultationRequest' imported but unused
+./tests/test_integration.py:14:1: E302 expected 2 blank lines, found 1
+./tests/test_integration.py:18:1: W293 blank line contains whitespace
+./tests/test_integration.py:21:1: W293 blank line contains whitespace
+./tests/test_integration.py:27:1: W293 blank line contains whitespace
+./tests/test_integration.py:36:1: W293 blank line contains whitespace
+./tests/test_integration.py:38:1: W293 blank line contains whitespace
+./tests/test_integration.py:40:1: W293 blank line contains whitespace
+./tests/test_integration.py:43:1: E302 expected 2 blank lines, found 1
+./tests/test_integration.py:48:1: E302 expected 2 blank lines, found 1
+./tests/test_integration.py:56:1: E302 expected 2 blank lines, found 1
+./tests/test_integration.py:58:1: W293 blank line contains whitespace
+./tests/test_integration.py:67:1: W293 blank line contains whitespace
+./tests/test_integration.py:73:1: W293 blank line contains whitespace
+./tests/test_integration.py:77:1: W293 blank line contains whitespace
+./tests/test_integration.py:92:1: W293 blank line contains whitespace
+./tests/test_integration.py:96:1: W293 blank line contains whitespace
+./tests/test_integration.py:99:1: W293 blank line contains whitespace
+./tests/test_integration.py:105:1: W293 blank line contains whitespace
+./tests/test_integration.py:110:1: W293 blank line contains whitespace
+./tests/test_integration.py:114:1: E302 expected 2 blank lines, found 1
+./tests/test_integration.py:116:1: W293 blank line contains whitespace
+./tests/test_integration.py:123:1: W293 blank line contains whitespace
+./tests/test_integration.py:129:1: W293 blank line contains whitespace
+./tests/test_integration.py:135:1: W293 blank line contains whitespace
+./tests/test_integration.py:145:1: W293 blank line contains whitespace
+./tests/test_integration.py:148:1: W293 blank line contains whitespace
+./tests/test_integration.py:154:1: W293 blank line contains whitespace
+./tests/test_integration.py:159:1: W293 blank line contains whitespace
+./tests/test_integration.py:162:1: W293 blank line contains whitespace
+./tests/test_integration.py:169:1: W293 blank line contains whitespace
+./tests/test_integration.py:174:1: W293 blank line contains whitespace
+./tests/test_integration.py:188:1: W293 blank line contains whitespace
+./tests/test_integration.py:194:1: W293 blank line contains whitespace
+./tests/test_integration.py:197:1: W293 blank line contains whitespace
+./tests/test_integration.py:204:1: W293 blank line contains whitespace
+./tests/test_integration.py:209:1: W293 blank line contains whitespace
+./tests/test_integration.py:213:1: E302 expected 2 blank lines, found 1
+./tests/test_integration.py:215:1: W293 blank line contains whitespace
+./tests/test_integration.py:222:1: W293 blank line contains whitespace
+./tests/test_integration.py:227:1: W293 blank line contains whitespace
+./tests/test_integration.py:231:1: W293 blank line contains whitespace
+./tests/test_integration.py:236:1: W293 blank line contains whitespace
+./tests/test_integration.py:241:1: W293 blank line contains whitespace
+./tests/test_integration.py:244:1: W293 blank line contains whitespace
+./tests/test_integration.py:253:1: W293 blank line contains whitespace
+./tests/test_integration.py:256:1: W293 blank line contains whitespace
+./tests/test_integration.py:260:1: W293 blank line contains whitespace
+./tests/test_integration.py:267:1: E302 expected 2 blank lines, found 1
+./tests/test_integration.py:269:1: W293 blank line contains whitespace
+./tests/test_integration.py:274:1: W293 blank line contains whitespace
+./tests/test_integration.py:276:1: W293 blank line contains whitespace
+./tests/test_integration.py:278:9: F841 local variable 'result' is assigned to but never used
+./tests/test_integration.py:279:1: W293 blank line contains whitespace
+./tests/test_integration.py:282:1: W293 blank line contains whitespace
+./tests/test_integration.py:287:1: W293 blank line contains whitespace
+./tests/test_integration.py:289:1: W293 blank line contains whitespace
+./tests/test_integration.py:297:1: W293 blank line contains whitespace
+./tests/test_integration.py:300:1: W293 blank line contains whitespace
+./tests/test_integration.py:303:1: W293 blank line contains whitespace
+./tests/test_integration.py:305:1: W293 blank line contains whitespace
+./tests/test_integration.py:309:1: E302 expected 2 blank lines, found 1
+./tests/test_integration.py:311:1: W293 blank line contains whitespace
+./tests/test_integration.py:315:1: W293 blank line contains whitespace
+./tests/test_integration.py:319:1: W293 blank line contains whitespace
+./tests/test_integration.py:323:1: W293 blank line contains whitespace
+./tests/test_integration.py:328:1: W293 blank line contains whitespace
+./tests/test_integration.py:332:1: W293 blank line contains whitespace
+./tests/test_integration.py:338:1: E302 expected 2 blank lines, found 1
+./tests/test_integration.py:340:1: W293 blank line contains whitespace
+./tests/test_integration.py:348:1: W293 blank line contains whitespace
+./tests/test_integration.py:350:1: W293 blank line contains whitespace
+./tests/test_integration.py:354:1: W293 blank line contains whitespace
+./tests/test_integration.py:358:1: W293 blank line contains whitespace
+./tests/test_integration.py:362:1: W293 blank line contains whitespace
+./tests/test_integration.py:364:1: W293 blank line contains whitespace
+./tests/test_integration.py:369:1: E305 expected 2 blank lines after class or function definition, found 1
+2     E261 at least two spaces before inline comment
+1     E265 block comment should start with '# '
+89    E302 expected 2 blank lines, found 1
+5     E305 expected 2 blank lines after class or function definition, found 1
+20    E402 module level import not at top of file
+17    E501 line too long (127 > 120 characters)
+5     E999 IndentationError: expected an indented block after function definition on line 18
+30    F401 'datetime.datetime' imported but unused
+1     F541 f-string is missing placeholders
+6     F841 local variable 'tomorrow' is assigned to but never used
+9     W291 trailing whitespace
+395   W293 blank line contains whitespace
+2     W391 blank line at end of file

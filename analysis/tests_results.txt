@@ -1,0 +1,13 @@
+ImportError while loading conftest '/home/ubuntu/workspace/baimuras.space/tests/conftest.py'.
+tests/conftest.py:7: in <module>
+    from src.main import create_app, db
+src/main.py:23: in <module>
+    from src.models import db  # pylint: disable=wrong-import-position
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+src/models/__init__.py:7: in <module>
+    from .role import Role, roles_users  # noqa: E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E     File "/home/ubuntu/workspace/baimuras.space/src/models/role.py", line 19
+E       """__repr__ функция."""
+E       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   IndentationError: expected an indented block after function definition on line 18

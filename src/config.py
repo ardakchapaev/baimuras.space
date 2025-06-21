@@ -9,12 +9,15 @@ class Config:
     """Base configuration class."""
 
     # Basic Flask configuration
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev-secret-key-change-in-production'
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    if not SECRET_KEY:
+        raise ValueError("No SECRET_KEY set for configuration")
     DEBUG = False
     TESTING = False
 
     # Database configuration
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///baimuras.db'
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        'DATABASE_URL') or 'sqlite:///baimuras.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ENGINE_OPTIONS = {
         'pool_pre_ping': True,
@@ -37,7 +40,8 @@ class Config:
     # Email configuration
     MAIL_SERVER = os.environ.get('MAIL_SERVER')
     MAIL_PORT = int(os.environ.get('MAIL_PORT') or 587)
-    MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS', 'true').lower() in ['true', 'on', '1']
+    MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS', 'true').lower() in [
+        'true', 'on', '1']
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 
@@ -48,7 +52,6 @@ class Config:
     @staticmethod
     def init_app(app):
         """Initialize application with this config."""
-        pass
 
 
 class DevelopmentConfig(Config):
@@ -89,8 +92,10 @@ class DockerConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'postgresql://baimuras_user:password@db:5432/baimuras_db'
     REDIS_URL = os.environ.get('REDIS_URL') or 'redis://redis:6379/0'
-    CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL') or 'redis://redis:6379/0'
-    CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND') or 'redis://redis:6379/0'
+    CELERY_BROKER_URL = os.environ.get(
+        'CELERY_BROKER_URL') or 'redis://redis:6379/0'
+    CELERY_RESULT_BACKEND = os.environ.get(
+        'CELERY_RESULT_BACKEND') or 'redis://redis:6379/0'
     SESSION_COOKIE_SECURE = False  # For development in Docker
 
 
