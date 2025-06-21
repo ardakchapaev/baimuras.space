@@ -2,7 +2,7 @@
 
 from flask import Blueprint, render_template, redirect, url_for
 
-from src.routes.main_routes import login_required
+from src.utils.auth import login_required
 from src.models import Lead, Project
 
 crm_bp = Blueprint('crm', __name__, url_prefix='/crm')

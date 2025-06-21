@@ -17,10 +17,10 @@ RUN useradd --create-home --shell /bin/bash app
 WORKDIR /app
 
 # Копирование requirements
-COPY requirements.txt requirements_updated.txt ./
+COPY requirements.txt ./
 
 # Установка Python зависимостей
-RUN pip install --no-cache-dir -r requirements_updated.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Копирование кода приложения
 COPY . .
@@ -43,4 +43,4 @@ ENV PYTHONPATH=/app
 EXPOSE 5000
 
 # Команда запуска
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "--timeout", "120", "src.main:create_app()"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "--timeout", "120", "wsgi:app"]

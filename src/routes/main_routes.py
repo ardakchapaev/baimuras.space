@@ -5,6 +5,7 @@ import functools
 from flask import Blueprint, flash, redirect, render_template, request, session, url_for, jsonify
 from src.models.user import User, db
 from src.utils import get_current_language
+from src.utils.auth import login_required, admin_required
 from src.utils.consultation_helper import create_consultation_request, get_consultation_error_response
 from src.content import HOMEPAGE, SERVICES, CONTACT_FORM
 
@@ -230,11 +231,4 @@ def logout():
     return redirect(url_for("main.index"))
 
 
-def login_required(func):
-    """Decorator for login required routes."""
-    @functools.wraps(func)
-    def wrapper(*args, **kwargs):
-        if 'user_id' not in session:
-            return redirect(url_for('main.login'))
-        return func(*args, **kwargs)
-    return wrapper
+

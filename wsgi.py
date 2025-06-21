@@ -1,6 +1,7 @@
-"""Module docstring."""
 
-from src.main import app
+from src.main import create_app
 
-# Expose the WSGI application for production servers
-application = app
+app = create_app()
+
+if __name__ == "__main__":
+    app.run()

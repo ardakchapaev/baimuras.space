@@ -84,9 +84,23 @@ class ProductionConfig(Config):
         app.logger.addHandler(syslog_handler)
 
 
+class DockerConfig(Config):
+    """Конфигурация для Docker окружения"""
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+        'postgresql://baimuras_user:password@db:5432/baimuras_db'
+    REDIS_URL = os.environ.get('REDIS_URL') or 'redis://redis:6379/0'
+    CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL') or 'redis://redis:6379/0'
+    CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND') or 'redis://redis:6379/0'
+    SESSION_COOKIE_SECURE = False  # For development in Docker
+
+
 config = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
     'production': ProductionConfig,
+    'docker': DockerConfig,
     'default': DevelopmentConfig
 }
+
+# Alias for backward compatibility
+config_map = config

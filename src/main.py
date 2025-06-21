@@ -34,7 +34,7 @@ from src.content import NAVIGATION, FOOTER  # pylint: disable=wrong-import-posit
 from src.errors import register_error_handlers  # pylint: disable=wrong-import-position
 
 
-def create_app(config_name: str = 'default') -> Flask:
+def create_app(config_name: str = None) -> Flask:
     """Create and configure Flask application.
 
     Args:
@@ -43,11 +43,18 @@ def create_app(config_name: str = 'default') -> Flask:
     Returns:
         Configured Flask application instance
     """
+    if config_name is None:
+        config_name = os.environ.get('FLASK_ENV', 'development')
+    
     application = Flask(__name__)
 
     # Load configuration
-    application.config.from_object(config[config_name])
-    config[config_name].init_app(application)
+    from src.config import config_map
+    if config_name not in config_map:
+        raise ValueError(f"Неизвестная конфигурация: {config_name}")
+    
+    application.config.from_object(config_map[config_name])
+    config_map[config_name].init_app(application)
 
     # Initialize extensions
     db.init_app(application)
