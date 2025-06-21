@@ -1,0 +1,205 @@
+
+version: '3.8'
+
+services:
+  # База данных PostgreSQL
+  db:
+    image: postgres:15-alpine
+    container_name: baimuras_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: baimuras
+      POSTGRES_USER: baimuras_user
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-baimuras2025}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - baimuras_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U baimuras_user"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis для кэширования и очередей
+  redis:
+    image: redis:7-alpine
+    container_name: baimuras_redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-baimuras2025}
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - baimuras_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # n8n для автоматизации
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: baimuras_n8n
+    restart: unless-stopped
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=${N8N_USER:-admin}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_PASSWORD:-baimuras2025}
+      - N8N_HOST=${N8N_HOST:-localhost}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - WEBHOOK_URL=http://n8n:5678/
+      - GENERIC_TIMEZONE=Asia/Bishkek
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=db
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=n8n
+      - DB_POSTGRESDB_USER=baimuras_user
+      - DB_POSTGRESDB_PASSWORD=${DB_PASSWORD:-baimuras2025}
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./n8n/workflows:/home/node/.n8n/workflows
+    ports:
+      - "5678:5678"
+    networks:
+      - baimuras_network
+    depends_on:
+      - db
+      - redis
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5678/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Flask приложение
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.flask
+    container_name: baimuras_web
+    restart: unless-stopped
+    environment:
+      - FLASK_ENV=docker
+      - DATABASE_URL=postgresql://baimuras_user:${DB_PASSWORD:-baimuras2025}@db:5432/baimuras
+      - CELERY_BROKER_URL=redis://:${REDIS_PASSWORD:-baimuras2025}@redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://:${REDIS_PASSWORD:-baimuras2025}@redis:6379/0
+      - RATELIMIT_STORAGE_URL=redis://:${REDIS_PASSWORD:-baimuras2025}@redis:6379/1
+      - N8N_WEBHOOK_URL=http://n8n:5678/webhook/baimuras
+      - N8N_API_URL=http://n8n:5678/api/v1
+      - N8N_API_KEY=${N8N_API_KEY}
+      - N8N_WEBHOOK_SECRET=${N8N_WEBHOOK_SECRET}
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-change-in-production}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-your-jwt-secret-key}
+      - MAIL_SERVER=${MAIL_SERVER:-smtp.gmail.com}
+      - MAIL_PORT=${MAIL_PORT:-587}
+      - MAIL_USERNAME=${MAIL_USERNAME}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - MAIL_DEFAULT_SENDER=${MAIL_DEFAULT_SENDER:-info@baimuras.space}
+    volumes:
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+      - ./instance:/app/instance
+    ports:
+      - "5000:5000"
+    networks:
+      - baimuras_network
+    depends_on:
+      - db
+      - redis
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Celery Worker
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    container_name: baimuras_worker
+    restart: unless-stopped
+    environment:
+      - FLASK_ENV=docker
+      - DATABASE_URL=postgresql://baimuras_user:${DB_PASSWORD:-baimuras2025}@db:5432/baimuras
+      - CELERY_BROKER_URL=redis://:${REDIS_PASSWORD:-baimuras2025}@redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://:${REDIS_PASSWORD:-baimuras2025}@redis:6379/0
+      - N8N_WEBHOOK_URL=http://n8n:5678/webhook/baimuras
+      - N8N_API_URL=http://n8n:5678/api/v1
+      - N8N_API_KEY=${N8N_API_KEY}
+      - MAIL_SERVER=${MAIL_SERVER:-smtp.gmail.com}
+      - MAIL_PORT=${MAIL_PORT:-587}
+      - MAIL_USERNAME=${MAIL_USERNAME}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - MAIL_DEFAULT_SENDER=${MAIL_DEFAULT_SENDER:-info@baimuras.space}
+    volumes:
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+      - ./instance:/app/instance
+    networks:
+      - baimuras_network
+    depends_on:
+      - db
+      - redis
+      - web
+
+  # Celery Beat Scheduler
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile.scheduler
+    container_name: baimuras_scheduler
+    restart: unless-stopped
+    environment:
+      - FLASK_ENV=docker
+      - DATABASE_URL=postgresql://baimuras_user:${DB_PASSWORD:-baimuras2025}@db:5432/baimuras
+      - CELERY_BROKER_URL=redis://:${REDIS_PASSWORD:-baimuras2025}@redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://:${REDIS_PASSWORD:-baimuras2025}@redis:6379/0
+    volumes:
+      - ./logs:/app/logs
+      - ./instance:/app/instance
+    networks:
+      - baimuras_network
+    depends_on:
+      - db
+      - redis
+      - web
+
+  # Nginx reverse proxy
+  nginx:
+    image: nginx:alpine
+    container_name: baimuras_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/sites-available:/etc/nginx/sites-available
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./uploads:/var/www/uploads
+    networks:
+      - baimuras_network
+    depends_on:
+      - web
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  postgres_data:
+  redis_data:
+  n8n_data:
+
+networks:
+  baimuras_network:
+    driver: bridge

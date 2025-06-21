@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html lang="{{ current_language }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>{% block title %}BaiMuras - Мебельная студия и дизайн-бюро{% endblock %}</title>
+    <meta name="description" content="{% block description %}BaiMuras - создаем уникальную мебель Монтессори, кухни на заказ и детские комнаты в скандинавском стиле. Экологичные материалы, современный дизайн.{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}мебель Монтессори, кухни на заказ, детские комнаты, скандинавский дизайн, экологичная мебель, BaiMuras, Кыргызстан{% endblock %}">
+    <meta name="author" content="BaiMuras">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ request.url }}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:title" content="{% block og_title %}{{ self.title() }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ self.description() }}{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{{ url_for('static', filename='images/og-image.jpg', _external=True) }}{% endblock %}">
+    <meta property="og:site_name" content="BaiMuras">
+    <meta property="og:locale" content="{% if current_language == 'ky' %}ky_KG{% else %}ru_RU{% endif %}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ request.url }}">
+    <meta property="twitter:title" content="{% block twitter_title %}{{ self.title() }}{% endblock %}">
+    <meta property="twitter:description" content="{% block twitter_description %}{{ self.description() }}{% endblock %}">
+    <meta property="twitter:image" content="{% block twitter_image %}{{ self.og_image() }}{% endblock %}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- CSRF Token для AJAX запросов -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "BaiMuras",
+        "description": "{% if current_language == 'ky' %}Монтессори эмерек, ашкана буйрутма жана балдар бөлмөлөрү{% else %}Мебельная студия: Монтессори мебель, кухни на заказ, детские комнаты{% endif %}",
+        "url": "{{ url_for('main.index', _external=True) }}",
+        "logo": "{{ url_for('static', filename='images/logo.png', _external=True) }}",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "availableLanguage": ["Russian", "Kyrgyz"]
+        },
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "KG",
+            "addressLocality": "Бишкек"
+        },
+        "sameAs": [
+            "https://instagram.com/baimuras",
+            "https://t.me/baimuras"
+        ],
+        "offers": [
+            {
+                "@type": "Service",
+                "name": "{% if current_language == 'ky' %}Монтессори эмерек{% else %}Монтессори мебель{% endif %}",
+                "description": "{% if current_language == 'ky' %}Балдар үчүн өнүктүрүүчү эмерек{% else %}Развивающая мебель для детей{% endif %}"
+            },
+            {
+                "@type": "Service", 
+                "name": "{% if current_language == 'ky' %}Ашкана буйрутма{% else %}Кухни на заказ{% endif %}",
+                "description": "{% if current_language == 'ky' %}Заманбап ашкана чечимдери{% else %}Современные кухонные решения{% endif %}"
+            },
+            {
+                "@type": "Service",
+                "name": "{% if current_language == 'ky' %}Балдар бөлмөсү{% else %}Детские комнаты{% endif %}",
+                "description": "{% if current_language == 'ky' %}Толук интерьердик чечимдер{% else %}Полные интерьерные решения{% endif %}"
+            }
+        ]
+    }
+    </script>
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="BaiMuras" height="40" style="margin-right: 10px;">
+                BaiMuras
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon">
+                    <i class="fas fa-bars"></i>
+                </span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'main.index' %}active{% endif %}" 
+                           href="{{ url_for('main.index') }}">{{ navigation.home }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'main.about' %}active{% endif %}" 
+                           href="{{ url_for('main.about') }}">{{ navigation.about }}</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if request.endpoint.startswith('main.services') %}active{% endif %}" 
+                           href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ navigation.services }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('main.services_montessori') }}">{{ navigation.montessori }}</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('main.services_kitchens') }}">{{ navigation.kitchens }}</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('main.services_children_rooms') }}">{{ navigation.children_rooms }}</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('main.services') }}">{% if current_language == 'ky' %}Бардык кызматтар{% else %}Все услуги{% endif %}</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'main.portfolio' %}active{% endif %}" 
+                           href="{{ url_for('main.portfolio') }}">{{ navigation.portfolio }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'main.contact' %}active{% endif %}" 
+                           href="{{ url_for('main.contact') }}">{{ navigation.contact }}</a>
+                    </li>
+                </ul>
+                
+                <div class="navbar-nav">
+                    <div class="language-switcher">
+                        {% for lang_code, lang_name in languages.items() %}
+                            {% if lang_code != current_language %}
+                                <a href="{{ url_for('main.set_language_route', language=lang_code) }}" 
+                                   class="nav-link">{{ navigation.language_switch }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <a class="btn btn-primary" href="{{ url_for('main.contact') }}">{{ navigation.consultation }}</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="container mt-3">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'danger' if category == 'error' else category }}">
+                            {{ message }}
+                            <button type="button" class="btn-close" onclick="this.parentElement.remove()">×</button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5>BaiMuras</h5>
+                    <p>{{ footer_content.company_description }}</p>
+                    <div class="social-links">
+                        <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <h5>{{ footer_content.quick_links }}</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ url_for('main.index') }}">{{ navigation.home }}</a></li>
+                        <li><a href="{{ url_for('main.about') }}">{{ navigation.about }}</a></li>
+                        <li><a href="{{ url_for('main.services') }}">{{ navigation.services }}</a></li>
+                        <li><a href="{{ url_for('main.portfolio') }}">{{ navigation.portfolio }}</a></li>
+                        <li><a href="{{ url_for('main.contact') }}">{{ navigation.contact }}</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <h5>{{ footer_content.contact_info }}</h5>
+                    <p><i class="fas fa-phone me-2"></i><a href="tel:{{ footer_content.phone }}" style="color: inherit;">{{ footer_content.phone }}</a></p>
+                    <p><i class="fab fa-whatsapp me-2"></i><a href="https://wa.me/996509912569" target="_blank" style="color: inherit;">WhatsApp</a></p>
+                    <p><i class="fas fa-envelope me-2"></i><a href="mailto:{{ footer_content.email }}" style="color: inherit;">{{ footer_content.email }}</a></p>
+                    <p><i class="fas fa-map-marker-alt me-2"></i>{{ footer_content.address }}</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; {{ current_year }} BaiMuras. {{ footer_content.copyright }}. ver {{ app_version }}</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

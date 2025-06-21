@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Дашборд - BaiMuras{% endblock %}
+
+{% block content %}
+    <h1>Дашборд BaiMuras</h1>
+    <p>Добро пожаловать, {{ session.username if session.username else "Пользователь" }}!</p>
+    
+    <div class="dashboard-container">
+        <aside class="dashboard-sidebar">
+            <h2>Навигация</h2>
+            <ul>
+                <li><a href="{{ url_for('main.dashboard_overview') }}">Обзор</a></li>
+                <li><a href="{{ url_for('main.dashboard_leads') }}">Лиды</a></li>
+                <li><a href="{{ url_for('main.dashboard_analytics') }}">Аналитика</a></li>
+                <li><a href="{{ url_for('main.dashboard_settings') }}">Настройки</a></li>
+                <li><a href="{{ url_for('main.dashboard_logout') }}">Выход</a></li>
+            </ul>
+        </aside>
+        <section class="dashboard-main-content">
+            {% if dashboard_content_template %}
+                {% include dashboard_content_template %}
+            {% else %}
+                <p>Выберите раздел для начала работы.</p>
+            {% endif %}
+        </section>
+    </div>
+
+    <style>
+        .dashboard-container {
+            display: flex;
+        }
+        .dashboard-sidebar {
+            width: 200px;
+            padding: 15px;
+            border-right: 1px solid #ccc;
+        }
+        .dashboard-sidebar h2 {
+            margin-top: 0;
+        }
+        .dashboard-sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .dashboard-sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 8px 0;
+        }
+        .dashboard-sidebar ul li a:hover {
+            color: #007bff;
+        }
+        .dashboard-main-content {
+            flex-grow: 1;
+            padding: 15px;
+        }
+    </style>
+{% endblock %}

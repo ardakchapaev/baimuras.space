@@ -1,0 +1,135 @@
+
+{% extends "base.html" %}
+
+{% block title %}{{ navigation.services }} - BaiMuras{% endblock %}
+{% block description %}Услуги BaiMuras: Монтессори мебель, кухни на заказ, детские комнаты. Скандинавский дизайн и экологичные материалы.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero section-sm">
+    <div class="container">
+        <div class="text-center fade-in">
+            <h1>{{ navigation.services }}</h1>
+            <p class="lead">{% if current_language == 'ky' %}Биз сунуштаган кызматтар жана чечимдер{% else %}Наши услуги и решения для вашего дома{% endif %}</p>
+        </div>
+    </div>
+</section>
+
+<!-- Services Grid -->
+<section class="section">
+    <div class="container">
+        <div class="grid grid-3">
+            <!-- Montessori Furniture -->
+            <div class="card fade-in">
+                <img src="https://i.pinimg.com/originals/4a/c7/b9/4ac7b938f214759d851f8ceecc996e63.jpg" 
+                     class="card-img-top" alt="Transformable Climbing Triangle">
+                <div class="card-body">
+                    <h3 class="card-title">{{ services_content.montessori.title }}</h3>
+                    <p class="card-text">{{ services_content.montessori.description }}</p>
+                    <ul class="list-unstyled mb-4">
+                        {% for feature in services_content.montessori.features %}
+                        <li><i class="fas fa-check text-primary me-2"></i>{{ feature }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{{ url_for('main.services_montessori') }}" class="btn btn-primary">
+                        {% if current_language == 'ky' %}Көбүрөөк билүү{% else %}Подробнее{% endif %}
+                    </a>
+                </div>
+            </div>
+
+            <!-- Custom Kitchens -->
+            <div class="card fade-in">
+                <img src="https://curatedinterior.com/wp-content/uploads/2021/01/Scandinavian-Kitchen-with-Scandi-Blue-Cabinets-via-@entrancemakleri.jpg" 
+                     class="card-img-top" alt="Scandinavian Kitchen with Blue Cabinets">
+                <div class="card-body">
+                    <h3 class="card-title">{{ services_content.kitchens.title }}</h3>
+                    <p class="card-text">{{ services_content.kitchens.description }}</p>
+                    <ul class="list-unstyled mb-4">
+                        {% for feature in services_content.kitchens.features %}
+                        <li><i class="fas fa-check text-primary me-2"></i>{{ feature }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{{ url_for('main.services_kitchens') }}" class="btn btn-primary">
+                        {% if current_language == 'ky' %}Көбүрөөк билүү{% else %}Подробнее{% endif %}
+                    </a>
+                </div>
+            </div>
+
+            <!-- Children Rooms -->
+            <div class="card fade-in">
+                <img src="https://i.pinimg.com/originals/3f/a1/a0/3fa1a0ec68e3e67cbcff0fd58aa70089.jpg" 
+                     class="card-img-top" alt="Beautiful Scandinavian Interior Kids Bedroom">
+                <div class="card-body">
+                    <h3 class="card-title">{{ services_content.children_rooms.title }}</h3>
+                    <p class="card-text">{{ services_content.children_rooms.description }}</p>
+                    <ul class="list-unstyled mb-4">
+                        {% for feature in services_content.children_rooms.features %}
+                        <li><i class="fas fa-check text-primary me-2"></i>{{ feature }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{{ url_for('main.services_children_rooms') }}" class="btn btn-primary">
+                        {% if current_language == 'ky' %}Көбүрөөк билүү{% else %}Подробнее{% endif %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Process Section -->
+<section class="section" style="background-color: var(--light-gray);">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>{% if current_language == 'ky' %}Биздин иш процесси{% else %}Как мы работаем{% endif %}</h2>
+            <p class="lead">{% if current_language == 'ky' %}Идеядан жеткирүүгө чейин{% else %}От идеи до воплощения{% endif %}</p>
+        </div>
+        
+        <div class="grid grid-4">
+            <div class="text-center fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h4>{% if current_language == 'ky' %}Консультация{% else %}Консультация{% endif %}</h4>
+                <p>{% if current_language == 'ky' %}Сиздин каалоолорду талкуулайбыз{% else %}Обсуждаем ваши потребности{% endif %}</p>
+            </div>
+            
+            <div class="text-center fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-drafting-compass"></i>
+                </div>
+                <h4>{% if current_language == 'ky' %}Долбоорлоо{% else %}Проектирование{% endif %}</h4>
+                <p>{% if current_language == 'ky' %}3D модель жана техникалык документация{% else %}3D модель и техническая документация{% endif %}</p>
+            </div>
+            
+            <div class="text-center fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-hammer"></i>
+                </div>
+                <h4>{% if current_language == 'ky' %}Жасоо{% else %}Изготовление{% endif %}</h4>
+                <p>{% if current_language == 'ky' %}Сапаттуу материалдардан жасоо{% else %}Изготовление из качественных материалов{% endif %}</p>
+            </div>
+            
+            <div class="text-center fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <h4>{% if current_language == 'ky' %}Жеткирүү{% else %}Доставка{% endif %}</h4>
+                <p>{% if current_language == 'ky' %}Жеткирүү жана орнотуу{% else %}Доставка и установка{% endif %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section">
+    <div class="container">
+        <div class="text-center fade-in">
+            <h2>{% if current_language == 'ky' %}Долбооруңузду баштайлы{% else %}Начнем ваш проект{% endif %}</h2>
+            <p class="lead">{% if current_language == 'ky' %}Акысыз консультация алыңыз{% else %}Получите бесплатную консультацию{% endif %}</p>
+            <a href="{{ url_for('main.contact') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-calendar-alt me-2"></i>{% if current_language == 'ky' %}Консультация алуу{% else %}Записаться на консультацию{% endif %}
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

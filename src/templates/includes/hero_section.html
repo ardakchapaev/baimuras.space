@@ -1,0 +1,14 @@
+<!-- Hero Section Component -->
+<section class="hero {% if hero_size %}section-{{ hero_size }}{% else %}section-sm{% endif %}">
+    <div class="container">
+        <div class="text-center fade-in">
+            <h1>{{ hero_title }}</h1>
+            {% if hero_subtitle %}
+            <p class="lead">{{ hero_subtitle }}</p>
+            {% endif %}
+            {% if hero_button_text and hero_button_url %}
+            <a href="{{ hero_button_url }}" class="btn btn-primary btn-lg">{{ hero_button_text }}</a>
+            {% endif %}
+        </div>
+    </div>
+</section>

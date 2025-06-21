@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}Индивидуальная Мебель - BaiMuras{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <nav aria-label="breadcrumb" class="breadcrumb-cosmic">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('main.index') }}">Главная</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('main.services') }}">Услуги</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Индивидуальная Мебель</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-4">Индивидуальная Мебель: Воплощение Вашей Мечты</h1>
+
+    <p class="lead">В BaiMuras мы понимаем, что мебель – это не просто предметы обстановки, а ключевые элементы, формирующие атмосферу и функциональность вашего дома или офиса. Наша услуга по созданию индивидуальной мебели позволяет вам получить изделия, идеально соответствующие вашим потребностям, вкусам и особенностям пространства.</p>
+
+    <h2 class="mt-5">Процесс создания мебели на заказ:</h2>
+    <ol class="list-group list-group-numbered mt-3 mb-5 list-group-cosmic">
+        <li class="list-group-item"><strong>Консультация и Замеры:</strong> Встреча с дизайнером, обсуждение ваших идей, предпочтений по стилю, материалам, функциональности. Точные замеры помещения.</li>
+        <li class="list-group-item"><strong>Разработка Дизайн-Проекта:</strong> Создание эскизов, 3D-визуализаций, подбор материалов и фурнитуры. Согласование проекта с вами.</li>
+        <li class="list-group-item"><strong>Конструкторская Разработка:</strong> Подготовка детализированных чертежей и технической документации для производства.</li>
+        <li class="list-group-item"><strong>Производство:</strong> Изготовление мебели на нашем собственном производстве с использованием высокоточного оборудования и ручного труда опытных мастеров.</li>
+        <li class="list-group-item"><strong>Контроль Качества:</strong> Тщательная проверка каждого изделия на всех этапах производства.</li>
+        <li class="list-group-item"><strong>Доставка и Монтаж:</strong> Аккуратная доставка и профессиональный монтаж мебели на объекте.</li>
+    </ol>
+
+    <h2 class="mt-5">Типы мебели, которые мы создаем:</h2>
+    <div class="row mt-3 gx-4 gy-4">
+        <div class="col-md-6 mb-3">
+            <div class="card h-100 bg-transparent border-light_alpha">
+                <div class="card-body cosmic-card-body">
+                    <h5 class="card-title">Кухни</h5>
+                    <p class="card-text">Эргономичные, функциональные и стильные кухни, спроектированные с учетом ваших кулинарных привычек и эстетических предпочтений.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card h-100 bg-transparent border-light_alpha">
+                <div class="card-body cosmic-card-body">
+                    <h5 class="card-title">Шкафы и Гардеробные</h5>
+                    <p class="card-text">Встроенные и корпусные шкафы-купе, гардеробные системы, обеспечивающие максимальное использование пространства и удобное хранение.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card h-100 bg-transparent border-light_alpha">
+                <div class="card-body cosmic-card-body">
+                    <h5 class="card-title">Детская Мебель (в т.ч. Монтессори)</h5>
+                    <p class="card-text">Безопасная, развивающая и красивая мебель для детских комнат, включая изделия, разработанные по принципам Монтессори-педагогики.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card h-100 bg-transparent border-light_alpha">
+                <div class="card-body cosmic-card-body">
+                    <h5 class="card-title">Мебель для Гостиной</h5>
+                    <p class="card-text">Диваны, кресла, журнальные столики, ТВ-зоны, стеллажи – все для создания уютной и стильной гостиной.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card h-100 bg-transparent border-light_alpha">
+                <div class="card-body cosmic-card-body">
+                    <h5 class="card-title">Мебель для Спальни</h5>
+                    <p class="card-text">Кровати, прикроватные тумбы, комоды, туалетные столики, создающие атмосферу комфорта и релаксации.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card h-100 bg-transparent border-light_alpha">
+                <div class="card-body cosmic-card-body">
+                    <h5 class="card-title">Офисная Мебель и Кабинеты</h5>
+                    <p class="card-text">Решения для домашних и корпоративных офисов, сочетающие эргономику, представительность и функциональность.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mb-3">
+            <div class="card h-100 bg-transparent border-light_alpha">
+                <div class="card-body cosmic-card-body">
+                    <h5 class="card-title">Комплексные Интерьерные Решения</h5>
+                    <p class="card-text">Полное оснащение квартир, домов, апартаментов мебелью в едином стиле.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="featurette-section p-4 rounded-lg mt-5">
+        <h2 class="mt-0">Материалы и Фурнитура</h2>
+        <p>Мы уделяем особое внимание качеству материалов и фурнитуры, так как от них напрямую зависит долговечность, надежность и внешний вид мебели. Мы работаем с:</p>
+        <ul class="cosmic-list">
+            <li><strong>Массив дерева:</strong> Дуб, ясень, бук, орех, карагач и другие ценные породы.</li>
+            <li><strong>МДФ и ЛДСП:</strong> Высококачественные плиты от ведущих европейских производителей (Egger, Kronospan) с различными вариантами отделки (шпон, эмаль, пластик, пленка).</li>
+            <li><strong>Натуральный и искусственный камень:</strong> Для столешниц и декоративных элементов.</li>
+            <li><strong>Стекло и Металл:</strong> Закаленное стекло, зеркала, нержавеющая сталь, латунь для создания современных акцентов.</li>
+            <li><strong>Фурнитура:</strong> Только проверенные бренды (Blum, Hettich, Grass), обеспечивающие плавное и бесшумное функционирование всех механизмов.</li>
+        </ul>
+    </div>
+
+    <h2 class="mt-5">Примеры наших работ</h2>
+    <div class="row mt-3 mb-5 gx-4 gy-4">
+        <div class="col-md-4 mb-3">
+            <img src="{{ url_for('static', filename='images/cosmic_neural_background_1.png') }}" class="img-fluid rounded shadow-lg" alt="Пример кухни BaiMuras" style="opacity:0.8;">
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="{{ url_for('static', filename='images/cosmic_neural_background_2.png') }}" class="img-fluid rounded shadow-lg" alt="Пример детской BaiMuras" style="opacity:0.8;">
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="{{ url_for('static', filename='images/cosmic_particle_landscape_1.jpeg') }}" class="img-fluid rounded shadow-lg" alt="Пример шкафа BaiMuras" style="opacity:0.8;">
+        </div>
+    </div>
+
+    <div class="featurette-section p-4 rounded-lg text-center">
+        <h3 class="h2">Хотите рассчитать стоимость вашего проекта или вызвать дизайнера на замер?</h3>
+        <p>Свяжитесь с нами, и мы с радостью поможем воплотить ваши идеи в жизнь!</p>
+        <a href="{{ url_for("main.contact") }}" class="btn btn-primary btn-lg mt-3">Связаться с нами</a>
+    </div>
+
+</div>
+{% endblock %}
+

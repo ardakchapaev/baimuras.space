@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}BaiMuras Academy - Обучение Дизайну и Мастерству{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <nav aria-label="breadcrumb" class="breadcrumb-cosmic">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for("main.index") }}">Главная</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for("main.services") }}">Услуги</a></li>
+            <li class="breadcrumb-item active" aria-current="page">BaiMuras Academy</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-4">BaiMuras Academy: Откройте Мир Дизайна и Мебельного Мастерства</h1>
+
+    <p class="lead">BaiMuras Academy – это уникальная образовательная платформа, созданная для тех, кто стремится погрузиться в мир мебельного инжиниринга, дизайна интерьеров и современных технологий проектирования. Мы делимся накопленным опытом и знаниями, вдохновляем на творчество и помогаем раскрыть ваш потенциал, независимо от вашего текущего уровня подготовки.</p>
+
+    <div class="row align-items-center my-5 featurette-section p-4 rounded-lg">
+        <div class="col-md-6">
+            <img src="{{ url_for(\'static\', filename=\'images/cosmic_neural_background_1.png\') }}" class="img-fluid rounded shadow-lg mb-3 mb-md-0" alt="Обучение в BaiMuras Academy" style="opacity:0.8;">
+        </div>
+        <div class="col-md-6">
+            <h2 class="mt-0">Наша Миссия в Образовании</h2>
+            <p>Мы стремимся формировать новое поколение профессионалов, способных создавать инновационные и эстетически совершенные решения в мебельной индустрии и дизайне. Наша цель – предоставить качественное, практико-ориентированное обучение, основанное на реальном опыте и актуальных трендах.</p>
+        </div>
+    </div>
+
+    <h2 class="mt-5">Наши Программы и Курсы:</h2>
+    <p style="color: var(--text-on-dark-secondary);">Мы предлагаем разнообразные форматы обучения, от интенсивных мастер-классов до комплексных долгосрочных программ:</p>
+    
+    <div class="row mt-4 gx-4 gy-4">
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 bg-transparent border-light_alpha">
+                <div class="card-body cosmic-card-body d-flex flex-column">
+                    <h5 class="card-title">Курс "Основы Мебельного Дизайна и Конструирования"</h5>
+                    <p class="card-text"><strong>Для кого:</strong> Начинающие дизайнеры, конструкторы, все желающие освоить базу.
+                    <br><strong>Содержание:</strong> История дизайна, материалы, основы композиции, работа в БАЗИС-Мебельщик, создание чертежей, основы эргономики.
+                    <br><strong>Длительность:</strong> 3 месяца (демо).</p>
+                    <a href="#" class="btn btn-outline-primary mt-auto align-self-start">Узнать подробнее и записаться</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 bg-transparent border-light_alpha">
+                <div class="card-body cosmic-card-body d-flex flex-column">
+                    <h5 class="card-title">Интенсив "3D-Визуализация Интерьеров в 3Ds Max + Corona"</h5>
+                    <p class="card-text"><strong>Для кого:</strong> Дизайнеры интерьеров, визуализаторы, архитекторы.
+                    <br><strong>Содержание:</strong> Моделирование, текстурирование, освещение, рендеринг фотореалистичных изображений, постобработка.
+                    <br><strong>Длительность:</strong> 1 месяц (демо).</p>
+                    <a href="#" class="btn btn-outline-primary mt-auto align-self-start">Узнать подробнее и записаться</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 bg-transparent border-light_alpha">
+                <div class="card-body cosmic-card-body d-flex flex-column">
+                    <h5 class="card-title">Мастер-класс "Секреты Этно-Модернизма в Мебели"</h5>
+                    <p class="card-text"><strong>Для кого:</strong> Дизайнеры, декораторы, ценители уникального стиля.
+                    <br><strong>Содержание:</strong> Ключевые принципы стиля, работа с орнаментами, сочетание материалов, практические примеры от ведущих дизайнеров BaiMuras.
+                    <br><strong>Длительность:</strong> 1 день (демо).</p>
+                    <a href="#" class="btn btn-outline-primary mt-auto align-self-start">Узнать подробнее и записаться</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 bg-transparent border-light_alpha">
+                <div class="card-body cosmic-card-body d-flex flex-column">
+                    <h5 class="card-title">Курс "Управление Мебельным Производством и Проектами"</h5>
+                    <p class="card-text"><strong>Для кого:</strong> Руководители, менеджеры проектов, предприниматели в мебельной сфере.
+                    <br><strong>Содержание:</strong> Планирование, бюджетирование, контроль качества, работа с поставщиками, автоматизация процессов, маркетинг и продажи.
+                    <br><strong>Длительность:</strong> 2 месяца (демо).</p>
+                    <a href="#" class="btn btn-outline-primary mt-auto align-self-start">Узнать подробнее и записаться</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="featurette-section p-4 rounded-lg mt-5">
+        <h2 class="mt-0">Почему выбирают BaiMuras Academy:</h2>
+        <ul class="list-group list-group-flush mt-3 mb-0 list-group-cosmic cosmic-list-icons">
+            <li class="list-group-item"><i class="bi bi-person-video3 me-2"></i><strong>Преподаватели-практики:</strong> Обучение ведут ведущие специалисты компании BaiMuras с многолетним опытом работы.</li>
+            <li class="list-group-item"><i class="bi bi-tools me-2"></i><strong>Практическая направленность:</strong> Максимум практики, работа над реальными или приближенными к реальным проектам.</li>
+            <li class="list-group-item"><i class="bi bi-building me-2"></i><strong>Доступ к производству:</strong> Возможность увидеть производственные процессы изнутри (для очных форматов).</li>
+            <li class="list-group-item"><i class="bi bi-mortarboard-fill me-2"></i><strong>Сертификат об окончании:</strong> Подтверждение ваших знаний и навыков.</li>
+            <li class="list-group-item"><i class="bi bi-people-fill me-2"></i><strong>Сообщество единомышленников:</strong> Нетворкинг и обмен опытом с коллегами.</li>
+        </ul>
+    </div>
+
+    <div class="row align-items-center my-5 featurette-section p-4 rounded-lg">
+        <div class="col-md-7">
+            <h2 class="mt-0">Форматы Обучения</h2>
+            <p>Мы предлагаем как очные занятия в нашем учебном центре в Бишкеке, так и онлайн-курсы для слушателей из других городов и стран. Многие программы предусматривают гибридный формат, сочетающий теоретические онлайн-лекции и практические очные занятия.</p>
+        </div>
+        <div class="col-md-5">
+            <img src="{{ url_for(\'static\', filename=\'images/cosmic_neural_background_2.png\') }}" class="img-fluid rounded shadow-lg" alt="Форматы обучения в BaiMuras Academy" style="opacity:0.8;">
+        </div>
+    </div>
+
+    <div class="featurette-section p-4 rounded-lg text-center">
+        <h3 class="h2">Готовы начать свой путь в мире дизайна и мебельного мастерства?</h3>
+        <p>Ознакомьтесь с актуальным расписанием курсов и мастер-классов или свяжитесь с нами для получения консультации по выбору программы.</p>
+        <a href="{{ url_for("main.contact") }}?subject=Запрос_по_Академии" class="btn btn-primary btn-lg mt-3">Связаться с Академией</a>
+        <a href="#" class="btn btn-secondary btn-lg mt-3">Смотреть Расписание (демо)</a>
+    </div>
+
+</div>
+{% endblock %}
+

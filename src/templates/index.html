@@ -1,0 +1,241 @@
+
+{% extends "base.html" %}
+
+{% block title %}{{ content.hero_title }} - BaiMuras{% endblock %}
+{% block description %}{{ content.hero_subtitle }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="hero-content fade-in">
+                    <h1>{{ content.hero_title }}</h1>
+                    <p class="lead">{{ content.hero_subtitle }}</p>
+                    <div class="hero-actions">
+                        <a href="{{ url_for('main.contact') }}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-calendar-alt me-2"></i>{{ content.hero_cta }}
+                        </a>
+                        <a href="{{ url_for('main.services') }}" class="btn btn-outline btn-lg ms-3">
+                            {{ content.services_title }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image fade-in">
+                    <img src="https://i.pinimg.com/originals/87/b0/66/87b0664ee98152968db1dfaf1426c1e3.jpg" 
+                         alt="Детская кровать-домик Монтессори" 
+                         class="img-fluid rounded-lg"
+                         style="box-shadow: var(--shadow-lg);">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 slide-in-left">
+                <img src="https://i.pinimg.com/originals/b6/1b/04/b61b0412d08ea49f8c93ec8d17e70d3c.jpg" 
+                     alt="Скандинавская гостиная с натуральной мебелью" 
+                     class="img-fluid rounded-lg">
+            </div>
+            <div class="col-lg-6 slide-in-right">
+                <h2>{{ content.about_title }}</h2>
+                <p class="lead">{{ content.about_text }}</p>
+                <div class="features-list">
+                    <div class="feature-item">
+                        <i class="fas fa-leaf text-primary me-3"></i>
+                        <span>{% if current_language == 'ky' %}Экологиялык материалдар{% else %}Экологичные материалы{% endif %}</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-child text-primary me-3"></i>
+                        <span>{% if current_language == 'ky' %}Монтессори философиясы{% else %}Философия Монтессори{% endif %}</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-home text-primary me-3"></i>
+                        <span>{% if current_language == 'ky' %}Скандинавиялык дизайн{% else %}Скандинавский дизайн{% endif %}</span>
+                    </div>
+                </div>
+                <a href="{{ url_for('main.about') }}" class="btn btn-outline mt-3">
+                    {% if current_language == 'ky' %}Көбүрөөк билүү{% else %}Узнать больше{% endif %}
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="section" style="background-color: var(--light-gray);">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>{{ content.services_title }}</h2>
+            <p class="lead">{% if current_language == 'ky' %}Биз сунуштаган кызматтар{% else %}Что мы предлагаем{% endif %}</p>
+        </div>
+        
+        <div class="grid grid-3">
+            <!-- Montessori Furniture -->
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-baby"></i>
+                </div>
+                <h3>{{ content.montessori_title }}</h3>
+                <p>{{ content.montessori_desc }}</p>
+                <div class="service-image mb-3">
+                    <img src="https://i.pinimg.com/736x/47/a7/bf/47a7bf146628ee333913640524dfca85.jpg" 
+                         alt="Треугольник Пиклера для развития детей" 
+                         class="img-fluid rounded-md">
+                </div>
+                <a href="{{ url_for('main.services_montessori') }}" class="btn btn-outline">
+                    {% if current_language == 'ky' %}Көбүрөөк билүү{% else %}Подробнее{% endif %}
+                </a>
+            </div>
+            
+            <!-- Custom Kitchens -->
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <h3>{{ content.kitchens_title }}</h3>
+                <p>{{ content.kitchens_desc }}</p>
+                <div class="service-image mb-3">
+                    <img src="https://i.pinimg.com/originals/d0/41/1b/d0411bdd3488c9c81c083f5dbd804b78.jpg" 
+                         alt="Современная кухня в скандинавском стиле" 
+                         class="img-fluid rounded-md">
+                </div>
+                <a href="{{ url_for('main.services_kitchens') }}" class="btn btn-outline">
+                    {% if current_language == 'ky' %}Көбүрөөк билүү{% else %}Подробнее{% endif %}
+                </a>
+            </div>
+            
+            <!-- Children Rooms -->
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-bed"></i>
+                </div>
+                <h3>{{ content.children_rooms_title }}</h3>
+                <p>{{ content.children_rooms_desc }}</p>
+                <div class="service-image mb-3">
+                    <img src="https://i.pinimg.com/originals/7b/ca/14/7bca1420deccbea9f412973d30f9a088.jpg" 
+                         alt="Детская комната в скандинавском стиле" 
+                         class="img-fluid rounded-md">
+                </div>
+                <a href="{{ url_for('main.services_children_rooms') }}" class="btn btn-outline">
+                    {% if current_language == 'ky' %}Көбүрөөк билүү{% else %}Подробнее{% endif %}
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Preview -->
+<section class="section">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>{{ content.portfolio_title }}</h2>
+            <p class="lead">{{ content.portfolio_subtitle }}</p>
+        </div>
+        
+        <div class="portfolio-grid">
+            <div class="portfolio-item fade-in">
+                <img src="https://i.pinimg.com/originals/56/f6/c2/56f6c29c6cb4aff1d53c617bb7536016.jpg" 
+                     alt="Семейный дом в скандинавском стиле">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Үй-бүлөлүк үй{% else %}Семейный дом{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}Скандинавиялык стилде{% else %}В скандинавском стиле{% endif %}</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item fade-in">
+                <img src="https://i.pinimg.com/originals/c3/4c/fc/c34cfcdcfcbd4279161bb3c34b624293.jpg" 
+                     alt="Семейная гостиная">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Үй-бүлөлүк гостиная{% else %}Семейная гостиная{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}Балдар менен ыңгайлуу{% else %}Удобно с детьми{% endif %}</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item fade-in">
+                <img src="https://i.pinimg.com/originals/4f/59/50/4f5950c866d4626c465a66671c0fa8ba.jpg" 
+                     alt="Детская игровая комната">
+                <div class="portfolio-overlay">
+                    <h4>{% if current_language == 'ky' %}Оюн бөлмөсү{% else %}Игровая комната{% endif %}</h4>
+                    <p>{% if current_language == 'ky' %}Чыгармачылык үчүн мейкиндик{% else %}Пространство для творчества{% endif %}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{{ url_for('main.portfolio') }}" class="btn btn-primary">
+                {% if current_language == 'ky' %}Бардык долбоорлорду көрүү{% else %}Смотреть все проекты{% endif %}
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section" style="background: linear-gradient(135deg, var(--primary-blue) 0%, var(--soft-blue) 100%); color: white;">
+    <div class="container">
+        <div class="text-center fade-in">
+            <h2 style="color: white;">{{ content.consultation_title }}</h2>
+            <p class="lead" style="color: rgba(255,255,255,0.9);">{{ content.consultation_text }}</p>
+            <a href="{{ url_for('main.contact') }}" class="btn btn-lg" 
+               style="background-color: white; color: var(--primary-blue); font-weight: 600;">
+                <i class="fas fa-phone me-2"></i>{{ content.consultation_cta }}
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.hero-image img {
+    max-height: 500px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.features-list {
+    margin: var(--spacing-lg) 0;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+    font-weight: 500;
+}
+
+.service-image img {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero .btn {
+        display: block;
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .hero .btn.ms-3 {
+        margin-left: 0 !important;
+    }
+}
+</style>
+{% endblock %}

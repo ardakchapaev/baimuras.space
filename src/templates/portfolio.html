@@ -1,0 +1,269 @@
+
+{% extends "base.html" %}
+
+{% block title %}{{ navigation.portfolio }} - BaiMuras{% endblock %}
+{% block description %}Портфолио BaiMuras: реализованные проекты мебели Монтессори, кухонь на заказ и детских комнат в скандинавском стиле.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero section-sm">
+    <div class="container">
+        <div class="text-center fade-in">
+            <h1>{{ navigation.portfolio }}</h1>
+            <p class="lead">{% if current_language == 'ky' %}Биздин ишке ашырган долбоорлор{% else %}Наши реализованные проекты{% endif %}</p>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Grid -->
+<section class="section">
+    <div class="container">
+        <div class="portfolio-grid">
+            <!-- Modern Kitchens -->
+            <div class="portfolio-item kitchens fade-in">
+                <img src="https://i.pinimg.com/originals/94/f0/e0/94f0e09f8b2091f2ecf116cede3da85f.jpg"
+                     alt="Скандинавская кухня" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}Скандинав ашкана{% else %}Скандинавская кухня{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}Заманбап дизайн{% else %}Современный дизайн{% endif %}</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item kitchens fade-in">
+                <img src="https://i.pinimg.com/originals/1b/ae/01/1bae019b6813e0a21d8544fe30b9e1bf.jpg"
+                     alt="Современная кухня с островом" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}Аралы менен ашкана{% else %}Кухня с островом{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}Функционалдуу чечим{% else %}Функциональное решение{% endif %}</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item kitchens fade-in">
+                <img src="https://www.architectureartdesigns.com/wp-content/uploads/2016/10/15-Unbelievable-Scandinavian-Kitchen-Designs-That-Will-Make-Your-Jaw-Drop-4.jpg"
+                     alt="Элитная скандинавская кухня" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}Элиталык скандинав ашкана{% else %}Элитная скандинавская кухня{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}Премиум материалдар{% else %}Премиум материалы{% endif %}</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item kitchens fade-in">
+                <img src="http://cdn.decoist.com/wp-content/uploads/2015/07/Subway-tile-is-a-classic-that-never-fails-in-the-Scandinavian-setting.jpg"
+                     alt="Кухня с метро плиткой" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}Метро плитка менен ашкана{% else %}Кухня с метро плиткой{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}Классикалык стиль{% else %}Классический стиль{% endif %}</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item kitchens fade-in">
+                <img src="https://www.thespruce.com/thmb/GpUk2JPCWqrxSPdH9ZJDMeRH4NI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/get-1-c3a2639e806a403884979fc28335ec4b.jpg"
+                     alt="Минималистичная кухня" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}Минималисттик ашкана{% else %}Минималистичная кухня{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}Таза линиялар{% else %}Чистые линии{% endif %}</p>
+                </div>
+            </div>
+
+            <!-- Montessori Furniture -->
+            <div class="portfolio-item montessori fade-in">
+                <img src="https://i.pinimg.com/originals/3a/c1/33/3ac133bd562fbeec640679b4f0f2d941.jpg"
+                     alt="Многофункциональный стол Монтессори" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}Көп функциялуу Монтессори столу{% else %}Многофункциональный стол Монтессори{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}Балдар үчүн сертификатталган{% else %}Сертифицированный для детей{% endif %}</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item montessori fade-in">
+                <img src="https://i.pinimg.com/originals/bb/0a/39/bb0a395bad11d4be3b29e0acd07a8635.jpg"
+                     alt="Мебель Монтессори" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}Монтессори эмерек{% else %}Мебель Монтессори{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}Балдар үчүн өнүктүрүүчү{% else %}Развивающая для детей{% endif %}</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item montessori fade-in">
+                <img src="https://i.pinimg.com/originals/4a/c7/b9/4ac7b938f214759d851f8ceecc996e63.jpg"
+                     alt="Треугольник-трансформер Монтессори" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}Монтессори үч бурчтук-трансформер{% else %}Треугольник-трансформер Монтессори{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}Кыймыл үчүн комплекс{% else %}Комплекс для движения{% endif %}</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item montessori fade-in">
+                <img src="https://i.pinimg.com/originals/9b/35/7e/9b357ee0cef6ba06d1f8eb1fa412658b.jpg"
+                     alt="Набор мебели для спальни малыша" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}Кичинекей балдын уктоочу бөлмө топтому{% else %}Набор мебели для спальни малыша{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}Монтессори спальня{% else %}Монтессори спальня{% endif %}</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item montessori fade-in">
+                <img src="https://i.pinimg.com/originals/e1/2e/9e/e12e9e7a8ba4253f8c8a14973b81b52d.jpg"
+                     alt="Многофункциональная мебель 3 в 1" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}3 бирдеги көп функциялуу эмерек{% else %}Многофункциональная мебель 3 в 1{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}Стол жана отургуч{% else %}Стол и стул{% endif %}</p>
+                </div>
+            </div>
+
+            <!-- Children Rooms -->
+            <div class="portfolio-item children-rooms fade-in">
+                <img src="https://i.pinimg.com/originals/d5/f4/e5/d5f4e548f2a1980ee8c66407853d7897.jpg"
+                     alt="Зеленая детская комната IKEA" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}Жашыл балдар бөлмөсү{% else %}Зеленая детская комната{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}IKEA дизайн{% else %}IKEA дизайн{% endif %}</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item children-rooms fade-in">
+                <img src="https://www.architectureartdesigns.com/wp-content/uploads/2016/11/15-Beautiful-Scandinavian-Kids-Room-Designs-That-Provide-Comfort-And-Joy-9.jpg"
+                     alt="Красивая скандинавская детская" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}Сулуу скандинав балдар бөлмөсү{% else %}Красивая скандинавская детская{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}Ыңгайлуулук жана кубаныч{% else %}Комфорт и радость{% endif %}</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item children-rooms fade-in">
+                <img src="https://www.architectureartdesigns.com/wp-content/uploads/2016/02/16-Lively-Scandinavian-Kids-Room-Designs-Your-Children-Would-Enjoy-2.jpg"
+                     alt="Живая скандинавская детская" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}Жандуу скандинав балдар бөлмөсү{% else %}Живая скандинавская детская{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}Балдар жакшы көрөт{% else %}Дети обожают{% endif %}</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item children-rooms fade-in">
+                <img src="http://www.architectureartdesigns.com/wp-content/uploads/2017/07/15-Beautiful-Scandinavian-Kids-Room-Designs-That-Will-Make-You-Want-To-Be-A-Kid-Again-2.jpg"
+                     alt="Скандинавская детская мечты" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}Кыялдагы скандинав балдар бөлмөсү{% else %}Скандинавская детская мечты{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}Кайра бала болгуң келет{% else %}Хочется снова стать ребенком{% endif %}</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item children-rooms fade-in">
+                <img src="https://www.architectureartdesigns.com/wp-content/uploads/2019/11/15-Amazing-Scandinavian-Kids-Room-Designs-For-Rest-And-Play-2.jpg"
+                     alt="Комната для отдыха и игр" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}Эс алуу жана оюн үчүн бөлмө{% else %}Комната для отдыха и игр{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}Укмуштуу скандинав дизайн{% else %}Удивительный скандинавский дизайн{% endif %}</p>
+                </div>
+            </div>
+
+            <!-- Custom Wooden Furniture -->
+            <div class="portfolio-item lifestyle fade-in">
+                <img src="https://i.pinimg.com/originals/4d/cc/14/4dcc14e9d4efb8d142c573f737a8a9c3.jpg"
+                     alt="Индивидуальная деревянная мебель" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}Жеке жыгач эмерек{% else %}Индивидуальная деревянная мебель{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}Кол менен жасалган{% else %}Ручная работа{% endif %}</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item lifestyle fade-in">
+                <img src="https://i.pinimg.com/originals/97/f8/5c/97f85c6829cff4bbd1cc456f4e0af022.jpg"
+                     alt="Деревянная мебель и стулья" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}Жыгач эмерек жана отургучтар{% else %}Деревянная мебель и стулья{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}Кол менен жасалган идеялар{% else %}Идеи ручной работы{% endif %}</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item lifestyle fade-in">
+                <img src="http://www.galbraithbuilders.com/wp-content/uploads/2018/05/fleisch-dining-table-1-5-27-05.jpg"
+                     alt="Обеденный стол на заказ" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}Буйрутма тамак-аш столу{% else %}Обеденный стол на заказ{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}Жыгач эмерек портфолиосу{% else %}Портфолио деревянной мебели{% endif %}</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item lifestyle fade-in">
+                <img src="http://www.galbraithbuilders.com/wp-content/uploads/2018/05/pb3_fleisch-2.jpg"
+                     alt="Портфолио деревянной мебели" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}Жыгач эмерек портфолиосу{% else %}Портфолио деревянной мебели{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}Курулушчулар{% else %}Строители{% endif %}</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item lifestyle fade-in">
+                <img src="http://www.galbraithbuilders.com/wp-content/uploads/2018/05/pb3_8351-galbraith.jpg"
+                     alt="Индивидуальная мебель Galbraith" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>{% if current_language == 'ky' %}Galbraith жеке эмерек{% else %}Индивидуальная мебель Galbraith{% endif %}</h3>
+                    <p>{% if current_language == 'ky' %}Жогорку сапат{% else %}Высокое качество{% endif %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="text-center fade-in">
+            <h2>{% if current_language == 'ky' %}Сиздин долбооруңузду талкуулайлы{% else %}Обсудим ваш проект{% endif %}</h2>
+            <p class="lead">{% if current_language == 'ky' %}Биз сизге уникалдуу эмерек жасап беребиз{% else %}Мы создадим для вас уникальную мебель{% endif %}</p>
+            <a href="{{ url_for('main.contact') }}" class="btn btn-primary btn-lg">
+                {% if current_language == 'ky' %}Консультация алуу{% else %}Получить консультацию{% endif %}
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Portfolio filter functionality (removed as per task requirements)
+    
+    // Lazy loading for images
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.src;
+                    img.classList.remove('lazy');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+        
+        images.forEach(img => imageObserver.observe(img));
+    }
+    
+    // Fade in animation
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    document.querySelectorAll('.fade-in').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+    });
+});
+</script>
+{% endblock %}

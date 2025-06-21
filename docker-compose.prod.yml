@@ -1,0 +1,122 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15
+    container_name: baimuras_postgres
+    environment:
+      POSTGRES_DB: baimuras_db
+      POSTGRES_USER: baimuras_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - baimuras_network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: baimuras_redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    networks:
+      - baimuras_network
+
+  # Flask Application
+  flask_app:
+    build:
+      context: .
+      dockerfile: Dockerfile.flask
+    container_name: baimuras_flask
+    environment:
+      - FLASK_ENV=production
+      - DATABASE_URL=postgresql://baimuras_user:${POSTGRES_PASSWORD}@postgres:5432/baimuras_db
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=${SECRET_KEY}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - N8N_WEBHOOK_URL=${N8N_WEBHOOK_URL}
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+    networks:
+      - baimuras_network
+    volumes:
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+
+  # Next.js Admin Panel
+  admin_panel:
+    build:
+      context: ./admin-panel/app
+      dockerfile: Dockerfile
+    container_name: baimuras_admin
+    environment:
+      - NODE_ENV=production
+      - NEXTAUTH_URL=https://admin.baimuras.space
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - DATABASE_URL=postgresql://baimuras_user:${POSTGRES_PASSWORD}@postgres:5432/baimuras_db
+      - API_URL=https://api.baimuras.space
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - flask_app
+    restart: unless-stopped
+    networks:
+      - baimuras_network
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: baimuras_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./static:/var/www/static
+    depends_on:
+      - flask_app
+      - admin_panel
+    restart: unless-stopped
+    networks:
+      - baimuras_network
+
+  # n8n Automation
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: baimuras_n8n
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=${N8N_USER}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_PASSWORD}
+      - N8N_HOST=n8n.baimuras.space
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://n8n.baimuras.space
+      - GENERIC_TIMEZONE=Asia/Bishkek
+    ports:
+      - "5678:5678"
+    volumes:
+      - n8n_data:/home/node/.n8n
+    restart: unless-stopped
+    networks:
+      - baimuras_network
+
+volumes:
+  postgres_data:
+  n8n_data:
+
+networks:
+  baimuras_network:
+    driver: bridge

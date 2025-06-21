@@ -1,0 +1,106 @@
+./
+├── ADMIN.md
+├── ADMIN.pdf
+├── ADMIN_USER_GUIDE_RU.md
+├── ADMIN_USER_GUIDE_RU.pdf
+├── API.md
+├── API.pdf
+├── CHANGELOG.md
+├── COMPREHENSIVE_AUDIT_REPORT.md
+├── COMPREHENSIVE_AUDIT_REPORT.pdf
+├── CONTRIBUTING.md
+├── DEPLOYMENT-SUMMARY.md
+├── DEPLOYMENT-SUMMARY.pdf
+├── DEPLOYMENT.md
+├── DEPLOYMENT.pdf
+├── DEPLOYMENT_REPORT.md
+├── DEPLOYMENT_REPORT.pdf
+├── Dockerfile.flask
+├── Dockerfile.scheduler
+├── Dockerfile.worker
+├── FIXES_REPORT.md
+├── LICENSE
+├── PRODUCTION_DEPLOYMENT_REPORT.md
+├── PRODUCTION_DEPLOYMENT_REPORT.pdf
+├── PROJECT_COMPLETION_SUMMARY.md
+├── PULL_REQUEST_INSTRUCTIONS.md
+├── PULL_REQUEST_INSTRUCTIONS.pdf
+├── Procfile
+├── README-DEPLOY.md
+├── README.md
+├── REDESIGN_COMPLETION_REPORT.md
+├── REDESIGN_COMPLETION_REPORT.pdf
+├── SECURITY.md
+├── SECURITY.pdf
+├── SECURITY_FIXES_REPORT.md
+├── SECURITY_FIXES_REPORT.pdf
+├── TASK_COMPLETION_REPORT.md
+├── TASK_COMPLETION_REPORT.pdf
+├── VERSION
+├── __pycache__/
+│   └── wsgi.cpython-311.pyc
+├── admin-panel/
+├── admin_panel/
+│   └── __init__.py
+├── analysis_admin.json
+├── analysis_env.json
+├── analysis_routes.json
+├── automation/
+│   ├── celery_app.py
+│   └── tasks/
+├── bandit_report.json
+├── deploy-production.sh*
+├── deploy.sh*
+├── deps_vulnerabilities.json
+├── docker-compose.n8n.yml
+├── docker-compose.prod.yml
+├── docker-compose.yml
+├── envvars.txt
+├── flake8_report.txt
+├── gunicorn.conf.py
+├── instance/
+│   └── baimuras.db
+├── inventory.txt
+├── manual_inspection.txt
+├── migrations/
+│   ├── README
+│   ├── alembic.ini
+│   ├── env.py
+│   └── script.py.mako
+├── nginx/
+│   └── nginx.conf
+├── pylint_final.txt
+├── pylint_final_check.txt
+├── pylint_report.txt
+├── releases/
+│   └── baimuras_release_20250620_225635.tar.gz
+├── requirements.txt
+├── routes.txt
+├── run_modernized.py
+├── runtime.txt
+├── scripts/
+│   └── init_db.sql
+├── src/
+│   ├── __init__.py
+│   ├── __pycache__/
+│   ├── automation/
+│   ├── config.py
+│   ├── config_environments.py
+│   ├── content.py
+│   ├── errors.py
+│   ├── main.py
+│   ├── models/
+│   ├── routes/
+│   ├── static/
+│   ├── templates/
+│   ├── utils/
+│   └── version.py
+├── test_forms.py
+├── tests/
+│   ├── conftest.py
+│   ├── test_api.py
+│   ├── test_integration.py
+│   └── test_webhook.py
+└── wsgi.py
+
+19 directories, 84 files

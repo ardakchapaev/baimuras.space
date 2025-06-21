@@ -1,0 +1,82 @@
+{% extends "dashboard.html" %}
+
+{% block dashboard_content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Аналитика и Отчеты</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                За последний месяц
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    Динамика Поступления Лидов (Демо)
+                </div>
+                <div class="card-body">
+                    <img src="{{ url_for('static', filename='images/blue_splash_bg.png') }}" class="img-fluid rounded" alt="Динамика лидов (placeholder)">
+                    <p class="card-text mt-2 text-muted small">График, отображающий количество новых лидов по дням/неделям.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    Конверсия по Этапам Воронки (Демо)
+                </div>
+                <div class="card-body">
+                    <img src="{{ url_for('static', filename='images/coral_accent_bg.png') }}" class="img-fluid rounded" alt="Воронка конверсии (placeholder)">
+                    <p class="card-text mt-2 text-muted small">Визуализация воронки продаж: от первого контакта до успешной сделки.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    Эффективность Источников (Демо)
+                </div>
+                <div class="card-body">
+                    <img src="{{ url_for('static', filename='images/blue_splash_bg.png') }}" class="img-fluid rounded" alt="Источники лидов (placeholder)">
+                    <p class="card-text mt-2 text-muted small">Диаграмма, показывающая, какие каналы приносят больше всего качественных лидов.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    Средний Чек / Сумма Сделки (Демо)
+                </div>
+                <div class="card-body">
+                    <img src="{{ url_for('static', filename='images/coral_accent_bg.png') }}" class="img-fluid rounded" alt="Средний чек (placeholder)">
+                    <p class="card-text mt-2 text-muted small">Анализ среднего чека и общей суммы сделок за выбранный период.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    KPI Менеджеров (Демо)
+                </div>
+                <div class="card-body">
+                    <img src="{{ url_for('static', filename='images/blue_splash_bg.png') }}" class="img-fluid rounded" alt="KPI Менеджеров (placeholder)">
+                    <p class="card-text mt-2 text-muted small">Отчет по ключевым показателям эффективности работы менеджеров.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-info mt-3" role="alert">
+        <span data-feather="bar-chart-2" class="align-text-bottom"></span>
+        <strong>Демонстрационные данные:</strong> Представленные графики и отчеты используют случайные данные для иллюстрации возможностей аналитического раздела. В рабочей версии дашборда здесь будут реальные показатели вашего бизнеса.
+    </div>
+
+</div>
+{% endblock %}

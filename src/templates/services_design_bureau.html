@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block title %}Проектное Бюро - BaiMuras{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <nav aria-label="breadcrumb" class="breadcrumb-cosmic">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for("main.index") }}">Главная</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for("main.services") }}">Услуги</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Проектное Бюро</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-4">Проектное Бюро BaiMuras: Профессиональный Подход к Дизайну</h1>
+
+    <p class="lead">Проектное бюро BaiMuras – это ваш надежный партнер в создании детализированных и технически грамотных дизайн-проектов. Мы специализируемся на разработке конструкторской документации для мебельного производства, 3D-визуализации интерьеров и техническом консалтинге. Наши услуги ориентированы как на частных клиентов, так и на профессионалов отрасли – дизайнеров, архитекторов и девелоперов.</p>
+
+    <h2 class="mt-5">Наши услуги для B2B клиентов и частных заказчиков:</h2>
+    <div class="accordion mt-3 mb-5 accordion-cosmic" id="accordionServicesDesignBureau">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Разработка Конструкторской Документации (КД)
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionServicesDesignBureau">
+                <div class="accordion-body">
+                    <ul class="cosmic-list">
+                        <li>Создание полного комплекта чертежей для производства мебели любой сложности в программе БАЗИС-Мебельщик (или аналогичной).</li>
+                        <li>Деталировка, карты раскроя, спецификации материалов и фурнитуры.</li>
+                        <li>Оптимизация проектов для производства, снижение себестоимости без потери качества.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    3D-Визуализация Проектов
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionServicesDesignBureau">
+                <div class="accordion-body">
+                    <ul class="cosmic-list">
+                        <li>Создание фотореалистичных 3D-визуализаций интерьеров и отдельных предметов мебели.</li>
+                        <li>Помощь в презентации проектов заказчикам, наглядное представление будущих пространств.</li>
+                        <li>Использование современных программных комплексов (3Ds Max, Corona Renderer, V-Ray).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Технический Консалтинг
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionServicesDesignBureau">
+                <div class="accordion-body">
+                    <ul class="cosmic-list">
+                        <li>Консультации по выбору материалов, фурнитуры, технологий производства.</li>
+                        <li>Анализ и оптимизация существующих дизайн-проектов с точки зрения технологичности и реализуемости.</li>
+                        <li>Помощь в решении сложных технических задач в мебельном производстве и дизайне интерьеров.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    Разработка Дизайн-Проектов Интерьера "Под Ключ"
+                </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionServicesDesignBureau">
+                <div class="accordion-body">
+                    <ul class="cosmic-list">
+                        <li>Для частных клиентов: полный цикл от идеи до авторского надзора.</li>
+                        <li>Планировочные решения, стилевые концепции, подбор отделочных материалов, мебели, освещения и декора.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="featurette-section p-4 rounded-lg mt-5">
+        <h2 class="mt-0">Преимущества сотрудничества с Проектным Бюро BaiMuras:</h2>
+        <ul class="list-unstyled mt-3 cosmic-list-icons">
+            <li class="mb-2"><i class="bi bi-patch-check-fill me-2"></i><strong>Экспертиза и Опыт:</strong> Глубокие знания в области мебельного производства и дизайна интерьеров.</li>
+            <li class="mb-2"><i class="bi bi-patch-check-fill me-2"></i><strong>Точность и Детализация:</strong> Тщательная проработка каждого проекта, минимизация ошибок на этапе реализации.</li>
+            <li class="mb-2"><i class="bi bi-patch-check-fill me-2"></i><strong>Современные Инструменты:</strong> Использование передового программного обеспечения для проектирования и визуализации.</li>
+            <li class="mb-2"><i class="bi bi-patch-check-fill me-2"></i><strong>Соблюдение Сроков:</strong> Ответственный подход к выполнению заказов в оговоренные сроки.</li>
+            <li class="mb-2"><i class="bi bi-patch-check-fill me-2"></i><strong>Гибкость и Индивидуальный Подход:</strong> Готовность адаптироваться к требованиям заказчика и находить оптимальные решения.</li>
+        </ul>
+    </div>
+
+    <h2 class="mt-5">Для кого наши услуги:</h2>
+    <div class="row mt-3 gx-4 gy-4">
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card h-100 text-center bg-transparent border-light_alpha">
+                <div class="card-body cosmic-card-body">
+                    <i class="bi bi-person-badge-fill fs-1" style="color: var(--accent-primary);"></i>
+                    <h5 class="card-title mt-2">Частные клиенты</h5>
+                    <p class="card-text">Желающие получить уникальный дизайн-проект и качественную мебель.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card h-100 text-center bg-transparent border-light_alpha">
+                <div class="card-body cosmic-card-body">
+                    <i class="bi bi-palette2 fs-1" style="color: var(--accent-primary);"></i>
+                    <h5 class="card-title mt-2">Дизайнеры и архитекторы</h5>
+                    <p class="card-text">Нуждающиеся в разработке КД или 3D-визуализации.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card h-100 text-center bg-transparent border-light_alpha">
+                <div class="card-body cosmic-card-body">
+                    <i class="bi bi-gear-wide-connected fs-1" style="color: var(--accent-primary);"></i>
+                    <h5 class="card-title mt-2">Мебельные производства</h5>
+                    <p class="card-text">Требующие аутсорсинга конструкторских работ.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card h-100 text-center bg-transparent border-light_alpha">
+                <div class="card-body cosmic-card-body">
+                    <i class="bi bi-buildings-fill fs-1" style="color: var(--accent-primary);"></i>
+                    <h5 class="card-title mt-2">Девелоперы</h5>
+                    <p class="card-text">Заинтересованные в комплексном оснащении объектов.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mt-5">Примеры наших работ</h2>
+    <div class="row mt-3 mb-5 gx-4 gy-4">
+        <div class="col-md-6 mb-3">
+            <img src="{{ url_for(\'static\', filename=\'images/cosmic_neural_background_1.png\') }}" class="img-fluid rounded shadow-lg" alt="Конструкторский чертеж BaiMuras" style="opacity:0.8;">
+            <p class="text-center mt-2" style="color: var(--text-on-dark-secondary);">Пример конструкторского чертежа</p>
+        </div>
+        <div class="col-md-6 mb-3">
+            <img src="{{ url_for(\'static\', filename=\'images/cosmic_neural_background_2.png\') }}" class="img-fluid rounded shadow-lg" alt="3D Визуализация гостиной" style="opacity:0.8;">
+            <p class="text-center mt-2" style="color: var(--text-on-dark-secondary);">Фотореалистичная 3D-визуализация гостиной</p>
+        </div>
+    </div>
+
+    <div class="featurette-section p-4 rounded-lg text-center">
+        <h3 class="h2">Обсудим ваш проект?</h3>
+        <p>Оставьте заявку, и наши специалисты свяжутся с вами для детального обсуждения ваших задач и предложения оптимальных решений.</p>
+        <a href="{{ url_for("main.contact") }}" class="btn btn-primary btn-lg mt-3">Оставить заявку</a>
+    </div>
+
+</div>
+{% endblock %}
+

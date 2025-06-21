@@ -1,0 +1,282 @@
+[
+  {
+    "path": "/",
+    "methods": "GET",
+    "file": "src/routes/main_routes.py"
+  },
+  {
+    "path": "/set-language/<language>",
+    "methods": "GET",
+    "file": "src/routes/main_routes.py"
+  },
+  {
+    "path": "/about",
+    "methods": "GET",
+    "file": "src/routes/main_routes.py"
+  },
+  {
+    "path": "/services",
+    "methods": "GET",
+    "file": "src/routes/main_routes.py"
+  },
+  {
+    "path": "/services/montessori",
+    "methods": "GET",
+    "file": "src/routes/main_routes.py"
+  },
+  {
+    "path": "/services/kitchens",
+    "methods": "GET",
+    "file": "src/routes/main_routes.py"
+  },
+  {
+    "path": "/services/children-rooms",
+    "methods": "GET",
+    "file": "src/routes/main_routes.py"
+  },
+  {
+    "path": "/portfolio",
+    "methods": "GET",
+    "file": "src/routes/main_routes.py"
+  },
+  {
+    "path": "/blog",
+    "methods": "GET",
+    "file": "src/routes/main_routes.py"
+  },
+  {
+    "path": "/contact",
+    "methods": "GET, POST",
+    "file": "src/routes/main_routes.py"
+  },
+  {
+    "path": "/api/consultation",
+    "methods": "POST",
+    "file": "src/routes/main_routes.py"
+  },
+  {
+    "path": "/services/custom-furniture",
+    "methods": "GET",
+    "file": "src/routes/main_routes.py"
+  },
+  {
+    "path": "/services/design-bureau",
+    "methods": "GET",
+    "file": "src/routes/main_routes.py"
+  },
+  {
+    "path": "/services/academy",
+    "methods": "GET",
+    "file": "src/routes/main_routes.py"
+  },
+  {
+    "path": "/dashboard",
+    "methods": "GET",
+    "file": "src/routes/main_routes.py"
+  },
+  {
+    "path": "/dashboard/analytics",
+    "methods": "GET",
+    "file": "src/routes/main_routes.py"
+  },
+  {
+    "path": "/register",
+    "methods": "GET, POST",
+    "file": "src/routes/main_routes.py"
+  },
+  {
+    "path": "/login",
+    "methods": "GET, POST",
+    "file": "src/routes/main_routes.py"
+  },
+  {
+    "path": "/logout",
+    "methods": "GET",
+    "file": "src/routes/main_routes.py"
+  },
+  {
+    "path": "/health",
+    "methods": "GET",
+    "file": "src/routes/api.py"
+  },
+  {
+    "path": "/consultations",
+    "methods": "GET",
+    "file": "src/routes/api.py"
+  },
+  {
+    "path": "/consultations",
+    "methods": "POST",
+    "file": "src/routes/api.py"
+  },
+  {
+    "path": "/consultations/<int:consultation_id>",
+    "methods": "GET",
+    "file": "src/routes/api.py"
+  },
+  {
+    "path": "/consultations/<int:consultation_id>",
+    "methods": "PUT",
+    "file": "src/routes/api.py"
+  },
+  {
+    "path": "/users",
+    "methods": "GET",
+    "file": "src/routes/api.py"
+  },
+  {
+    "path": "/projects",
+    "methods": "GET",
+    "file": "src/routes/api.py"
+  },
+  {
+    "path": "/leads",
+    "methods": "GET",
+    "file": "src/routes/api.py"
+  },
+  {
+    "path": "/leads",
+    "methods": "POST",
+    "file": "src/routes/api.py"
+  },
+  {
+    "path": "/webhooks",
+    "methods": "POST",
+    "file": "src/routes/api.py"
+  },
+  {
+    "path": "/auth/login",
+    "methods": "POST",
+    "file": "src/routes/api_v1.py"
+  },
+  {
+    "path": "/auth/refresh",
+    "methods": "POST",
+    "file": "src/routes/api_v1.py"
+  },
+  {
+    "path": "/auth/logout",
+    "methods": "POST",
+    "file": "src/routes/api_v1.py"
+  },
+  {
+    "path": "/auth/profile",
+    "methods": "GET",
+    "file": "src/routes/api_v1.py"
+  },
+  {
+    "path": "/users",
+    "methods": "GET",
+    "file": "src/routes/api_v1.py"
+  },
+  {
+    "path": "/users",
+    "methods": "POST",
+    "file": "src/routes/api_v1.py"
+  },
+  {
+    "path": "/users/<int:user_id>",
+    "methods": "GET",
+    "file": "src/routes/api_v1.py"
+  },
+  {
+    "path": "/users/<int:user_id>",
+    "methods": "PUT",
+    "file": "src/routes/api_v1.py"
+  },
+  {
+    "path": "/users/<int:user_id>",
+    "methods": "DELETE",
+    "file": "src/routes/api_v1.py"
+  },
+  {
+    "path": "/leads",
+    "methods": "GET",
+    "file": "src/routes/api_v1.py"
+  },
+  {
+    "path": "/leads",
+    "methods": "POST",
+    "file": "src/routes/api_v1.py"
+  },
+  {
+    "path": "/leads/<int:lead_id>",
+    "methods": "GET",
+    "file": "src/routes/api_v1.py"
+  },
+  {
+    "path": "/leads/<int:lead_id>",
+    "methods": "PUT",
+    "file": "src/routes/api_v1.py"
+  },
+  {
+    "path": "/leads/<int:lead_id>/convert",
+    "methods": "POST",
+    "file": "src/routes/api_v1.py"
+  },
+  {
+    "path": "/health",
+    "methods": "GET",
+    "file": "src/routes/api_v1.py"
+  },
+  {
+    "path": "/leads",
+    "methods": "GET",
+    "file": "src/routes/crm.py"
+  },
+  {
+    "path": "/projects",
+    "methods": "GET",
+    "file": "src/routes/crm.py"
+  },
+  {
+    "path": "/users",
+    "methods": "GET",
+    "file": "src/routes/user.py"
+  },
+  {
+    "path": "/users",
+    "methods": "POST",
+    "file": "src/routes/user.py"
+  },
+  {
+    "path": "/users/<int:user_id>",
+    "methods": "GET",
+    "file": "src/routes/user.py"
+  },
+  {
+    "path": "/users/<int:user_id>",
+    "methods": "PUT",
+    "file": "src/routes/user.py"
+  },
+  {
+    "path": "/users/<int:user_id>",
+    "methods": "DELETE",
+    "file": "src/routes/user.py"
+  },
+  {
+    "path": "/n8n",
+    "methods": "POST",
+    "file": "src/routes/webhooks.py"
+  },
+  {
+    "path": "/lead-automation",
+    "methods": "POST",
+    "file": "src/routes/webhooks.py"
+  },
+  {
+    "path": "/consultation-reminder",
+    "methods": "POST",
+    "file": "src/routes/webhooks.py"
+  },
+  {
+    "path": "/project-status",
+    "methods": "POST",
+    "file": "src/routes/webhooks.py"
+  },
+  {
+    "path": "/health",
+    "methods": "GET",
+    "file": "src/routes/webhooks.py"
+  }
+]

@@ -1,0 +1,106 @@
+src/config.py:10:1: W293 blank line contains whitespace
+src/config.py:12:80: E501 line too long (86 > 79 characters)
+src/config.py:13:1: W293 blank line contains whitespace
+src/config.py:15:80: E501 line too long (87 > 79 characters)
+src/config.py:17:1: W293 blank line contains whitespace
+src/config.py:20:1: W293 blank line contains whitespace
+src/config.py:23:1: W293 blank line contains whitespace
+src/config.py:30:1: W293 blank line contains whitespace
+src/config.py:34:1: W293 blank line contains whitespace
+src/config.py:38:80: E501 line too long (88 > 79 characters)
+src/config.py:41:1: W293 blank line contains whitespace
+src/content.py:36:80: E501 line too long (111 > 79 characters)
+src/content.py:39:80: E501 line too long (210 > 79 characters)
+src/content.py:42:80: E501 line too long (133 > 79 characters)
+src/content.py:44:80: E501 line too long (121 > 79 characters)
+src/content.py:46:80: E501 line too long (112 > 79 characters)
+src/content.py:50:80: E501 line too long (90 > 79 characters)
+src/content.py:55:80: E501 line too long (116 > 79 characters)
+src/content.py:58:80: E501 line too long (215 > 79 characters)
+src/content.py:61:80: E501 line too long (148 > 79 characters)
+src/content.py:63:80: E501 line too long (123 > 79 characters)
+src/content.py:65:80: E501 line too long (119 > 79 characters)
+src/content.py:67:80: E501 line too long (81 > 79 characters)
+src/content.py:69:80: E501 line too long (94 > 79 characters)
+src/content.py:80:80: E501 line too long (137 > 79 characters)
+src/content.py:92:80: E501 line too long (117 > 79 characters)
+src/content.py:104:80: E501 line too long (114 > 79 characters)
+src/content.py:118:80: E501 line too long (152 > 79 characters)
+src/content.py:130:80: E501 line too long (128 > 79 characters)
+src/content.py:142:80: E501 line too long (102 > 79 characters)
+src/content.py:158:80: E501 line too long (85 > 79 characters)
+src/content.py:173:80: E501 line too long (96 > 79 characters)
+src/content.py:180:80: E501 line too long (102 > 79 characters)
+src/content.py:195:80: E501 line too long (122 > 79 characters)
+src/content.py:197:80: E501 line too long (80 > 79 characters)
+src/content.py:205:80: E501 line too long (118 > 79 characters)
+src/content.py:215:80: E501 line too long (118 > 79 characters)
+src/main.py:14:1: E402 module level import not at top of file
+src/main.py:15:1: E402 module level import not at top of file
+src/main.py:16:1: F401 'src.models.consultation.ConsultationRequest' imported but unused
+src/main.py:16:1: E402 module level import not at top of file
+src/main.py:17:1: E402 module level import not at top of file
+src/main.py:18:1: E402 module level import not at top of file
+src/main.py:19:1: E402 module level import not at top of file
+src/main.py:20:1: E402 module level import not at top of file
+src/main.py:21:1: E402 module level import not at top of file
+src/main.py:44:80: E501 line too long (108 > 79 characters)
+src/main.py:69:29: W291 trailing whitespace
+src/models/consultation.py:10:1: W293 blank line contains whitespace
+src/models/consultation.py:12:1: W293 blank line contains whitespace
+src/models/consultation.py:20:80: E501 line too long (92 > 79 characters)
+src/models/consultation.py:22:80: E501 line too long (90 > 79 characters)
+src/models/consultation.py:23:1: W293 blank line contains whitespace
+src/models/consultation.py:26:1: W293 blank line contains whitespace
+src/models/consultation.py:38:80: E501 line too long (83 > 79 characters)
+src/models/consultation.py:39:80: E501 line too long (82 > 79 characters)
+src/models/lead.py:50:80: E501 line too long (83 > 79 characters)
+src/models/lead.py:51:80: E501 line too long (83 > 79 characters)
+src/models/project.py:46:80: E501 line too long (83 > 79 characters)
+src/models/project.py:49:80: E501 line too long (83 > 79 characters)
+src/models/project.py:50:80: E501 line too long (83 > 79 characters)
+src/routes/api.py:21:80: E501 line too long (81 > 79 characters)
+src/routes/api.py:22:80: E501 line too long (84 > 79 characters)
+src/routes/api.py:137:80: E501 line too long (86 > 79 characters)
+src/routes/api.py:189:80: E501 line too long (86 > 79 characters)
+src/routes/main_routes.py:5:80: E501 line too long (97 > 79 characters)
+src/routes/main_routes.py:8:1: F401 'src.utils.get_localized_content' imported but unused
+src/routes/main_routes.py:33:5: F841 local variable 'current_lang' is assigned to but never used
+src/routes/main_routes.py:50:80: E501 line too long (85 > 79 characters)
+src/routes/main_routes.py:58:80: E501 line too long (81 > 79 characters)
+src/routes/main_routes.py:66:80: E501 line too long (93 > 79 characters)
+src/routes/main_routes.py:80:1: W293 blank line contains whitespace
+src/routes/main_routes.py:92:1: W293 blank line contains whitespace
+src/routes/main_routes.py:95:1: W293 blank line contains whitespace
+src/routes/main_routes.py:98:1: W293 blank line contains whitespace
+src/routes/main_routes.py:103:1: W293 blank line contains whitespace
+src/routes/main_routes.py:112:1: W293 blank line contains whitespace
+src/routes/main_routes.py:121:1: W293 blank line contains whitespace
+src/routes/main_routes.py:124:1: W293 blank line contains whitespace
+src/routes/main_routes.py:130:1: W293 blank line contains whitespace
+src/routes/main_routes.py:131:5: F841 local variable 'e' is assigned to but never used
+src/routes/main_routes.py:216:80: E501 line too long (91 > 79 characters)
+src/routes/main_routes.py:227:80: E501 line too long (98 > 79 characters)
+src/routes/main_routes.py:234:80: E501 line too long (99 > 79 characters)
+src/routes/main_routes.py:235:45: W291 trailing whitespace
+src/routes/main_routes.py:236:26: E128 continuation line under-indented for visual indent
+src/routes/main_routes.py:236:76: W291 trailing whitespace
+src/routes/main_routes.py:237:26: E128 continuation line under-indented for visual indent
+src/routes/main_routes.py:244:80: E501 line too long (99 > 79 characters)
+src/routes/main_routes.py:251:80: E501 line too long (98 > 79 characters)
+src/utils.py:24:80: E501 line too long (88 > 79 characters)
+src/utils.py:49:1: W293 blank line contains whitespace
+src/utils.py:59:1: E305 expected 2 blank lines after class or function definition, found 1
+src/utils.py:59:1: E402 module level import not at top of file
+src/utils.py:61:1: E302 expected 2 blank lines, found 1
+src/utils.py:64:1: W391 blank line at end of file
+2     E128 continuation line under-indented for visual indent
+1     E302 expected 2 blank lines, found 1
+1     E305 expected 2 blank lines after class or function definition, found 1
+9     E402 module level import not at top of file
+53    E501 line too long (86 > 79 characters)
+2     F401 'src.models.consultation.ConsultationRequest' imported but unused
+2     F841 local variable 'current_lang' is assigned to but never used
+3     W291 trailing whitespace
+22    W293 blank line contains whitespace
+1     W391 blank line at end of file

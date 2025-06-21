@@ -1,0 +1,76 @@
+
+# Конфигурация Dependabot для автоматических обновлений зависимостей
+
+version: 2
+updates:
+  # Обновления Python зависимостей
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Almaty"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "ardakchapaev"
+    assignees:
+      - "ardakchapaev"
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "python"
+    # Группировка обновлений
+    groups:
+      flask-ecosystem:
+        patterns:
+          - "flask*"
+          - "werkzeug"
+          - "jinja2"
+      development-dependencies:
+        patterns:
+          - "pytest*"
+          - "pylint"
+          - "black"
+          - "mypy"
+        dependency-type: "development"
+    # Автоматическое слияние для patch обновлений
+    auto-merge:
+      - match:
+          dependency-type: "all"
+          update-type: "security"
+      - match:
+          dependency-type: "all"
+          update-type: "version-update:semver-patch"
+    # Игнорирование определенных зависимостей
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+        
+  # Обновления GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Almaty"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "ardakchapaev"
+    assignees:
+      - "ardakchapaev"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    # Автоматическое слияние для patch обновлений actions
+    auto-merge:
+      - match:
+          dependency-type: "all"
+          update-type: "version-update:semver-patch"
