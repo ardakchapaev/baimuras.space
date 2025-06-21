@@ -1,210 +1,298 @@
-# 🚀 Руководство по развертыванию BaiMuras Platform
 
-## 📋 Обзор
+# Руководство по развертыванию - BaiMuras Platform
 
-Данное руководство содержит подробные инструкции по развертыванию BaiMuras Platform в продакшн среде, включая основной сайт, админ-панель и систему автоматизации.
+## Обзор
 
-## 🏗️ Архитектура развертывания
+Данное руководство описывает процесс развертывания BaiMuras Platform в различных окружениях: от локальной разработки до продакшн сервера.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Production Server                        │
-│                   95.140.153.181                           │
-├─────────────────────────────────────────────────────────────┤
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐  │
-│  │    Nginx    │  │  Gunicorn   │  │     PostgreSQL      │  │
-│  │   (Proxy)   │  │   (WSGI)    │  │    (Database)       │  │
-│  │   Port 80   │  │  Port 5000  │  │    Port 5432        │  │
-│  │   Port 443  │  │             │  │                     │  │
-│  └─────────────┘  └─────────────┘  └─────────────────────┘  │
-│                                                             │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐  │
-│  │    Redis    │  │     n8n     │  │    SSL Certs        │  │
-│  │   (Cache)   │  │(Automation) │  │  (Let's Encrypt)    │  │
-│  │  Port 6379  │  │  Port 5678  │  │                     │  │
-│  └─────────────┘  └─────────────┘  └─────────────────────┘  │
-└─────────────────────────────────────────────────────────────┘
-```
-
-## 🖥️ Требования к серверу
+## Системные требования
 
 ### Минимальные требования
-- **OS**: Ubuntu 20.04 LTS или новее
-- **CPU**: 2 vCPU
+- **CPU**: 2 ядра
 - **RAM**: 4 GB
-- **Storage**: 50 GB SSD
-- **Network**: 100 Mbps
+- **Диск**: 20 GB свободного места
+- **ОС**: Ubuntu 20.04+ / CentOS 8+ / Debian 11+
 
-### Рекомендуемые требования
-- **OS**: Ubuntu 22.04 LTS
-- **CPU**: 4 vCPU
+### Рекомендуемые требования (продакшн)
+- **CPU**: 4 ядра
 - **RAM**: 8 GB
-- **Storage**: 100 GB SSD
-- **Network**: 1 Gbps
+- **Диск**: 50 GB SSD
+- **ОС**: Ubuntu 22.04 LTS
 
-## 🔧 Подготовка сервера
+### Программное обеспечение
+- **Python**: 3.11+
+- **PostgreSQL**: 13+
+- **Redis**: 6+
+- **Nginx**: 1.18+
+- **Docker**: 20+ (опционально)
+- **Node.js**: 18+ (для фронтенд сборки)
 
-### 1. Обновление системы
+## Локальное развертывание
+
+### 1. Подготовка окружения
+
 ```bash
+# Обновление системы
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y curl wget git vim htop
+
+# Установка зависимостей
+sudo apt install -y python3.11 python3.11-venv python3-pip postgresql postgresql-contrib redis-server nginx git
+
+# Установка Docker (опционально)
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+sudo usermod -aG docker $USER
 ```
 
-### 2. Установка Python 3.11
+### 2. Клонирование проекта
+
 ```bash
-sudo apt install -y software-properties-common
-sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt update
-sudo apt install -y python3.11 python3.11-venv python3.11-dev
-sudo apt install -y python3-pip
+git clone https://github.com/ardakchapaev/baimuras.space.git
+cd baimuras.space
+git checkout fix-setup-env-1750496460
 ```
 
-### 3. Установка PostgreSQL
-```bash
-sudo apt install -y postgresql postgresql-contrib
-sudo systemctl start postgresql
-sudo systemctl enable postgresql
+### 3. Настройка Python окружения
 
-# Создание пользователя и базы данных
-sudo -u postgres psql
-CREATE DATABASE baimuras_db;
+```bash
+# Создание виртуального окружения
+python3.11 -m venv venv
+source venv/bin/activate
+
+# Установка зависимостей
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+### 4. Настройка базы данных
+
+```bash
+# Создание пользователя и базы данных PostgreSQL
+sudo -u postgres psql << EOF
 CREATE USER baimuras_user WITH PASSWORD 'BaiMuras2025!@#';
+CREATE DATABASE baimuras_db OWNER baimuras_user;
 GRANT ALL PRIVILEGES ON DATABASE baimuras_db TO baimuras_user;
 \q
+EOF
+
+# Инициализация миграций
+export FLASK_APP=src/main.py
+flask db init
+flask db migrate -m "Initial migration"
+flask db upgrade
 ```
 
-### 4. Установка Redis
+### 5. Настройка Redis
+
 ```bash
-sudo apt install -y redis-server
-sudo systemctl start redis-server
+# Настройка Redis с паролем
+sudo tee /etc/redis/redis.conf > /dev/null << EOF
+bind 127.0.0.1
+port 6379
+requirepass baimuras2025
+maxmemory 256mb
+maxmemory-policy allkeys-lru
+EOF
+
+# Перезапуск Redis
+sudo systemctl restart redis-server
 sudo systemctl enable redis-server
 ```
 
-### 5. Установка Nginx
+### 6. Конфигурация приложения
+
 ```bash
-sudo apt install -y nginx
-sudo systemctl start nginx
-sudo systemctl enable nginx
+# Копирование и настройка переменных окружения
+cp .env.example .env
+
+# Редактирование .env файла
+nano .env
 ```
 
-### 6. Установка Node.js (для n8n)
+**Основные переменные для локального развертывания:**
 ```bash
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-sudo apt install -y nodejs
-```
+SECRET_KEY=your-super-secret-key-change-in-production
+JWT_SECRET_KEY=your-jwt-secret-key-change-in-production
+FLASK_ENV=development
 
-## 📦 Развертывание приложения
+DATABASE_URL=postgresql://baimuras_user:BaiMuras2025!@#@localhost:5432/baimuras_db
+REDIS_URL=redis://:baimuras2025@localhost:6379/0
+CELERY_BROKER_URL=redis://:baimuras2025@localhost:6379/0
+CELERY_RESULT_BACKEND=redis://:baimuras2025@localhost:6379/0
 
-### 1. Клонирование репозитория
-```bash
-cd /var/www
-sudo git clone https://github.com/ardakchapaev/baimuras.space.git
-sudo chown -R www-data:www-data baimuras.space
-cd baimuras.space
-```
-
-### 2. Создание виртуального окружения
-```bash
-sudo -u www-data python3.11 -m venv venv
-sudo -u www-data ./venv/bin/pip install --upgrade pip
-sudo -u www-data ./venv/bin/pip install -r requirements.txt
-```
-
-### 3. Настройка переменных окружения
-```bash
-sudo -u www-data cp .env.example .env
-sudo -u www-data vim .env
-```
-
-Содержимое `.env`:
-```bash
-# Основные настройки
-FLASK_ENV=production
-SECRET_KEY=your-super-secret-key-here
-DATABASE_URL=postgresql://baimuras_user:BaiMuras2025!@#@localhost/baimuras_db
-
-# Настройки почты
 MAIL_SERVER=smtp.gmail.com
 MAIL_PORT=587
-MAIL_USE_TLS=True
+MAIL_USERNAME=your-email@gmail.com
+MAIL_PASSWORD=your-app-password
+MAIL_DEFAULT_SENDER=info@baimuras.space
+```
+
+### 7. Запуск приложения
+
+```bash
+# Активация виртуального окружения
+source venv/bin/activate
+
+# Запуск основного приложения
+python wsgi.py
+
+# В отдельном терминале - запуск Celery worker
+celery -A automation.celery_app worker --loglevel=info
+
+# В третьем терминале - запуск Celery scheduler
+celery -A automation.celery_app beat --loglevel=info
+```
+
+Приложение будет доступно по адресу: `http://localhost:5000`
+
+## Docker развертывание
+
+### 1. Быстрый запуск
+
+```bash
+# Клонирование проекта
+git clone https://github.com/ardakchapaev/baimuras.space.git
+cd baimuras.space
+git checkout fix-setup-env-1750496460
+
+# Копирование переменных окружения
+cp .env.example .env
+
+# Запуск всех сервисов
+docker-compose up -d
+
+# Просмотр логов
+docker-compose logs -f
+```
+
+### 2. Конфигурация Docker
+
+**docker-compose.yml** включает следующие сервисы:
+- **flask** - основное приложение
+- **postgres** - база данных
+- **redis** - кеширование и очереди
+- **celery-worker** - обработчик фоновых задач
+- **celery-scheduler** - планировщик задач
+- **nginx** - reverse proxy
+
+### 3. Управление Docker сервисами
+
+```bash
+# Запуск сервисов
+docker-compose up -d
+
+# Остановка сервисов
+docker-compose down
+
+# Перезапуск конкретного сервиса
+docker-compose restart flask
+
+# Просмотр логов
+docker-compose logs -f flask
+
+# Выполнение команд в контейнере
+docker-compose exec flask bash
+
+# Миграции базы данных
+docker-compose exec flask flask db upgrade
+```
+
+## Продакшн развертывание
+
+### 1. Подготовка сервера
+
+```bash
+# Подключение к серверу
+ssh root@95.140.153.181
+
+# Обновление системы
+apt update && apt upgrade -y
+
+# Установка необходимого ПО
+apt install -y python3.11 python3.11-venv postgresql postgresql-contrib redis-server nginx certbot python3-certbot-nginx git htop curl
+```
+
+### 2. Настройка пользователя
+
+```bash
+# Создание пользователя для приложения
+adduser baimuras
+usermod -aG sudo baimuras
+su - baimuras
+```
+
+### 3. Клонирование и настройка проекта
+
+```bash
+# Клонирование в домашнюю директорию
+cd /home/baimuras
+git clone https://github.com/ardakchapaev/baimuras.space.git
+cd baimuras.space
+git checkout fix-setup-env-1750496460
+
+# Настройка виртуального окружения
+python3.11 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+### 4. Настройка базы данных (продакшн)
+
+```bash
+# Настройка PostgreSQL
+sudo -u postgres psql << EOF
+CREATE USER baimuras_user WITH PASSWORD 'BaiMuras2025!@#';
+CREATE DATABASE baimuras_db OWNER baimuras_user;
+GRANT ALL PRIVILEGES ON DATABASE baimuras_db TO baimuras_user;
+ALTER USER baimuras_user CREATEDB;
+\q
+EOF
+
+# Настройка pg_hba.conf для безопасности
+sudo nano /etc/postgresql/14/main/pg_hba.conf
+# Добавить: local   baimuras_db   baimuras_user   md5
+
+sudo systemctl restart postgresql
+```
+
+### 5. Конфигурация продакшн переменных
+
+```bash
+# Создание продакшн .env файла
+cat > .env << EOF
+SECRET_KEY=$(python3 -c 'import secrets; print(secrets.token_hex(32))')
+JWT_SECRET_KEY=$(python3 -c 'import secrets; print(secrets.token_hex(32))')
+FLASK_ENV=production
+
+DATABASE_URL=postgresql://baimuras_user:BaiMuras2025!@#@localhost:5432/baimuras_db
+REDIS_URL=redis://:baimuras2025@localhost:6379/0
+CELERY_BROKER_URL=redis://:baimuras2025@localhost:6379/0
+CELERY_RESULT_BACKEND=redis://:baimuras2025@localhost:6379/0
+
+MAIL_SERVER=smtp.gmail.com
+MAIL_PORT=587
 MAIL_USERNAME=admin@baimuras.space
 MAIL_PASSWORD=your-app-password
+MAIL_DEFAULT_SENDER=info@baimuras.space
 
-# Настройки Redis
-REDIS_URL=redis://localhost:6379/0
+DOMAIN=baimuras.space
+ADMIN_DOMAIN=hub.baimuras.space
+AUTOMATION_DOMAIN=automation.baimuras.space
 
-# Настройки файлов
-UPLOAD_FOLDER=/var/www/baimuras.space/uploads
-MAX_CONTENT_LENGTH=16777216
-
-# Настройки безопасности
-WTF_CSRF_ENABLED=True
-SESSION_COOKIE_SECURE=True
-SESSION_COOKIE_HTTPONLY=True
+LOG_LEVEL=INFO
+LOG_FILE=/var/log/baimuras/app.log
+EOF
 ```
 
-### 4. Инициализация базы данных
+### 6. Настройка Nginx
+
 ```bash
-sudo -u www-data ./venv/bin/flask db init
-sudo -u www-data ./venv/bin/flask db migrate -m "Initial migration"
-sudo -u www-data ./venv/bin/flask db upgrade
-```
-
-### 5. Создание директорий
-```bash
-sudo mkdir -p /var/www/baimuras.space/uploads
-sudo mkdir -p /var/www/baimuras.space/logs
-sudo chown -R www-data:www-data /var/www/baimuras.space/uploads
-sudo chown -R www-data:www-data /var/www/baimuras.space/logs
-```
-
-## 🔧 Настройка Gunicorn
-
-### 1. Создание systemd сервиса
-```bash
-sudo vim /etc/systemd/system/baimuras.service
-```
-
-Содержимое файла:
-```ini
-[Unit]
-Description=Gunicorn instance to serve BaiMuras
-After=network.target
-
-[Service]
-User=www-data
-Group=www-data
-WorkingDirectory=/var/www/baimuras.space
-Environment="PATH=/var/www/baimuras.space/venv/bin"
-ExecStart=/var/www/baimuras.space/venv/bin/gunicorn --config gunicorn.conf.py wsgi:application
-ExecReload=/bin/kill -s HUP $MAINPID
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-```
-
-### 2. Запуск сервиса
-```bash
-sudo systemctl daemon-reload
-sudo systemctl start baimuras
-sudo systemctl enable baimuras
-sudo systemctl status baimuras
-```
-
-## 🌐 Настройка Nginx
-
-### 1. Создание конфигурации сайта
-```bash
-sudo vim /etc/nginx/sites-available/baimuras.space
-```
-
-Содержимое файла:
-```nginx
+# Создание конфигурации Nginx
+sudo tee /etc/nginx/sites-available/baimuras.space << EOF
 server {
     listen 80;
     server_name baimuras.space www.baimuras.space;
-    return 301 https://$server_name$request_uri;
+    return 301 https://\$server_name\$request_uri;
 }
 
 server {
@@ -219,346 +307,415 @@ server {
     ssl_prefer_server_ciphers off;
     ssl_session_cache shared:SSL:10m;
 
-    client_max_body_size 16M;
-
     location / {
         proxy_pass http://127.0.0.1:5000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
     }
 
     location /static {
-        alias /var/www/baimuras.space/src/static;
+        alias /home/baimuras/baimuras.space/src/static;
         expires 1y;
         add_header Cache-Control "public, immutable";
     }
+}
 
-    location /uploads {
-        alias /var/www/baimuras.space/uploads;
-        expires 1y;
-        add_header Cache-Control "public";
+# Админ-панель
+server {
+    listen 443 ssl http2;
+    server_name hub.baimuras.space;
+
+    ssl_certificate /etc/letsencrypt/live/baimuras.space/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/baimuras.space/privkey.pem;
+
+    location / {
+        proxy_pass http://127.0.0.1:5000/dashboard;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
     }
 }
-```
+EOF
 
-### 2. Активация сайта
-```bash
+# Активация конфигурации
 sudo ln -s /etc/nginx/sites-available/baimuras.space /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl reload nginx
 ```
 
-## 🔒 Настройка SSL сертификатов
+### 7. SSL сертификаты
 
-### 1. Установка Certbot
 ```bash
-sudo apt install -y certbot python3-certbot-nginx
-```
+# Получение SSL сертификатов Let's Encrypt
+sudo certbot --nginx -d baimuras.space -d www.baimuras.space -d hub.baimuras.space
 
-### 2. Получение сертификата
-```bash
-sudo certbot --nginx -d baimuras.space -d www.baimuras.space
-```
-
-### 3. Автоматическое обновление
-```bash
+# Автоматическое обновление сертификатов
 sudo crontab -e
-# Добавить строку:
-0 12 * * * /usr/bin/certbot renew --quiet
+# Добавить: 0 12 * * * /usr/bin/certbot renew --quiet
 ```
 
-## 🛠️ Развертывание админ-панели
+### 8. Systemd сервисы
 
-### 1. Клонирование репозитория админ-панели
+**Основное приложение:**
 ```bash
-cd /var/www
-sudo git clone https://github.com/ardakchapaev/baimuras-admin-hub.git
-sudo chown -R www-data:www-data baimuras-admin-hub
-```
-
-### 2. Настройка виртуального окружения
-```bash
-cd baimuras-admin-hub
-sudo -u www-data python3.11 -m venv venv
-sudo -u www-data ./venv/bin/pip install -r requirements.txt
-```
-
-### 3. Создание systemd сервиса для админ-панели
-```bash
-sudo vim /etc/systemd/system/baimuras-admin.service
-```
-
-Содержимое:
-```ini
+sudo tee /etc/systemd/system/baimuras.service << EOF
 [Unit]
-Description=Gunicorn instance to serve BaiMuras Admin
-After=network.target
+Description=BaiMuras Flask Application
+After=network.target postgresql.service redis.service
 
 [Service]
-User=www-data
-Group=www-data
-WorkingDirectory=/var/www/baimuras-admin-hub
-Environment="PATH=/var/www/baimuras-admin-hub/venv/bin"
-ExecStart=/var/www/baimuras-admin-hub/venv/bin/gunicorn --bind 127.0.0.1:5001 --workers 3 app:app
-ExecReload=/bin/kill -s HUP $MAINPID
+Type=exec
+User=baimuras
+Group=baimuras
+WorkingDirectory=/home/baimuras/baimuras.space
+Environment=PATH=/home/baimuras/baimuras.space/venv/bin
+ExecStart=/home/baimuras/baimuras.space/venv/bin/gunicorn -c gunicorn.conf.py wsgi:app
+ExecReload=/bin/kill -s HUP \$MAINPID
 Restart=always
+RestartSec=3
 
 [Install]
 WantedBy=multi-user.target
+EOF
 ```
 
-### 4. Настройка Nginx для админ-панели
+**Celery Worker:**
 ```bash
-sudo vim /etc/nginx/sites-available/hub.baimuras.space
+sudo tee /etc/systemd/system/baimuras-worker.service << EOF
+[Unit]
+Description=BaiMuras Celery Worker
+After=network.target redis.service
+
+[Service]
+Type=exec
+User=baimuras
+Group=baimuras
+WorkingDirectory=/home/baimuras/baimuras.space
+Environment=PATH=/home/baimuras/baimuras.space/venv/bin
+ExecStart=/home/baimuras/baimuras.space/venv/bin/celery -A automation.celery_app worker --loglevel=info
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+EOF
 ```
 
-Содержимое:
-```nginx
-server {
-    listen 80;
-    server_name hub.baimuras.space;
-    return 301 https://$server_name$request_uri;
-}
-
-server {
-    listen 443 ssl http2;
-    server_name hub.baimuras.space;
-
-    ssl_certificate /etc/letsencrypt/live/hub.baimuras.space/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/hub.baimuras.space/privkey.pem;
-
-    location / {
-        proxy_pass http://127.0.0.1:5001;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-}
-```
-
-### 5. Получение SSL сертификата для админ-панели
+**Celery Scheduler:**
 ```bash
-sudo certbot --nginx -d hub.baimuras.space
+sudo tee /etc/systemd/system/baimuras-scheduler.service << EOF
+[Unit]
+Description=BaiMuras Celery Scheduler
+After=network.target redis.service
+
+[Service]
+Type=exec
+User=baimuras
+Group=baimuras
+WorkingDirectory=/home/baimuras/baimuras.space
+Environment=PATH=/home/baimuras/baimuras.space/venv/bin
+ExecStart=/home/baimuras/baimuras.space/venv/bin/celery -A automation.celery_app beat --loglevel=info
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+EOF
 ```
 
-## 🤖 Настройка n8n автоматизации
+### 9. Запуск сервисов
+
+```bash
+# Перезагрузка systemd и запуск сервисов
+sudo systemctl daemon-reload
+sudo systemctl enable baimuras baimuras-worker baimuras-scheduler
+sudo systemctl start baimuras baimuras-worker baimuras-scheduler
+
+# Проверка статуса
+sudo systemctl status baimuras
+sudo systemctl status baimuras-worker
+sudo systemctl status baimuras-scheduler
+```
+
+## n8n Автоматизация
 
 ### 1. Установка n8n
-```bash
-sudo npm install -g n8n
-```
 
-### 2. Создание пользователя для n8n
 ```bash
-sudo useradd -m -s /bin/bash n8n
+# Установка Node.js
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Установка n8n глобально
+sudo npm install -g n8n
+
+# Создание пользователя для n8n
+sudo adduser n8n
 sudo su - n8n
 ```
 
-### 3. Настройка переменных окружения для n8n
+### 2. Настройка n8n
+
 ```bash
-vim ~/.bashrc
-# Добавить:
-export N8N_BASIC_AUTH_ACTIVE=true
-export N8N_BASIC_AUTH_USER=admin@baimuras.space
-export N8N_BASIC_AUTH_PASSWORD=Admin123!
-export N8N_HOST=0.0.0.0
-export N8N_PORT=5678
-export N8N_PROTOCOL=http
+# Создание конфигурационного файла
+mkdir -p ~/.n8n
+cat > ~/.n8n/.env << EOF
+N8N_BASIC_AUTH_ACTIVE=true
+N8N_BASIC_AUTH_USER=admin@baimuras.space
+N8N_BASIC_AUTH_PASSWORD=Admin123!
+N8N_HOST=0.0.0.0
+N8N_PORT=5678
+N8N_PROTOCOL=http
+WEBHOOK_URL=http://95.140.153.181:5678/
+EOF
 ```
 
-### 4. Создание systemd сервиса для n8n
-```bash
-sudo vim /etc/systemd/system/n8n.service
-```
+### 3. Systemd сервис для n8n
 
-Содержимое:
-```ini
+```bash
+sudo tee /etc/systemd/system/n8n.service << EOF
 [Unit]
 Description=n8n workflow automation
 After=network.target
 
 [Service]
-Type=simple
+Type=exec
 User=n8n
 ExecStart=/usr/bin/n8n start
 Restart=always
-Environment=N8N_BASIC_AUTH_ACTIVE=true
-Environment=N8N_BASIC_AUTH_USER=admin@baimuras.space
-Environment=N8N_BASIC_AUTH_PASSWORD=Admin123!
-Environment=N8N_HOST=0.0.0.0
-Environment=N8N_PORT=5678
+RestartSec=3
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=production
 
 [Install]
 WantedBy=multi-user.target
-```
+EOF
 
-### 5. Запуск n8n
-```bash
 sudo systemctl daemon-reload
-sudo systemctl start n8n
 sudo systemctl enable n8n
+sudo systemctl start n8n
 ```
 
-## 🔄 Процедуры обновления
-
-### 1. Обновление основного приложения
-```bash
-cd /var/www/baimuras.space
-sudo -u www-data git pull origin main
-sudo -u www-data ./venv/bin/pip install -r requirements.txt
-sudo -u www-data ./venv/bin/flask db upgrade
-sudo systemctl restart baimuras
-```
-
-### 2. Обновление админ-панели
-```bash
-cd /var/www/baimuras-admin-hub
-sudo -u www-data git pull origin main
-sudo -u www-data ./venv/bin/pip install -r requirements.txt
-sudo systemctl restart baimuras-admin
-```
-
-## 📊 Мониторинг и логирование
+## Мониторинг и логирование
 
 ### 1. Настройка логирования
+
 ```bash
+# Создание директории для логов
 sudo mkdir -p /var/log/baimuras
-sudo chown www-data:www-data /var/log/baimuras
-```
+sudo chown baimuras:baimuras /var/log/baimuras
 
-### 2. Ротация логов
-```bash
-sudo vim /etc/logrotate.d/baimuras
-```
-
-Содержимое:
-```
+# Настройка ротации логов
+sudo tee /etc/logrotate.d/baimuras << EOF
 /var/log/baimuras/*.log {
     daily
     missingok
-    rotate 52
+    rotate 30
     compress
     delaycompress
     notifempty
-    create 644 www-data www-data
+    create 644 baimuras baimuras
     postrotate
         systemctl reload baimuras
     endscript
 }
+EOF
 ```
 
-### 3. Мониторинг сервисов
-```bash
-# Проверка статуса всех сервисов
-sudo systemctl status baimuras
-sudo systemctl status baimuras-admin
-sudo systemctl status n8n
-sudo systemctl status nginx
-sudo systemctl status postgresql
-sudo systemctl status redis-server
-```
+### 2. Мониторинг сервисов
 
-## 🔐 Резервное копирование
-
-### 1. Скрипт резервного копирования базы данных
 ```bash
-sudo vim /usr/local/bin/backup-baimuras.sh
-```
-
-Содержимое:
-```bash
+# Скрипт проверки здоровья системы
+cat > /home/baimuras/health_check.sh << 'EOF'
 #!/bin/bash
-BACKUP_DIR="/var/backups/baimuras"
-DATE=$(date +%Y%m%d_%H%M%S)
 
+echo "=== BaiMuras Health Check $(date) ==="
+
+# Проверка сервисов
+services=("baimuras" "baimuras-worker" "baimuras-scheduler" "postgresql" "redis" "nginx")
+for service in "${services[@]}"; do
+    if systemctl is-active --quiet $service; then
+        echo "✅ $service: Running"
+    else
+        echo "❌ $service: Not running"
+    fi
+done
+
+# Проверка дискового пространства
+df -h / | tail -1 | awk '{print "💾 Disk usage: " $5 " of " $2}'
+
+# Проверка памяти
+free -h | grep Mem | awk '{print "🧠 Memory usage: " $3 " of " $2}'
+
+# Проверка подключения к БД
+if sudo -u baimuras psql -d baimuras_db -c "SELECT 1;" > /dev/null 2>&1; then
+    echo "✅ Database: Connected"
+else
+    echo "❌ Database: Connection failed"
+fi
+
+# Проверка Redis
+if redis-cli -a baimuras2025 ping > /dev/null 2>&1; then
+    echo "✅ Redis: Connected"
+else
+    echo "❌ Redis: Connection failed"
+fi
+
+echo "=================================="
+EOF
+
+chmod +x /home/baimuras/health_check.sh
+
+# Добавление в cron для ежечасной проверки
+(crontab -l 2>/dev/null; echo "0 * * * * /home/baimuras/health_check.sh >> /var/log/baimuras/health.log") | crontab -
+```
+
+## Резервное копирование
+
+### 1. Скрипт backup
+
+```bash
+cat > /home/baimuras/backup.sh << 'EOF'
+#!/bin/bash
+
+BACKUP_DIR="/home/baimuras/backups"
+DATE=$(date +%Y%m%d_%H%M%S)
+DB_BACKUP="$BACKUP_DIR/db_backup_$DATE.sql"
+FILES_BACKUP="$BACKUP_DIR/files_backup_$DATE.tar.gz"
+
+# Создание директории для backup
 mkdir -p $BACKUP_DIR
 
-# Backup database
-pg_dump -h localhost -U baimuras_user baimuras_db > $BACKUP_DIR/db_backup_$DATE.sql
+# Backup базы данных
+pg_dump -h localhost -U baimuras_user -d baimuras_db > $DB_BACKUP
 
-# Backup uploads
-tar -czf $BACKUP_DIR/uploads_backup_$DATE.tar.gz /var/www/baimuras.space/uploads
+# Backup файлов приложения
+tar -czf $FILES_BACKUP -C /home/baimuras baimuras.space --exclude=venv --exclude=__pycache__ --exclude=.git
 
-# Remove old backups (keep 30 days)
+# Удаление старых backup (старше 30 дней)
 find $BACKUP_DIR -name "*.sql" -mtime +30 -delete
 find $BACKUP_DIR -name "*.tar.gz" -mtime +30 -delete
+
+echo "Backup completed: $DATE"
+EOF
+
+chmod +x /home/baimuras/backup.sh
+
+# Автоматический backup каждые 6 часов
+(crontab -l 2>/dev/null; echo "0 */6 * * * /home/baimuras/backup.sh >> /var/log/baimuras/backup.log") | crontab -
 ```
 
-### 2. Настройка cron для автоматического бэкапа
+## Обновление приложения
+
+### 1. Скрипт обновления
+
 ```bash
-sudo chmod +x /usr/local/bin/backup-baimuras.sh
-sudo crontab -e
-# Добавить:
-0 2 * * * /usr/local/bin/backup-baimuras.sh
+cat > /home/baimuras/update.sh << 'EOF'
+#!/bin/bash
+
+echo "Starting BaiMuras update..."
+
+# Переход в директорию проекта
+cd /home/baimuras/baimuras.space
+
+# Создание backup перед обновлением
+/home/baimuras/backup.sh
+
+# Получение последних изменений
+git fetch origin
+git checkout fix-setup-env-1750496460
+git pull origin fix-setup-env-1750496460
+
+# Активация виртуального окружения
+source venv/bin/activate
+
+# Обновление зависимостей
+pip install -r requirements.txt
+
+# Миграции базы данных
+flask db upgrade
+
+# Перезапуск сервисов
+sudo systemctl restart baimuras baimuras-worker baimuras-scheduler
+
+echo "Update completed successfully!"
+EOF
+
+chmod +x /home/baimuras/update.sh
 ```
 
-## 🚨 Устранение неполадок
+## Устранение неполадок
 
-### Общие проблемы
+### Частые проблемы
 
-#### 1. Приложение не запускается
+**1. Приложение не запускается**
 ```bash
-# Проверить логи
+# Проверка логов
 sudo journalctl -u baimuras -f
-sudo tail -f /var/log/baimuras/error.log
+
+# Проверка конфигурации
+source venv/bin/activate
+python -c "from src.config import config; print('Config loaded successfully')"
 ```
 
-#### 2. База данных недоступна
+**2. Ошибки базы данных**
 ```bash
-# Проверить статус PostgreSQL
-sudo systemctl status postgresql
-# Проверить подключение
-sudo -u postgres psql -c "SELECT version();"
+# Проверка подключения
+sudo -u baimuras psql -d baimuras_db -c "SELECT version();"
+
+# Проверка миграций
+flask db current
+flask db upgrade
 ```
 
-#### 3. Nginx ошибки
+**3. Проблемы с Redis**
 ```bash
-# Проверить конфигурацию
-sudo nginx -t
-# Проверить логи
-sudo tail -f /var/log/nginx/error.log
+# Проверка статуса Redis
+sudo systemctl status redis-server
+
+# Тест подключения
+redis-cli -a baimuras2025 ping
 ```
 
-#### 4. SSL сертификаты
+**4. Проблемы с SSL**
 ```bash
-# Проверить статус сертификатов
+# Проверка сертификатов
 sudo certbot certificates
-# Обновить сертификаты
+
+# Обновление сертификатов
 sudo certbot renew --dry-run
 ```
 
-### Команды диагностики
+### Полезные команды
+
 ```bash
+# Просмотр логов в реальном времени
+tail -f /var/log/baimuras/app.log
+
+# Перезапуск всех сервисов
+sudo systemctl restart baimuras baimuras-worker baimuras-scheduler nginx
+
 # Проверка портов
-sudo netstat -tlnp | grep :80
-sudo netstat -tlnp | grep :443
 sudo netstat -tlnp | grep :5000
 
-# Проверка дискового пространства
-df -h
-
-# Проверка памяти
-free -h
-
 # Проверка процессов
-ps aux | grep gunicorn
-ps aux | grep nginx
+ps aux | grep baimuras
 ```
 
-## 📞 Поддержка
+## Контакты поддержки
 
-При возникновении проблем с развертыванием:
+**Техническая поддержка**:
+- Email: admin@baimuras.space
+- GitHub Issues: https://github.com/ardakchapaev/baimuras.space/issues
 
-1. Проверьте логи сервисов
-2. Убедитесь в правильности конфигурации
-3. Проверьте доступность портов и сервисов
-4. Обратитесь к документации или создайте Issue в репозитории
+**Экстренная поддержка**:
+- Telegram: @baimuras_support
+- Телефон: +7 777 123 45 67
 
 ---
 
-**Контакты для поддержки:**
-- Email: admin@baimuras.space
-- GitHub Issues: https://github.com/ardakchapaev/baimuras.space/issues
+**Последнее обновление**: 21 июня 2025 г.  
+**Версия руководства**: 2.0.0

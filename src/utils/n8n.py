@@ -14,6 +14,7 @@ class N8NClient:
     """Клиент для работы с n8n API и webhook'ами"""
     
     def __init__(self):
+    """__init__ функция."""
         self.webhook_url = os.getenv('N8N_WEBHOOK_URL')
         self.api_url = os.getenv('N8N_API_URL', 'http://localhost:5678/api/v1')
         self.api_key = os.getenv('N8N_API_KEY')

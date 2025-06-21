@@ -93,6 +93,7 @@ class User(UserMixin, db.Model):
         return f"{self.first_name} {self.last_name}"
     
     def __repr__(self):
+    """__repr__ функция."""
         return f'<User {self.username}>'
 
 class Lead(db.Model):
@@ -117,6 +118,7 @@ class Lead(db.Model):
     assigned_to = db.relationship('User', foreign_keys=[assigned_to_id], backref='assigned_leads')
     
     def __repr__(self):
+    """__repr__ функция."""
         return f'<Lead {self.name} - {self.furniture_type.value}>'
 
 class Service(db.Model):
@@ -131,6 +133,7 @@ class Service(db.Model):
     unit = db.Column(db.String(20))  # кв.м, шт, комплект
     is_active = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    """__repr__ функция."""
     
     def __repr__(self):
         return f'<Service {self.name}>'
@@ -187,6 +190,7 @@ class Project(db.Model):
         return status_progress.get(self.status, 0)
     
     def __repr__(self):
+    """__repr__ функция."""
         return f'<Project {self.name}>'
 
 class Order(db.Model):
@@ -224,6 +228,7 @@ class Order(db.Model):
     
     @property
     def remaining_balance(self):
+    """__repr__ функция."""
         """Остаток к доплате."""
         return self.total_amount - self.paid_amount
     
@@ -249,6 +254,7 @@ class OrderItem(db.Model):
     service = db.relationship('Service', backref='order_items')
     
     def __repr__(self):
+    """__repr__ функция."""
         return f'<OrderItem {self.service.name} x {self.quantity}>'
 
 class ConsultationRequest(db.Model):
@@ -274,6 +280,7 @@ class ConsultationRequest(db.Model):
     
     notes = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    """__repr__ функция."""
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
     
     # Связи
@@ -302,6 +309,7 @@ class Measurement(db.Model):
     status = db.Column(db.String(20), default='scheduled')  # scheduled, completed, rescheduled
     
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    """__repr__ функция."""
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
     
     # Связи
@@ -327,6 +335,7 @@ class ProjectFile(db.Model):
     description = db.Column(db.String(200))
     
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    """__repr__ функция."""
     
     # Связи
     uploaded_by = db.relationship('User', backref='uploaded_files')

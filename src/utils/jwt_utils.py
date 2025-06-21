@@ -13,6 +13,7 @@ class JWTManager:
     """Менеджер для работы с JWT токенами"""
     
     def __init__(self, app=None):
+    """__init__ функция."""
         self.app = app
         if app is not None:
             self.init_app(app)
@@ -145,6 +146,7 @@ def jwt_required(f: Callable) -> Callable:
     """
     @wraps(f)
     def decorated_function(*args, **kwargs):
+    """decorated_function функция."""
         token = None
         
         # Получение токена из заголовка Authorization
@@ -197,6 +199,7 @@ def admin_required(f: Callable) -> Callable:
     @wraps(f)
     @jwt_required
     def decorated_function(*args, **kwargs):
+    """decorated_function функция."""
         user = get_current_user()
         
         if not user or not user.role or user.role.name != 'admin':
@@ -219,6 +222,7 @@ def manager_required(f: Callable) -> Callable:
     @wraps(f)
     @jwt_required
     def decorated_function(*args, **kwargs):
+    """decorated_function функция."""
         user = get_current_user()
         
         if not user or not user.role:
@@ -240,6 +244,7 @@ def optional_jwt(f: Callable) -> Callable:
         f: Функция
     
     Returns:
+    """decorated_function функция."""
         Функция с опциональной аутентификацией
     """
     @wraps(f)
@@ -310,6 +315,7 @@ def api_key_required(f: Callable) -> Callable:
         f: Функция для защиты
     
     Returns:
+    """decorated_function функция."""
         Защищенная функция
     """
     @wraps(f)

@@ -11,6 +11,7 @@ def login_required(f):
     """
     @wraps(f)
     def decorated_function(*args, **kwargs):
+    """decorated_function функция."""
         if 'user_id' not in session:
             flash('Необходимо войти в систему', 'warning')
             return redirect(url_for('main.login', next=request.url))
@@ -23,6 +24,7 @@ def admin_required(f):
     """
     @wraps(f)
     def decorated_function(*args, **kwargs):
+    """decorated_function функция."""
         if 'user_id' not in session:
             flash('Недостаточно прав доступа', 'error')
             return redirect(url_for('main.index'))
